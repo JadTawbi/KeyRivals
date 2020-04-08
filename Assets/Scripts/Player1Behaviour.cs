@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Moving : MonoBehaviour
-{ 
+public class Player1Behaviour : MonoBehaviour
+{
     private enum Lane { First, Second, Third, Fourth };
     private Lane lane;
 
@@ -13,9 +13,9 @@ public class Moving : MonoBehaviour
     {
         move_distance = new Vector3(1.75f, 0.0f, 0.0f);
         lane = Lane.Second;
-    
+
     }
-   
+
     // Update is called once per frame
     void Update()
     {
@@ -27,15 +27,15 @@ public class Moving : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A) && lane != Lane.First)
         {
-            transform.position -= move_distance; 
+            transform.position -= move_distance;
             lane--;
-            Debug.Log("Player has moved to the " + lane + " lane");
+            Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
         }
         if (Input.GetKeyDown(KeyCode.D) && lane != Lane.Fourth)
         {
             transform.position += move_distance;
             lane++;
-            Debug.Log("Player has moved to the " + lane + " lane");
+            Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
         }
     }
 }
