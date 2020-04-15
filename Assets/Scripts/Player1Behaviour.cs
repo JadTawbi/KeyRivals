@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Player1Behaviour : MonoBehaviour
 {
-    private enum Lane { First, Second, Third, Fourth };
-    private Lane lane;
-
+    public enum Lane { First, Second, Third, Fourth };
+    public Lane lane;
     private Vector3 move_distance;
 
     void Start()

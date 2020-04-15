@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class NoteBehaviour : MonoBehaviour
 {
-    private Vector2 initial_position = new Vector2(-4.45f, 4.55f);
-    private const float SPEED = 0.01f;
-    private const float NOTE_HIT_THRESHOLD = 1.0f;
+    public enum Lane { First, Second, Third, Fourth };
+    public Lane lane;
+    public KeyCode key;
+    private Vector2 initial_position = new Vector2(-6.2f, 13.55f);
+    private const float SPEED = 3.0f;
+    private const float NOTE_HIT_THRESHOLD = 2.0f;
     private const float NOTE_MISSED_THRESHOLD = 0.0f;
+    private float sprite_half_height;
+    private float note_top_side, note_bottom_side;
+    public GameObject player;
+    private Player1Behaviour player_behaviour;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player_behaviour = player.GetComponent<Player1Behaviour>();
+        sprite_half_height = GetComponent<SpriteRenderer>().bounds.extents.y;
+        note_top_side = note_bottom_side = 0.0f;
     }
 
     // Update is called once per frame
@@ -23,23 +32,33 @@ public class NoteBehaviour : MonoBehaviour
 
     void move()
     {
-        transform.position += -transform.up * SPEED;
+        transform.position += -transform.up * SPEED * Time.deltaTime;
     }
 
     void checkHitMiss()
     {
-        if (transform.position.y <= NOTE_HIT_THRESHOLD)
+        note_top_side = transform.position.y + sprite_half_height;      
+        if ( note_top_side <= NOTE_HIT_THRESHOLD)
         {
-            if(Input.GetKeyDown(KeyCode.C))
+            if(Input.GetKeyDown(key))
             {
-                Debug.Log("You hit the note");
-                transform.position = initial_position;
-                transform.position += transform.right * 1.75f;
-            }
-            if (transform.position.y <= NOTE_MISSED_THRESHOLD)
+                if((int)lane == (int)player_behaviour.lane)
+                {
+                    Debug.Log("You hit the note");
+                    transform.position = initial_position;
+                    transform.position += new Vector3(1.75f * (int)lane, 0.0f, 0.0f);
+                }
+                else
+                {
+                    Debug.Log("Wrong lane idiot");
+                }
+            } 
+            note_bottom_side = transform.position.y - sprite_half_height;
+            if (note_bottom_side <= NOTE_MISSED_THRESHOLD)
             {
                 Debug.Log("You missed a note");
                 transform.position = initial_position;
+                transform.position += new Vector3(1.75f * (int)lane, 0.0f, 0.0f);
             }
         }
     }
