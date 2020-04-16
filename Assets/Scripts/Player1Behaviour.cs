@@ -10,7 +10,7 @@ public class Player1Behaviour : MonoBehaviour
 
     void Start()
     {
-        move_distance = new Vector3(1.75f, 0.0f, 0.0f);
+        move_distance = new Vector3(3.0f, 0.0f, 0.0f);
         lane = Lane.Second;
 
     }
