@@ -15,11 +15,11 @@ public class NoteBehaviour : MonoBehaviour
     private float sprite_half_height;
     private float note_top_side, note_bottom_side;
     public GameObject player;
-    private Player1Behaviour player_behaviour;
+    private PlayerBehaviour player_behaviour;
     // Start is called before the first frame update
     void Start()
     {
-        player_behaviour = player.GetComponent<Player1Behaviour>();
+        player_behaviour = player.GetComponent<PlayerBehaviour>();
         sprite_half_height = GetComponent<SpriteRenderer>().bounds.extents.y;
         note_top_side = note_bottom_side = note_hit_offset = 0.0f;
     }
