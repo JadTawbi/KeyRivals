@@ -133,8 +133,8 @@ GameObject:
   - component: {fileID: 509144851}
   - component: {fileID: 509144850}
   m_Layer: 0
-  m_Name: Guitarist 2
-  m_TagString: Untagged
+  m_Name: Player 2
+  m_TagString: Player 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9064dd4bceb9c924fbc9722afa38a721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lane: 1
+  lane: 3
   move_up: 273
   move_down: 274
 --- !u!212 &509144851
@@ -212,7 +212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 509144849}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 12, y: 1.5, z: 0}
+  m_LocalPosition: {x: 715, y: -225, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -271,7 +271,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 540
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -311,7 +311,6 @@ GameObject:
   m_Component:
   - component: {fileID: 536045013}
   - component: {fileID: 536045012}
-  - component: {fileID: 536045014}
   m_Layer: 0
   m_Name: Weapon1L
   m_TagString: Untagged
@@ -377,26 +376,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 536045011}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -150, y: 225, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1362994685}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &536045014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 536045011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c5088c78985e7b4a8a72f8b3cad0e91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filling_transform: {fileID: 1362994685}
 --- !u!1 &654806283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,6 +1012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1362994685}
   - component: {fileID: 1362994686}
+  - component: {fileID: 1362994687}
   m_Layer: 0
   m_Name: Filling
   m_TagString: Untagged
@@ -1045,8 +1031,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 1}
   m_Children: []
-  m_Father: {fileID: 536045013}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1362994686
 SpriteRenderer:
@@ -1098,6 +1084,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1362994687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362994684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5088c78985e7b4a8a72f8b3cad0e91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lane: 0
+  type: 3
+  side: -1
 --- !u!1 &1430706444
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,8 +1155,8 @@ SpriteRenderer:
   m_SortingLayerID: 1067405079
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2dc6f5531631566438abb44b43fc542a, type: 3}
-  m_Color: {r: 1, g: 0.6650944, b: 0.8779922, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e7a05b4f069cf7443b00a6ed0962219f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1191,8 +1192,8 @@ GameObject:
   - component: {fileID: 1677370562}
   - component: {fileID: 1677370564}
   m_Layer: 0
-  m_Name: Guitarist 1
-  m_TagString: Untagged
+  m_Name: Player 1
+  m_TagString: Player 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1255,7 +1256,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677370561}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -12, y: -1.5, z: 0}
+  m_LocalPosition: {x: -715, y: 225, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1273,7 +1274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9064dd4bceb9c924fbc9722afa38a721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lane: 2
+  lane: 0
   move_up: 119
   move_down: 115
 --- !u!1 &1827539381

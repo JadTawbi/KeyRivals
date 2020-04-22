@@ -11,8 +11,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
-        move_distance = new Vector3(0.0f, 3.0f, 0.0f);
-
+        move_distance = new Vector3(0.0f, 150.0f, 0.0f);
     }
 
     // Update is called once per frame
