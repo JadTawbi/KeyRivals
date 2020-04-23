@@ -2068,7 +2068,7 @@ MonoBehaviour:
   lane: 3
   weapon_type: 1
   side: -1
-  grow_timer: -2
+  grow_timer: -0.75
   vertical_half: 1
 --- !u!212 &1462301817
 SpriteRenderer:

@@ -18,7 +18,7 @@ public class WeaponBehaviour : MonoBehaviour
 
     private GameObject player;
     private PlayerBehaviour player_behaviour;
-    private float grow_interval, grow_timer_offset, stay_charged_interval, stay_charged_timer;
+    private float grow_interval, grow_timer_offset, stay_charged_interval, stay_charged_timer, stay_charged_offset;
     public float grow_timer;
 
     //for testing
@@ -27,7 +27,7 @@ public class WeaponBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        grow_interval = 2.0f;
+        grow_interval = 1.0f;
         /*grow_timer =*/ grow_timer_offset = 0.0f;
         stay_charged_interval = grow_interval/2;
         stay_charged_timer = 0.0f;
@@ -96,8 +96,8 @@ public class WeaponBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        growFilling();
         checkHitMiss();
+        growFilling();
     }
 
     void randomizeCharacteristics()
@@ -146,7 +146,8 @@ public class WeaponBehaviour : MonoBehaviour
             if((int)lane == (int)player_behaviour.lane)
             {
                 grow_timer_offset = grow_interval - Mathf.Max(grow_timer, 0.0f);
-                grow_timer = 0 - grow_timer_offset;
+                stay_charged_offset = stay_charged_interval - stay_charged_timer; //Just for testing
+                grow_timer = 0 - grow_timer_offset - stay_charged_offset;   //stay_charged_offset is just for testing
                 Debug.Log(side+" disabled a " + weapon_type + " weapon!!");
                 randomizeCharacteristics();
             }
@@ -157,7 +158,7 @@ public class WeaponBehaviour : MonoBehaviour
             {
                 grow_timer_offset = grow_interval - Mathf.Max(grow_timer, 0.0f);
                 sprite_renderer.color = bad;
-                grow_timer = grow_interval;
+                grow_timer = grow_interval + stay_charged_interval; //stay_charged_interval is just for testing
                 Debug.Log(side + " might be colorblind (sorry if you actually are). Wrong color! ");
             }
         }
