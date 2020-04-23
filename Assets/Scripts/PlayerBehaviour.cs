@@ -15,6 +15,10 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 move_distance;
     private GameObject[] active_weapons;
 
+    //For testing
+    private GameObject score;
+    private Score score_script;
+
     void Start()
     {
         move_distance = new Vector3(0.0f, 150.0f, 0.0f);
@@ -33,6 +37,11 @@ public class PlayerBehaviour : MonoBehaviour
             blue_key = KeyCode.K;
             yellow_key = KeyCode.L;
         }
+
+        /* FOR TESTING */
+        score = GameObject.FindGameObjectWithTag("Score");
+        score_script = score.GetComponent<Score>();
+        /* END */
     }
 
     // Update is called once per frame
@@ -67,13 +76,13 @@ public class PlayerBehaviour : MonoBehaviour
         {
             transform.position += move_distance;
             lane--;
-            Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+            //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
         }
         if (Input.GetKeyDown(move_down) && lane != Lane.Fourth)
         {
             transform.position -= move_distance;
             lane++;
-            Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+            //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
         }
     }
 
@@ -93,6 +102,7 @@ public class PlayerBehaviour : MonoBehaviour
             if(("Weapon_"+ gameObject.name +"_"+lane.ToString()) == active_weapons[i].name)
             {
                 weapon_is_occupied = true;
+                Debug.Log("weapon_is_occupied became true");
                 Debug.Log("weapon active in " + lane + " lane");
                 break;
             }
@@ -100,6 +110,19 @@ public class PlayerBehaviour : MonoBehaviour
         if (weapon_is_occupied == false)
         {
             Debug.Log(gameObject.name + " takes damage because there was no weapon in the " + lane + " lane :("); //spawn a charged weapon in that lane
+
+            /* FOR TESTING */
+            switch (gameObject.tag)
+            {
+                case "Player1":
+                    score_script.player1_misses++;
+                    Debug.Log("Player1 missed");
+                    break;
+                case "Player2":
+                    score_script.player2_misses++;
+                    break;
+            }
+            /* END */
         }
     }
 }
