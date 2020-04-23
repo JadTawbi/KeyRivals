@@ -1,101 +1,94 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// take care of Delta time on scale increase
 public class WeaponBehaviour : MonoBehaviour
 {
-    private Vector3 scale_increase;
     private SpriteRenderer sprite_renderer;
     public enum Lane { First, Second, Third, Fourth };
     public Lane lane;
-    public enum Type { Red, Green, Blue, Yellow };
-    public Type type;
-    private KeyCode key;
+    public enum WeaponType { Red, Green, Blue, Yellow, Bad};
+    public WeaponType weapon_type;
+    private Color red, green, blue, yellow, bad;
+    private KeyCode input_key;
+    private KeyCode red_key, green_key, blue_key, yellow_key;
 
     public enum Side { Player1 = -1, Player2 = 1};
     public Side side;
 
     private GameObject player;
     private PlayerBehaviour player_behaviour;
+    private float grow_interval, grow_timer_offset, stay_charged_interval, stay_charged_timer;
+    public float grow_timer;
+
+    //for testing
+    public int vertical_half;
 
     // Start is called before the first frame update
     void Start()
     {
-        switch(side)
+        grow_interval = 2.0f;
+        /*grow_timer =*/ grow_timer_offset = 0.0f;
+        stay_charged_interval = grow_interval/2;
+        stay_charged_timer = 0.0f;
+
+        red = new Color(1, 0, 0);
+        green = new Color(0, 1, 0);
+        blue = new Color(0, 0, 1);
+        yellow = new Color(1, 1, 0);
+        bad = new Color(0.60f, 0, 0.80f);
+
+        initializeCharacteristics();
+    }
+
+    void initializeCharacteristics()
+    {
+        switch (side)
         {
             case Side.Player1:
-                player = GameObject.FindWithTag("Player 1");
+                player = GameObject.FindWithTag("Player1");
+                red_key = KeyCode.Z;
+                green_key = KeyCode.X;
+                blue_key = KeyCode.C;
+                yellow_key = KeyCode.V;
                 break;
 
             case Side.Player2:
-                player = GameObject.FindWithTag("Player 2");
+                player = GameObject.FindWithTag("Player2");
+                red_key = KeyCode.H;
+                green_key = KeyCode.J;
+                blue_key = KeyCode.K;
+                yellow_key = KeyCode.L;
                 break;
         }
 
         player_behaviour = player.GetComponent<PlayerBehaviour>();
-        scale_increase = new Vector3(0.001f, 0.001f, 0.0f);
         sprite_renderer = GetComponent<SpriteRenderer>();
 
         transform.position = new Vector3((int)side * 150.0f, 225.0f - 150.0f * (int)lane, 0.0f);
         /* To calculate x position: side enum is set to either -1 or 1 and then used in the calculation
          * To calculate y position: lane enum is cast into an int and is used to calculate how far down from the first lane its position is going to be.*/
 
-        switch(type)
+        switch (weapon_type)
         {
-            case Type.Red:
-                sprite_renderer.color = new Color(1, 0, 0);
-                switch(side)
-                {
-                    case Side.Player1:
-                        key = KeyCode.Z;
-                        break;
-
-                    case Side.Player2:
-                        key = KeyCode.H;
-                        break;
-                }
+            case WeaponType.Red:
+                sprite_renderer.color = red;
+                input_key = red_key;
                 break;
 
-            case Type.Green:
-                sprite_renderer.color = new Color(0, 1, 0);
-                switch (side)
-                {
-                    case Side.Player1:
-                        key = KeyCode.X;
-                        break;
-
-                    case Side.Player2:
-                        key = KeyCode.J;
-                        break;
-                }
+            case WeaponType.Green:
+                sprite_renderer.color = green;
+                input_key = green_key;
                 break;
 
-            case Type.Blue:
-                sprite_renderer.color = new Color(0, 0, 1);
-                switch (side)
-                {
-                    case Side.Player1:
-                        key = KeyCode.C;
-                        break;
-
-                    case Side.Player2:
-                        key = KeyCode.K;
-                        break;
-                }
+            case WeaponType.Blue:
+                sprite_renderer.color = blue;
+                input_key = blue_key;
                 break;
 
-            case Type.Yellow:
-                sprite_renderer.color = new Color(1, 1, 0);
-                switch (side)
-                {
-                    case Side.Player1:
-                        key = KeyCode.V;
-                        break;
-
-                    case Side.Player2:
-                        key = KeyCode.L;
-                        break;
-                }
+            case WeaponType.Yellow:
+                sprite_renderer.color = yellow;
+                input_key = yellow_key;
                 break;
         }
     }
@@ -107,37 +100,66 @@ public class WeaponBehaviour : MonoBehaviour
         checkHitMiss();
     }
 
+    void randomizeCharacteristics()
+    {
+        lane = (Lane)(Random.Range(0, 2) + vertical_half * 2);
+        weapon_type = (WeaponType)Random.Range(0, 4);
+        initializeCharacteristics();
+    }
+
     void growFilling()
     {
-        if(transform.localScale.x < 1.0f || transform.localScale.y < 1.0f)
+        if (grow_timer < grow_interval)
         {
-           transform.localScale += scale_increase;
+            grow_timer += Time.deltaTime;
+            transform.localScale = new Vector3(Mathf.Max(grow_timer, 0.0f) / grow_interval, Mathf.Max(grow_timer, 0.0f) / grow_interval, 1.0f);
+            if ( stay_charged_timer != 0.0f)
+            {
+                stay_charged_timer = 0.0f;
+            }
+            if ( grow_timer_offset != 0.0f)
+            {
+                grow_timer_offset = 0.0f;
+            }
         }
-        if(transform.localScale.x > 1.0f || transform.localScale.y > 1.0f)
+        else if (stay_charged_timer< stay_charged_interval)
         {
-            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            stay_charged_timer += Time.deltaTime;
+            if(transform.localScale.x != 1.0f || transform.localScale.y != 1.0f)
+            {
+                transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+        }
+        else
+        {
+            transform.localScale = new Vector3(0.0f, 0.0f, 1.0f);
+            Debug.Log(weapon_type + " weapon shot " + side);
+            grow_timer = 0.0f - grow_timer_offset;
+            randomizeCharacteristics();
         }
     }
 
     void checkHitMiss()
     {
-        if(Input.GetKeyDown(key))
+        if(Input.GetKeyDown(input_key))
         {
             if((int)lane == (int)player_behaviour.lane)
             {
-                transform.localScale = new Vector3(0.0f, 0.0f, 1.0f);
-                Debug.Log(side+" disabled a " + type + " weapon!!");
-            }
-            else
-            {
-                Debug.Log("Wrong lane idiot");
+                grow_timer_offset = grow_interval - Mathf.Max(grow_timer, 0.0f);
+                grow_timer = 0 - grow_timer_offset;
+                Debug.Log(side+" disabled a " + weapon_type + " weapon!!");
+                randomizeCharacteristics();
             }
         }
-        //continue here (else if)
-        if(transform.localScale.x >= 1.0f || transform.localScale.y >= 1.0f)
+        else if (Input.GetKeyDown(red_key)|| Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key))
         {
-            transform.localScale = new Vector3(0.0f, 0.0f, 1.0f);
-            Debug.Log(type + " weapon shot " + side);
+            if ((int)lane == (int)player_behaviour.lane)
+            {
+                grow_timer_offset = grow_interval - Mathf.Max(grow_timer, 0.0f);
+                sprite_renderer.color = bad;
+                grow_timer = grow_interval;
+                Debug.Log(side + " might be colorblind (sorry if you actually are). Wrong color! ");
+            }
         }
     }
 }
