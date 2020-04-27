@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// take care of Delta time on scale increase
+
 public class WeaponBehaviour : MonoBehaviour
 {
     private SpriteRenderer sprite_renderer;
