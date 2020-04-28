@@ -5,10 +5,12 @@ using UnityEngine;
 public class WeaponBehaviour : MonoBehaviour
 {
     private SpriteRenderer sprite_renderer;
+
     public enum Lane { First, Second, Third, Fourth };
     public Lane lane;
-    public enum WeaponType { Red, Green, Blue, Yellow, Bad};
-    public WeaponType weapon_type;
+
+    public enum AttackColour { Red, Green, Blue, Yellow, Bad};
+    public AttackColour attack_colour;
     private Color red, green, blue, yellow, bad;
     private KeyCode input_key;
     private KeyCode red_key, green_key, blue_key, yellow_key;
@@ -78,24 +80,24 @@ public class WeaponBehaviour : MonoBehaviour
         /* To calculate x position: side enum is set to either -1 or 1 and then used in the calculation
          * To calculate y position: lane enum is cast into an int and is used to calculate how far down from the first lane its position is going to be.*/
 
-        switch (weapon_type)
+        switch (attack_colour)
         {
-            case WeaponType.Red:
+            case AttackColour.Red:
                 sprite_renderer.color = red;
                 input_key = red_key;
                 break;
 
-            case WeaponType.Green:
+            case AttackColour.Green:
                 sprite_renderer.color = green;
                 input_key = green_key;
                 break;
 
-            case WeaponType.Blue:
+            case AttackColour.Blue:
                 sprite_renderer.color = blue;
                 input_key = blue_key;
                 break;
 
-            case WeaponType.Yellow:
+            case AttackColour.Yellow:
                 sprite_renderer.color = yellow;
                 input_key = yellow_key;
                 break;
@@ -112,7 +114,7 @@ public class WeaponBehaviour : MonoBehaviour
     void randomizeCharacteristics()
     {
         lane = (Lane)(Random.Range(0, 2) + vertical_half * 2);
-        weapon_type = (WeaponType)Random.Range(0, 4);
+        attack_colour = (AttackColour)Random.Range(0, 4);
         gameObject.name = "Weapon_" + player.tag + "_" + lane.ToString();
         initializeCharacteristics();
     }
@@ -143,7 +145,7 @@ public class WeaponBehaviour : MonoBehaviour
         else //Weapon has fired
         {
             transform.localScale = new Vector3(0.0f, 0.0f, 1.0f);
-            Debug.Log(weapon_type + " weapon shot " + side);
+            Debug.Log(attack_colour + " weapon shot " + side);
 
             grow_timer = 0.0f - grow_timer_offset;
             weapon_retaliated = false;
@@ -171,12 +173,12 @@ public class WeaponBehaviour : MonoBehaviour
     {
         if (Input.GetKeyDown(input_key) && weapon_retaliated == false && grow_timer >= 0.0f) //To-Do: Lower threshold and consequences
         {
-            if((int)lane == (int)player_behaviour.lane)
+            if(lane == player_behaviour.lane)
             {
                 grow_timer_offset = grow_interval - Mathf.Max(grow_timer, 0.0f);
                 stay_charged_offset = stay_charged_interval - stay_charged_timer; //Just for testing
                 grow_timer = 0 - grow_timer_offset - stay_charged_offset;   //stay_charged_offset is just for testing
-                Debug.Log(side+" disabled a " + weapon_type + " weapon!!");
+                Debug.Log(side+" disabled a " + attack_colour + " weapon!!");
 
                 /* FOR TESTING*/
                 switch (player.tag)
@@ -196,7 +198,7 @@ public class WeaponBehaviour : MonoBehaviour
         }
         else if ((Input.GetKeyDown(red_key) || Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key)) && weapon_retaliated == false && grow_timer >= 0.0f)
         {
-            if ((int)lane == (int)player_behaviour.lane)
+            if (lane == player_behaviour.lane)
             {
                 grow_timer_offset = grow_interval - Mathf.Max(grow_timer, 0.0f);
                 sprite_renderer.color = bad;
