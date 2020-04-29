@@ -20,14 +20,12 @@ public class WeaponBehaviour : MonoBehaviour
 
     private GameObject player;
     private PlayerBehaviour player_behaviour;
-    private float grow_interval, grow_timer_offset, stay_charged_interval, stay_charged_timer, stay_charged_offset;
-    public float grow_timer;
+    private float grow_timer, stay_charged_interval, stay_charged_timer;
+    public float grow_interval;
 
     // Start is called before the first frame update
     void Start()
     {
-        grow_interval = 1.0f;
-        /*grow_timer =*/ grow_timer_offset = 0.0f;
         stay_charged_interval = grow_interval/2;
         stay_charged_timer = 0.0f;
 
@@ -105,14 +103,10 @@ public class WeaponBehaviour : MonoBehaviour
         if (grow_timer < grow_interval) //Weapon is growing
         {
             grow_timer += Time.deltaTime;
-            transform.localScale = new Vector3(Mathf.Max(grow_timer, 0.0f) / grow_interval, Mathf.Max(grow_timer, 0.0f) / grow_interval, 1.0f);
+            transform.localScale = new Vector3(grow_timer / grow_interval, grow_timer / grow_interval, 1.0f);
             if ( stay_charged_timer != 0.0f)
             {
                 stay_charged_timer = 0.0f;
-            }
-            if ( grow_timer_offset != 0.0f)
-            {
-                grow_timer_offset = 0.0f;
             }
         }
         else if (stay_charged_timer < stay_charged_interval) //Weapon has grown and is charging

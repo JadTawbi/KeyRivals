@@ -708,7 +708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &632238945
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   lane: 3
   attack_colour: 0
   side: 1
-  grow_timer: 0
+  grow_interval: 0
 --- !u!212 &885055108
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1827,7 +1827,7 @@ MonoBehaviour:
   lane: 0
   attack_colour: 0
   side: -1
-  grow_timer: 0
+  grow_interval: 0
 --- !u!1 &1376166869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,7 +1875,7 @@ MonoBehaviour:
   lane: 0
   attack_colour: 0
   side: 1
-  grow_timer: -0.75
+  grow_interval: 0
 --- !u!212 &1376166872
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2462,7 +2462,7 @@ MonoBehaviour:
   lane: 3
   attack_colour: 0
   side: -1
-  grow_timer: -0.75
+  grow_interval: 0
 --- !u!212 &1462301817
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3448,6 +3448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 3440301979625167842, guid: dc311899b99013f4598443cbeaf21f33, type: 3}
+  song: {fileID: 632238944}
 --- !u!4 &1929569137
 Transform:
   m_ObjectHideFlags: 0

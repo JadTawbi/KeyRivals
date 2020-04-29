@@ -45,10 +45,12 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     List<Note> notes;
     
     private float spawn_timer;
+    private const float spawn_offset = 1.0f;
     public GameObject weapon;
 
-    // Start is called before the first frame update
+    public GameObject song;
 
+    // Start is called before the first frame update
     void Start()
     {
         midi = new MidiFile("Assets/Sound/MIDI/LucidDreamMIDI_1.0.mid");  //   File format: 0     Tracks: 1      Ticks: 480     Song lenght: 2:23
@@ -66,23 +68,29 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         }
 
         spawn_timer = 0.0f;
+
+        song.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        spawnWeapons();
+        if (notes.Count > 0)
+        {
+            spawnWeapons();
+        }
     }
 
     private void spawnWeapons()
     {
-        if (spawn_timer >= notes[0].spawn_time_in_seconds)
+        if (spawn_timer + spawn_offset >= notes[0].spawn_time_in_seconds)
         {
             for (int i = 0; i < 2; i++)
             {
                 WeaponBehaviour new_weapon_behaviour = Instantiate(weapon, transform).GetComponent<WeaponBehaviour>();
                 new_weapon_behaviour.lane = notes[0].lane;
                 new_weapon_behaviour.attack_colour = notes[0].attack_colour;
+                new_weapon_behaviour.grow_interval = spawn_offset; //To-Do: Set it based on the song's BPM
                 switch(i)
                 {
                     case 0:
