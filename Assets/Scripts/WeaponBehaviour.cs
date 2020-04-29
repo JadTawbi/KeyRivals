@@ -23,13 +23,6 @@ public class WeaponBehaviour : MonoBehaviour
     private float grow_interval, grow_timer_offset, stay_charged_interval, stay_charged_timer, stay_charged_offset;
     public float grow_timer;
 
-    //For testing
-    public int vertical_half;
-    private GameObject score;
-    private Score score_script;
-    private bool weapon_got_disabled = false;
-    private bool weapon_retaliated = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -45,11 +38,6 @@ public class WeaponBehaviour : MonoBehaviour
         bad = new Color(0.60f, 0, 0.80f);
 
         initializeCharacteristics();
-
-        /* FOR TESTING */
-        score = GameObject.FindGameObjectWithTag("Score");
-        score_script = score.GetComponent<Score>();
-        /* END */
     }
 
     void initializeCharacteristics()
@@ -102,6 +90,7 @@ public class WeaponBehaviour : MonoBehaviour
                 input_key = yellow_key;
                 break;
         }
+        gameObject.name = "Weapon_" + player.tag + "_" + lane.ToString();
     }
 
     // Update is called once per frame
@@ -109,14 +98,6 @@ public class WeaponBehaviour : MonoBehaviour
     {
         checkHitMiss();
         growFilling();
-    }
-
-    void randomizeCharacteristics()
-    {
-        lane = (Lane)(Random.Range(0, 2) + vertical_half * 2);
-        attack_colour = (AttackColour)Random.Range(0, 4);
-        gameObject.name = "Weapon_" + player.tag + "_" + lane.ToString();
-        initializeCharacteristics();
     }
 
     void growFilling()
@@ -134,7 +115,7 @@ public class WeaponBehaviour : MonoBehaviour
                 grow_timer_offset = 0.0f;
             }
         }
-        else if (stay_charged_timer< stay_charged_interval) //Weapon has grown and is charging
+        else if (stay_charged_timer < stay_charged_interval) //Weapon has grown and is charging
         {
             stay_charged_timer += Time.deltaTime;
             if(transform.localScale.x != 1.0f || transform.localScale.y != 1.0f)
@@ -144,79 +125,28 @@ public class WeaponBehaviour : MonoBehaviour
         }
         else //Weapon has fired
         {
-            transform.localScale = new Vector3(0.0f, 0.0f, 1.0f);
             Debug.Log(attack_colour + " weapon shot " + side);
-
-            grow_timer = 0.0f - grow_timer_offset;
-            weapon_retaliated = false;
-
-            /* FOR TESTING*/
-            if (weapon_got_disabled == false)
-            {
-                switch (player.tag)
-                {
-                    case "Player1":
-                        score_script.player1_misses++;
-                        break;
-                    case "Player2":
-                        score_script.player2_misses++;
-                        break;
-                }
-            }
-            weapon_got_disabled = false;
-            randomizeCharacteristics();
-            /* END */
+            Destroy(gameObject);
         }
     }
 
     void checkHitMiss()
     {
-        if (Input.GetKeyDown(input_key) && weapon_retaliated == false && grow_timer >= 0.0f) //To-Do: Lower threshold and consequences
+        if (Input.GetKeyDown(input_key))
         {
             if(lane == player_behaviour.lane)
             {
-                grow_timer_offset = grow_interval - Mathf.Max(grow_timer, 0.0f);
-                stay_charged_offset = stay_charged_interval - stay_charged_timer; //Just for testing
-                grow_timer = 0 - grow_timer_offset - stay_charged_offset;   //stay_charged_offset is just for testing
                 Debug.Log(side+" disabled a " + attack_colour + " weapon!!");
-
-                /* FOR TESTING*/
-                switch (player.tag)
-                {
-                    case "Player1":
-                        score_script.player1_hits++;
-                        break;
-                    case "Player2":
-                        score_script.player2_hits++;
-                        break;
-                }                    
-                weapon_got_disabled = true;
-                /* END */
-
-                randomizeCharacteristics();
+                Destroy(gameObject);
             }
         }
-        else if ((Input.GetKeyDown(red_key) || Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key)) && weapon_retaliated == false && grow_timer >= 0.0f)
+        else if (Input.GetKeyDown(red_key) || Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key))
         {
             if (lane == player_behaviour.lane)
             {
-                grow_timer_offset = grow_interval - Mathf.Max(grow_timer, 0.0f);
+                grow_timer = grow_interval;
                 sprite_renderer.color = bad;
-                grow_timer = grow_interval + stay_charged_interval; //stay_charged_interval is just for testing
                 Debug.Log(side + " might be colorblind (sorry if you actually are). Wrong color! ");
-                weapon_retaliated = true;
-            }
-        }
-        else if ((Input.GetKeyDown(red_key) || Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key)) && weapon_retaliated == false)
-        {
-            switch (player.tag)
-            {
-                case "Player1":
-                    score_script.player1_misses++;
-                    break;
-                case "Player2":
-                    score_script.player2_misses++;
-                    break;
             }
         }
     }

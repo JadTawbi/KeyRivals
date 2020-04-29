@@ -43,6 +43,9 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     }
 
     List<Note> notes;
+    
+    private float spawn_timer;
+    public GameObject weapon;
 
     // Start is called before the first frame update
 
@@ -61,15 +64,39 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 notes.Add(note);
             }
         }
-        foreach (Note note in notes)
-        {
-            Debug.Log("Spawn time is: " + note.spawn_time_in_seconds.ToString() + " seconds, the Lane is " + note.lane.ToString() + " and the color is: " + note.attack_colour.ToString());
-        }
+
+        spawn_timer = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        spawnWeapons();
+    }
+
+    private void spawnWeapons()
+    {
+        if (spawn_timer >= notes[0].spawn_time_in_seconds)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                WeaponBehaviour new_weapon_behaviour = Instantiate(weapon, transform).GetComponent<WeaponBehaviour>();
+                new_weapon_behaviour.lane = notes[0].lane;
+                new_weapon_behaviour.attack_colour = notes[0].attack_colour;
+                switch(i)
+                {
+                    case 0:
+                        new_weapon_behaviour.side = WeaponBehaviour.Side.Player1;
+                        break;
+                    case 1:
+                        new_weapon_behaviour.side = WeaponBehaviour.Side.Player2;
+                        break;
+                }
+            }
+
+            notes.Remove(notes[0]);
+        }
+
+        spawn_timer += Time.deltaTime;
     }
 }
