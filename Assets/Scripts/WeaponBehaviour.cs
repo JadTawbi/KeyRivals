@@ -20,8 +20,11 @@ public class WeaponBehaviour : MonoBehaviour
 
     private GameObject player;
     private PlayerBehaviour player_behaviour;
-    private float grow_timer, stay_charged_interval, stay_charged_timer;
-    public float grow_interval;
+    private float stay_charged_interval, stay_charged_timer;
+    [System.NonSerialized]
+    public float grow_timer, grow_interval;
+
+    private HealthBehaviour health_behaviour;
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +32,22 @@ public class WeaponBehaviour : MonoBehaviour
         stay_charged_interval = grow_interval/2;
         stay_charged_timer = 0.0f;
 
-        red = new Color(1, 0, 0);
-        green = new Color(0, 1, 0);
-        blue = new Color(0, 0, 1);
-        yellow = new Color(1, 1, 0);
+        red = new Color(1.0f, 0.153f, 0.0f);
+        green = new Color(0.0f, 1.0f, 0.431f);
+        blue = new Color(0.212f, 0.929f, 0.871f);
+        yellow = new Color(0.969f, 1.0f, 0.0f);
         bad = new Color(0.60f, 0, 0.80f);
 
         initializeCharacteristics();
+
+        if (attack_colour == AttackColour.Bad)
+        {
+            grow_timer = GetComponentInParent<WeaponSpawnerBehaviour>().spawn_offset;
+        }
+        else
+        {
+            grow_timer = 0.0f;
+        }
     }
 
     void initializeCharacteristics()
@@ -44,6 +56,7 @@ public class WeaponBehaviour : MonoBehaviour
         {
             case Side.Player1:
                 player = GameObject.FindWithTag("Player1");
+                health_behaviour = GameObject.Find("Health_Player1").GetComponent<HealthBehaviour>();
                 red_key = KeyCode.Z;
                 green_key = KeyCode.X;
                 blue_key = KeyCode.C;
@@ -52,6 +65,7 @@ public class WeaponBehaviour : MonoBehaviour
 
             case Side.Player2:
                 player = GameObject.FindWithTag("Player2");
+                health_behaviour = GameObject.Find("Health_Player2").GetComponent<HealthBehaviour>();
                 red_key = KeyCode.H;
                 green_key = KeyCode.J;
                 blue_key = KeyCode.K;
@@ -87,6 +101,10 @@ public class WeaponBehaviour : MonoBehaviour
                 sprite_renderer.color = yellow;
                 input_key = yellow_key;
                 break;
+            case AttackColour.Bad:
+                sprite_renderer.color = bad;
+                input_key = KeyCode.None;
+                break;
         }
         gameObject.name = "Weapon_" + player.tag + "_" + lane.ToString();
     }
@@ -116,10 +134,46 @@ public class WeaponBehaviour : MonoBehaviour
             {
                 transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
+            float red_component, green_component, blue_component;
+            switch(attack_colour)
+            {
+                case AttackColour.Red:
+                    red_component = 1.0f - (1.0f - 0.6f) * (stay_charged_timer / stay_charged_interval);
+                    green_component = 0.153f - (0.153f) * (stay_charged_timer / stay_charged_interval);
+                    blue_component = 0.8f * (stay_charged_timer / stay_charged_interval);
+                    break;
+                case AttackColour.Green:
+                    red_component = (0.6f) * (stay_charged_timer / stay_charged_interval);
+                    green_component = 1.0f - (stay_charged_timer / stay_charged_interval);
+                    blue_component = 0.431f + (0.8f - 0.431f) * (stay_charged_timer / stay_charged_interval);
+                    break;
+                case AttackColour.Blue:
+                    red_component = 0.212f + (0.6f - 0.212f) * (stay_charged_timer / stay_charged_interval);
+                    green_component = 0.929f - (0.929f) * (stay_charged_timer / stay_charged_interval);
+                    blue_component = 0.871f - (0.871f - 0.8f) * (stay_charged_timer / stay_charged_interval);
+                    break;
+                case AttackColour.Yellow:
+                    red_component = 0.969f - (0.969f - 0.6f) * (stay_charged_timer / stay_charged_interval);
+                    green_component = 1.0f - (stay_charged_timer / stay_charged_interval);
+                    blue_component = 0.8f * (stay_charged_timer / stay_charged_interval);
+                    break;
+                case AttackColour.Bad:
+                    red_component = 0.6f;
+                    green_component = 0.0f;
+                    blue_component = 0.8f;
+                    break;
+                default:
+                    red_component = 0.0f;
+                    green_component = 0.0f;
+                    blue_component = 0.0f;
+                    break;
+            }
+            sprite_renderer.color = new Color(red_component, green_component, blue_component);
         }
         else //Weapon has fired
         {
             Debug.Log(attack_colour + " weapon shot " + side);
+            health_behaviour.hit_points--; //HealthBehaviour takes care of boundaries (negative health and/or health over maximum)
             Destroy(gameObject);
         }
     }

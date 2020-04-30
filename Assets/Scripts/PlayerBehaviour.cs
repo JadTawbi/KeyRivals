@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     public WeaponBehaviour.Lane lane;
+    private WeaponBehaviour.Side side;
 
     private WeaponBehaviour.AttackColour attack_colour;
 
@@ -13,12 +14,16 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 move_distance;
     private GameObject[] active_weapons;
 
+    public GameObject weapon_prefab;
+    public Transform weapon_spawner;
+
     void Start()
     {
         move_distance = new Vector3(0.0f, 150.0f, 0.0f);
 
         if (gameObject.CompareTag("Player1"))
         {
+            side = WeaponBehaviour.Side.Player1;
             red_key = KeyCode.Z;
             green_key = KeyCode.X;
             blue_key = KeyCode.C;
@@ -26,6 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
         else if (gameObject.CompareTag("Player2"))
         {
+            side = WeaponBehaviour.Side.Player2;
             red_key = KeyCode.H;
             green_key = KeyCode.J;
             blue_key = KeyCode.K;
@@ -88,7 +94,7 @@ public class PlayerBehaviour : MonoBehaviour
         bool weapon_is_occupied = false;
         for (int i = 0; i < active_weapons.Length; i++)
         {
-            if(("Weapon_"+ gameObject.name +"_"+lane.ToString()) == active_weapons[i].name)
+            if (("Weapon_" + gameObject.name + "_" + lane.ToString()) == active_weapons[i].name)
             {
                 weapon_is_occupied = true;
                 Debug.Log("weapon_is_occupied became true");
@@ -98,7 +104,13 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (weapon_is_occupied == false)
         {
-            Debug.Log(gameObject.name + " takes damage because there was no weapon in the " + lane + " lane :("); //spawn a charged weapon in that lane
+            WeaponBehaviour new_weapon_behaviour = Instantiate(weapon_prefab, weapon_spawner).GetComponent<WeaponBehaviour>();
+            new_weapon_behaviour.grow_interval = weapon_spawner.GetComponent<WeaponSpawnerBehaviour>().spawn_offset;
+            new_weapon_behaviour.lane = lane;
+            new_weapon_behaviour.side = side;
+            new_weapon_behaviour.attack_colour = WeaponBehaviour.AttackColour.Bad;
+
+            Debug.Log(gameObject.name + " charges up an inactive weapon in " + lane + " lane :(");
         }
     }
 }
