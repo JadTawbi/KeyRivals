@@ -86,7 +86,7 @@ public class WeaponBehaviour : MonoBehaviour
         player_behaviour = player.GetComponent<PlayerBehaviour>();
         sprite_renderer = GetComponent<SpriteRenderer>();
 
-        transform.position = new Vector3((int)side * 150.0f, 225.0f - 150.0f * (int)lane, 0.0f);
+        transform.position = new Vector3((int)side * 150.0f, -(int)side*225.0f -(-(int)side)* 150.0f * (int)lane, 0.0f);
         /* To calculate x position: side enum is set to either -1 or 1 and then used in the calculation
          * To calculate y position: lane enum is cast into an int and is used to calculate how far down from the first lane its position is going to be.*/
 
