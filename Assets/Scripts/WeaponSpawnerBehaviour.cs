@@ -57,6 +57,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         midi = new MidiFile("Assets/Sound/MIDI/LucidDreamMIDI_1.0.mid");  //   File format: 0     Tracks: 1      Ticks: 480     Song lenght: 2:23
         ticks_per_quarter_note = midi.DeltaTicksPerQuarterNote;
         beats_per_minute = 90;
+        spawn_timer = 0.0f;
         spawn_offset = 1.0f; //Change based on song
         notes = new List<Note>();
         foreach (MidiEvent midi_event in midi.Events[0])
@@ -68,8 +69,6 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 notes.Add(note);
             }
         }
-
-        spawn_timer = 0.0f;
 
         song.SetActive(true);
     }

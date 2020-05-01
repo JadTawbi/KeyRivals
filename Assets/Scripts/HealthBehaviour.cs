@@ -16,8 +16,6 @@ public class HealthBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        setHitPointsBounds();
-
         checkHitPoints();
     }
 
@@ -46,8 +44,10 @@ public class HealthBehaviour : MonoBehaviour
         }
     }
 
-    private void setHitPointsBounds()
+    public void loseHealth()
     {
+        hit_points--;
+
         if (hit_points < 0)
         {
             hit_points = 0;
