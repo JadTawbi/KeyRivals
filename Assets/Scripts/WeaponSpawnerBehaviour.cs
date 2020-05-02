@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NAudio.Midi;
+using System.IO;
 
 
 public class WeaponSpawnerBehaviour : MonoBehaviour
@@ -49,12 +50,14 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     public float spawn_offset;
     public GameObject weapon_prefab;
 
-    public GameObject song;
+    public AudioSource song;
 
     // Start is called before the first frame update
     void Start()
     {
-        midi = new MidiFile("Assets/Sound/MIDI/LucidDreamMIDI_1.0.mid");  //   File format: 0     Tracks: 1      Ticks: 480     Song lenght: 2:23
+        TextAsset midi_as_text_asset = Resources.Load("MIDI/LucidDreamMIDI_1.0") as TextAsset;   //MIDI file extension changed to .bytes manually
+        Stream midi_as_memory_stream = new MemoryStream(midi_as_text_asset.bytes);
+        midi = new MidiFile(midi_as_memory_stream, true);
         ticks_per_quarter_note = midi.DeltaTicksPerQuarterNote;
         beats_per_minute = 90;
         spawn_timer = 0.0f;
@@ -70,7 +73,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
             }
         }
 
-        song.SetActive(true);
+        song.Play();
     }
 
     // Update is called once per frame
