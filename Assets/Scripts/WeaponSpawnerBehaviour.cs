@@ -20,7 +20,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         {
             spawn_time_in_seconds = (60 * spawn_time_in_ticks) / (ticks_per_quarter_note * beats_per_minute);
 
-            lane = (WeaponBehaviour.Lane)Mathf.Abs(note_number - 42);
+            lane = (WeaponBehaviour.Lane)Mathf.Abs(note_number - 3); // lanes in the game are in reverse order than the midi file, so we grabbed the absolute value of the negative numbers to reverse them
 
             switch(velocity)
             {
@@ -55,13 +55,13 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TextAsset midi_as_text_asset = Resources.Load("MIDI/LucidDreamMIDI_1.0") as TextAsset;   //MIDI file extension changed to .bytes manually
+        TextAsset midi_as_text_asset = Resources.Load("MIDI/ShcukranMIDI_1.0") as TextAsset;   //MIDI file extension changed to .bytes manually
         Stream midi_as_memory_stream = new MemoryStream(midi_as_text_asset.bytes);
         midi = new MidiFile(midi_as_memory_stream, true);
         ticks_per_quarter_note = midi.DeltaTicksPerQuarterNote;
         beats_per_minute = 90;
         spawn_timer = 0.0f;
-        spawn_offset = 1.0f; //Change based on song
+        spawn_offset = 1.5f; //Change based on song
         notes = new List<Note>();
         foreach (MidiEvent midi_event in midi.Events[0])
         {

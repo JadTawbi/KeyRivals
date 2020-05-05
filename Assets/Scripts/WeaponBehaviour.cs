@@ -245,6 +245,7 @@ public class WeaponBehaviour : MonoBehaviour
                     grow_timer = grow_interval;
                     sprite_renderer.color = bad;
                     attack_colour = AttackColour.Bad;
+                    input_key = KeyCode.None;
                     Debug.Log(side + " might be colorblind (sorry if you actually are). Wrong color! ");
                 }
             }

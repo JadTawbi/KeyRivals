@@ -7,10 +7,15 @@ public class HealthBehaviour : MonoBehaviour
     public GameObject hp1, hp2, hp3;
     [System.NonSerialized]
     public int hit_points;
+
+    public GameObject player;
+    private PlayerBehaviour player_behaviour;
+    
     // Start is called before the first frame update
     void Start()
     {
         hit_points = 3;
+        player_behaviour = player.GetComponent<PlayerBehaviour>();
     }
 
     // Update is called once per frame
@@ -38,10 +43,41 @@ public class HealthBehaviour : MonoBehaviour
                     if (hp1.activeSelf == true)
                     {
                         hp1.SetActive(false);
+                        player_behaviour.changeToPlayerState(PlayerBehaviour.PlayerState.Stunned);
                     }
+                }
+                else if (hp1.activeSelf == false)
+                {
+                    hp1.SetActive(true);
+                }
+            }
+            else
+            {
+                if (hp2.activeSelf == false)
+                {
+                    hp2.SetActive(true);
+                }
+                if (hp1.activeSelf == false)
+                {
+                    hp1.SetActive(true);
                 }
             }
         }
+        else
+        {
+            if (hp3.activeSelf == false)
+            {
+                hp3.SetActive(true);
+            }
+            if (hp2.activeSelf == false)
+            {
+                hp2.SetActive(true);
+            }
+            if (hp1.activeSelf == false)
+            {
+                hp1.SetActive(true);
+            }
+        } 
     }
 
     public void loseHealth()
@@ -56,5 +92,10 @@ public class HealthBehaviour : MonoBehaviour
         {
             hit_points = 3;
         }
+    }
+
+    public void resetHealth()
+    {
+        hit_points = 3;
     }
 }
