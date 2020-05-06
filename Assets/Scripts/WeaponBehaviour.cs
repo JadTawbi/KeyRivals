@@ -30,12 +30,13 @@ public class WeaponBehaviour : MonoBehaviour
     private enum WeaponState { GrowingUnderThreshold, GrowingOverThreshold, Charging, Shooting };
     private WeaponState weapon_state;
 
-    private const float note_score = 100.0f;
+    private const float hit_score = 100.0f;
+    private const float hit_lower_threshold = 0.65f;
 
     // Start is called before the first frame update
     void Start()
     {
-        stay_charged_interval = grow_interval/2;
+        stay_charged_interval = grow_interval/4;
         stay_charged_timer = 0.0f;
 
         red = new Color(1.0f, 0.153f, 0.0f);
@@ -130,7 +131,7 @@ public class WeaponBehaviour : MonoBehaviour
 
     void checkWeaponState()
     {
-        if (grow_timer < grow_interval * 0.5f)
+        if (grow_timer < grow_interval * hit_lower_threshold)
         {
             if (weapon_state != WeaponState.GrowingUnderThreshold)
             {
@@ -223,7 +224,7 @@ public class WeaponBehaviour : MonoBehaviour
                 sprite_renderer.color = new Color(red_component, green_component, blue_component);
                 break;
             case WeaponState.Shooting:
-                Debug.Log(attack_colour + " weapon shot " + side);
+                //Debug.Log(attack_colour + " weapon shot " + side);
                 health_behaviour.loseHealth();
                 score_behaviour.resetStreak();
                 Destroy(gameObject);
@@ -233,25 +234,32 @@ public class WeaponBehaviour : MonoBehaviour
 
     void checkHitMiss()
     {
-        if (weapon_state == WeaponState.GrowingOverThreshold || weapon_state == WeaponState.Charging)
+        if (weapon_state != WeaponState.Shooting)
         {
             if (Input.GetKeyDown(input_key))
             {
                 if (lane == player_behaviour.lane)
                 {
-                    Debug.Log(side + " disabled a " + attack_colour + " weapon!!");
-                    //To-Do: Lower threshold
-                    switch(weapon_state)
+                    if (weapon_state == WeaponState.GrowingUnderThreshold)
                     {
-                        case WeaponState.GrowingOverThreshold:
-                            score_behaviour.addScore((int)(note_score * grow_timer / grow_interval));
-                            break;
-                        case WeaponState.Charging:
-                            score_behaviour.addScore((int)(note_score - (note_score / 2) * (stay_charged_timer / stay_charged_interval)));
-                            break;
+                        Debug.Log(side + " hit the " + attack_colour + " weapon too early (under threshold)");
+                        score_behaviour.resetStreak();
                     }
+                    else
+                    {
+                        Debug.Log(side + " disabled a " + attack_colour + " weapon!!");
+                        switch (weapon_state)
+                        {
+                            case WeaponState.GrowingOverThreshold:
+                                score_behaviour.addScore((int)(hit_score * grow_timer / grow_interval));
+                                break;
+                            case WeaponState.Charging:
+                                score_behaviour.addScore((int)(hit_score - (hit_score / 2) * (stay_charged_timer / stay_charged_interval)));
+                                break;
+                        }
 
-                    Destroy(gameObject);
+                        Destroy(gameObject);
+                    }
                 }
             }
             else if (Input.GetKeyDown(red_key) || Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key))
@@ -262,7 +270,7 @@ public class WeaponBehaviour : MonoBehaviour
                     sprite_renderer.color = bad;
                     attack_colour = AttackColour.Bad;
                     input_key = KeyCode.None;
-                    Debug.Log(side + " might be colorblind (sorry if you actually are). Wrong color! ");
+                    Debug.Log(side + " shot a weapon with the wrong attack colour");
                 }
             }
         }

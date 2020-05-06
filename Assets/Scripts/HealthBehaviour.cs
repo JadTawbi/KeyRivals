@@ -10,18 +10,25 @@ public class HealthBehaviour : MonoBehaviour
 
     public GameObject player;
     private PlayerBehaviour player_behaviour;
+
+    private float invincibility_timer;
+    private const float invincibility_interval = 1.5f;
+    private bool invincibility_active;
     
     // Start is called before the first frame update
     void Start()
     {
         hit_points = 3;
         player_behaviour = player.GetComponent<PlayerBehaviour>();
+        invincibility_timer = 0.0f;
+        invincibility_active = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         checkHitPoints();
+        checkInvincibility();
     }
 
     private void checkHitPoints()
@@ -82,20 +89,46 @@ public class HealthBehaviour : MonoBehaviour
 
     public void loseHealth()
     {
-        hit_points--;
+        if (invincibility_active == false)
+        {
+            hit_points--;
 
-        if (hit_points < 0)
-        {
-            hit_points = 0;
-        }
-        else if (hit_points > 3)
-        {
-            hit_points = 3;
+            if (hit_points < 0)
+            {
+                hit_points = 0;
+            }
+            else if (hit_points > 3)
+            {
+                hit_points = 3;
+            }
+            activateInvincibility();
         }
     }
 
     public void resetHealth()
     {
         hit_points = 3;
+        activateInvincibility();
+    }
+
+    void checkInvincibility()
+    {
+        if (invincibility_active == true)
+        {
+            if (invincibility_timer >= invincibility_interval)
+            {
+                invincibility_active = false;
+                invincibility_timer = 0.0f;
+            }
+            else
+            {
+                invincibility_timer += Time.deltaTime;
+            }
+        }
+    }
+
+    void activateInvincibility()
+    {
+        invincibility_active = true;
     }
 }

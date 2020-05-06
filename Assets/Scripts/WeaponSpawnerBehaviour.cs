@@ -63,7 +63,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         ticks_per_quarter_note = midi.DeltaTicksPerQuarterNote;
         beats_per_minute = 90;
         spawn_timer = 0.0f;
-        spawn_offset = 1.0f; //Change based on song
+        spawn_offset = 1.5f; //Change based on song
         notes = new List<Note>();
         foreach (MidiEvent midi_event in midi.Events[0])
         {

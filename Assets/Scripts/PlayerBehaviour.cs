@@ -99,8 +99,6 @@ public class PlayerBehaviour : MonoBehaviour
             if (("Weapon_" + gameObject.name + "_" + lane.ToString()) == active_weapons[i].name)
             {
                 weapon_is_occupied = true;
-                Debug.Log("weapon_is_occupied became true");
-                Debug.Log("weapon active in " + lane + " lane");
                 break;
             }
         }
@@ -172,11 +170,13 @@ public class PlayerBehaviour : MonoBehaviour
                 player_state = PlayerState.Alive;
                 stun_overlay.SetActive(false);
                 health_behaviour.resetHealth();
+                Debug.Log(gameObject.name + " is now alive");
                 break;
             case PlayerState.Stunned:
                 player_state = PlayerState.Stunned;
                 stun_overlay.SetActive(true);
                 recover_red_pressed = recover_green_pressed = recover_blue_pressed = recover_yellow_pressed = false;
+                Debug.Log(gameObject.name + " is now stunned");
                 break;
         }
     }
