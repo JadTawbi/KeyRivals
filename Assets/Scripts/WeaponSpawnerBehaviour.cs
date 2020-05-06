@@ -57,13 +57,13 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TextAsset midi_as_text_asset = Resources.Load("MIDI/SchukranMIDI_1.1") as TextAsset;   //MIDI file extension changed to .bytes manually
+        TextAsset midi_as_text_asset = Resources.Load("MIDI/ElTió_1.1") as TextAsset;   //MIDI file extension changed to .bytes manually
         Stream midi_as_memory_stream = new MemoryStream(midi_as_text_asset.bytes);
         midi = new MidiFile(midi_as_memory_stream, true);
         ticks_per_quarter_note = midi.DeltaTicksPerQuarterNote;
-        beats_per_minute = 90;
+        beats_per_minute = 125;
         spawn_timer = 0.0f;
-        spawn_offset = 1.5f; //Change based on song
+        spawn_offset = 1.0f; //Change based on song
         notes = new List<Note>();
         foreach (MidiEvent midi_event in midi.Events[0])
         {
