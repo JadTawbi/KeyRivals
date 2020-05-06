@@ -55,7 +55,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TextAsset midi_as_text_asset = Resources.Load("MIDI/ShcukranMIDI_1.0") as TextAsset;   //MIDI file extension changed to .bytes manually
+        TextAsset midi_as_text_asset = Resources.Load("MIDI/SchukranMIDI_1.1") as TextAsset;   //MIDI file extension changed to .bytes manually
         Stream midi_as_memory_stream = new MemoryStream(midi_as_text_asset.bytes);
         midi = new MidiFile(midi_as_memory_stream, true);
         ticks_per_quarter_note = midi.DeltaTicksPerQuarterNote;
