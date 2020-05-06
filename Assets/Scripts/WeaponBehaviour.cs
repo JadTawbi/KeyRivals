@@ -27,7 +27,7 @@ public class WeaponBehaviour : MonoBehaviour
     private HealthBehaviour health_behaviour;
     private ScoreBehaviour score_behaviour;
 
-    private enum WeaponState { Growing, Charging, Shooting };
+    private enum WeaponState { GrowingUnderThreshold, GrowingOverThreshold, Charging, Shooting };
     private WeaponState weapon_state;
 
     private const float note_score = 100.0f;
@@ -54,7 +54,7 @@ public class WeaponBehaviour : MonoBehaviour
         else
         {
             grow_timer = 0.0f;
-            weapon_state = WeaponState.Growing;
+            weapon_state = WeaponState.GrowingOverThreshold;
         }
     }
 
@@ -130,11 +130,18 @@ public class WeaponBehaviour : MonoBehaviour
 
     void checkWeaponState()
     {
-        if (grow_timer < grow_interval)
+        if (grow_timer < grow_interval * 0.5f)
         {
-            if (weapon_state != WeaponState.Growing)
+            if (weapon_state != WeaponState.GrowingUnderThreshold)
             {
-                weapon_state = WeaponState.Growing;
+                weapon_state = WeaponState.GrowingUnderThreshold;
+            }
+        }
+        else if (grow_timer < grow_interval)
+        {
+            if (weapon_state != WeaponState.GrowingOverThreshold)
+            {
+                weapon_state = WeaponState.GrowingOverThreshold;
             }
         }
         else if (stay_charged_timer < stay_charged_interval)
@@ -157,7 +164,15 @@ public class WeaponBehaviour : MonoBehaviour
     {
         switch (weapon_state)
         {
-            case WeaponState.Growing:
+            case WeaponState.GrowingUnderThreshold:
+                grow_timer += Time.deltaTime;
+                transform.localScale = new Vector3(grow_timer / grow_interval, grow_timer / grow_interval, 1.0f);
+                if (stay_charged_timer != 0.0f)
+                {
+                    stay_charged_timer = 0.0f;
+                }
+                break;
+            case WeaponState.GrowingOverThreshold:
                 grow_timer += Time.deltaTime;
                 transform.localScale = new Vector3(grow_timer / grow_interval, grow_timer / grow_interval, 1.0f);
                 if (stay_charged_timer != 0.0f)
@@ -218,7 +233,7 @@ public class WeaponBehaviour : MonoBehaviour
 
     void checkHitMiss()
     {
-        if (weapon_state != WeaponState.Shooting)
+        if (weapon_state == WeaponState.GrowingOverThreshold || weapon_state == WeaponState.Charging)
         {
             if (Input.GetKeyDown(input_key))
             {
@@ -228,13 +243,14 @@ public class WeaponBehaviour : MonoBehaviour
                     //To-Do: Lower threshold
                     switch(weapon_state)
                     {
-                        case WeaponState.Growing:
+                        case WeaponState.GrowingOverThreshold:
                             score_behaviour.addScore((int)(note_score * grow_timer / grow_interval));
                             break;
                         case WeaponState.Charging:
                             score_behaviour.addScore((int)(note_score - (note_score / 2) * (stay_charged_timer / stay_charged_interval)));
                             break;
                     }
+
                     Destroy(gameObject);
                 }
             }

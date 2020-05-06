@@ -52,6 +52,8 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
     public AudioSource song;
 
+    private int notes_displayed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +63,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         ticks_per_quarter_note = midi.DeltaTicksPerQuarterNote;
         beats_per_minute = 90;
         spawn_timer = 0.0f;
-        spawn_offset = 1.5f; //Change based on song
+        spawn_offset = 1.0f; //Change based on song
         notes = new List<Note>();
         foreach (MidiEvent midi_event in midi.Events[0])
         {
@@ -72,6 +74,8 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 notes.Add(note);
             }
         }
+
+        notes_displayed = 0;
 
         song.Play();
     }
@@ -91,7 +95,10 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         {
             for (int i = 0; i < 2; i++)
             {
-                WeaponBehaviour new_weapon_behaviour = Instantiate(weapon_prefab, transform).GetComponent<WeaponBehaviour>();
+                GameObject new_weapon = Instantiate(weapon_prefab, transform);
+                new_weapon.GetComponent<SpriteRenderer>().sortingOrder = notes_displayed;
+
+                WeaponBehaviour new_weapon_behaviour = new_weapon.GetComponent<WeaponBehaviour>();
                 new_weapon_behaviour.lane = notes[0].lane;
                 new_weapon_behaviour.attack_colour = notes[0].attack_colour;
                 new_weapon_behaviour.grow_interval = spawn_offset; //To-Do: Set it based on the song's BPM
@@ -107,6 +114,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
             }
 
             notes.Remove(notes[0]);
+            notes_displayed++;
         }
 
         spawn_timer += Time.deltaTime;
