@@ -50,6 +50,9 @@ TagManager:
   - name: Background
     uniqueID: 1067405079
     locked: 0
+  - name: Weapons
+    uniqueID: 1440608883
+    locked: 0
   - name: Play Area
     uniqueID: 2143734781
     locked: 0
