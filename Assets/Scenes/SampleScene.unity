@@ -2600,7 +2600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon_prefab: {fileID: 3440301979625167842, guid: dc311899b99013f4598443cbeaf21f33,
     type: 3}
-  song: {fileID: 1929569138}
+  audio_source: {fileID: 1929569138}
 --- !u!4 &1929569137
 Transform:
   m_ObjectHideFlags: 0

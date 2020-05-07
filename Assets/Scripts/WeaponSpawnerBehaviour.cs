@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using NAudio.Midi;
 using System.IO;
+using System.Linq;
 
 
 public class WeaponSpawnerBehaviour : MonoBehaviour
 {
-    private MidiFile midi;
+    private MidiFile midi_file;
     [System.NonSerialized]
     public static int ticks_per_quarter_note, beats_per_minute;
 
@@ -50,22 +51,26 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     public float spawn_offset;
     public GameObject weapon_prefab;
 
-    public AudioSource song;
+    public AudioSource audio_source;
 
     private int notes_displayed;
+
+    public enum Track { LucidDream, Schukran, ElTió };
+    private TextAsset midi_as_text;
 
     // Start is called before the first frame update
     void Start()
     {
-        TextAsset midi_as_text_asset = Resources.Load("MIDI/ElTióMIDI_1.2") as TextAsset;   //MIDI file extension changed to .bytes manually
-        Stream midi_as_memory_stream = new MemoryStream(midi_as_text_asset.bytes);
-        midi = new MidiFile(midi_as_memory_stream, true);
-        ticks_per_quarter_note = midi.DeltaTicksPerQuarterNote;
-        beats_per_minute = 125;
+        loadTrack(Track.Schukran);
+
+        Stream midi_as_memory_stream = new MemoryStream(midi_as_text.bytes);
+        midi_file = new MidiFile(midi_as_memory_stream, true);
+        ticks_per_quarter_note = midi_file.DeltaTicksPerQuarterNote;
         spawn_timer = 0.0f;
         spawn_offset = 1.0f; //Change based on song
         notes = new List<Note>();
-        foreach (MidiEvent midi_event in midi.Events[0])
+
+        foreach (MidiEvent midi_event in midi_file.Events[0]) //To-Do: Replace midi_file.Events[0] for midi_events
         {
             if (midi_event.CommandCode == MidiCommandCode.NoteOn)
             {
@@ -77,7 +82,26 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
         notes_displayed = 0;
 
-        song.Play();
+
+        audio_source.Play();
+    }
+    private void loadTrack(Track track_to_load)
+    {
+        switch (track_to_load)
+        {
+            case Track.LucidDream:
+                midi_as_text = Resources.Load("MIDI/LucidDreamMIDI_1.0") as TextAsset;   //MIDI file extension changed to .bytes manually
+                audio_source.clip = Resources.Load("Music/Lucid Dream - Full 17_4 Mix") as AudioClip;
+                beats_per_minute = 90;
+                break;
+            case Track.Schukran:
+                midi_as_text = Resources.Load("MIDI/SchukranMIDI_1.1") as TextAsset;   //MIDI file extension changed to .bytes manually
+                audio_source.clip = Resources.Load("Music/Schukran (شكراً) Full - 26_4") as AudioClip;
+                beats_per_minute = 90;
+                break;
+            case Track.ElTió:
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -119,4 +143,5 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
         spawn_timer += Time.deltaTime;
     }
+
 }
