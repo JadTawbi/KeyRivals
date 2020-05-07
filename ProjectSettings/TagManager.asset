@@ -10,6 +10,14 @@ TagManager:
   - Score
   - Health
   - Hit point
+  - Weapon_Player1_Lane1
+  - Weapon_Player1_Lane2
+  - Weapon_Player1_Lane3
+  - Weapon_Player1_Lane4
+  - Weapon_Player2_Lane1
+  - Weapon_Player2_Lane2
+  - Weapon_Player2_Lane3
+  - Weapon_Player2_Lane4
   layers:
   - Default
   - TransparentFX

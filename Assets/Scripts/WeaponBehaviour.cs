@@ -118,6 +118,7 @@ public class WeaponBehaviour : MonoBehaviour
                 break;
         }
         gameObject.name = "Weapon_" + player.tag + "_" + lane.ToString();
+        gameObject.tag = "Weapon_" + player.tag + "_Lane" + (int)(lane+1);
     }
 
     // Update is called once per frame
@@ -234,37 +235,27 @@ public class WeaponBehaviour : MonoBehaviour
 
     void checkHitMiss()
     {
-        if (weapon_state != WeaponState.Shooting)
+        if (weapon_state != WeaponState.GrowingUnderThreshold)
         {
-            if (Input.GetKeyDown(input_key))
+            if (lane == player_behaviour.lane)
             {
-                if (lane == player_behaviour.lane)
+                if (Input.GetKeyDown(input_key))
                 {
-                    if (weapon_state == WeaponState.GrowingUnderThreshold)
+                    Debug.Log(side + " disabled a " + attack_colour + " weapon!!");
+                    switch (weapon_state)
                     {
-                        Debug.Log(side + " hit the " + attack_colour + " weapon too early (under threshold)");
-                        score_behaviour.resetStreak();
+                        case WeaponState.GrowingOverThreshold:
+                            score_behaviour.addScore((int)(hit_score * grow_timer / grow_interval));
+                            break;
+                        case WeaponState.Charging:
+                            score_behaviour.addScore((int)(hit_score - (hit_score / 2) * (stay_charged_timer / stay_charged_interval)));
+                            break;
                     }
-                    else
-                    {
-                        Debug.Log(side + " disabled a " + attack_colour + " weapon!!");
-                        switch (weapon_state)
-                        {
-                            case WeaponState.GrowingOverThreshold:
-                                score_behaviour.addScore((int)(hit_score * grow_timer / grow_interval));
-                                break;
-                            case WeaponState.Charging:
-                                score_behaviour.addScore((int)(hit_score - (hit_score / 2) * (stay_charged_timer / stay_charged_interval)));
-                                break;
-                        }
 
-                        Destroy(gameObject);
-                    }
+                    Destroy(gameObject);
+
                 }
-            }
-            else if (Input.GetKeyDown(red_key) || Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key))
-            {
-                if (lane == player_behaviour.lane)
+                else if (Input.GetKeyDown(red_key) || Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key))
                 {
                     grow_timer = grow_interval;
                     sprite_renderer.color = bad;

@@ -92,7 +92,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
         }
 
-        active_weapons = GameObject.FindGameObjectsWithTag("Weapon");
+        active_weapons = GameObject.FindGameObjectsWithTag("Weapon"); //To-do: Refactor to make player check all inputs
         bool weapon_is_occupied = false;
         for (int i = 0; i < active_weapons.Length; i++)
         {

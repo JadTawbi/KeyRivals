@@ -95,11 +95,14 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 beats_per_minute = 90;
                 break;
             case Track.Schukran:
-                midi_as_text = Resources.Load("MIDI/SchukranMIDI_1.1") as TextAsset;   //MIDI file extension changed to .bytes manually
+                midi_as_text = Resources.Load("MIDI/SchukranMIDI_1.2") as TextAsset;   //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/Schukran (شكراً) Full - 26_4") as AudioClip;
                 beats_per_minute = 90;
                 break;
             case Track.ElTió:
+                midi_as_text = Resources.Load("MIDI/ElTióMIDI_1.3") as TextAsset;   //MIDI file extension changed to .bytes manually
+                audio_source.clip = Resources.Load("Music/El Tió - Full 30_4") as AudioClip;
+                beats_per_minute = 125;
                 break;
         }
     }
