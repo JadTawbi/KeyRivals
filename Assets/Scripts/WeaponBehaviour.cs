@@ -27,8 +27,9 @@ public class WeaponBehaviour : MonoBehaviour
     private HealthBehaviour health_behaviour;
     private ScoreBehaviour score_behaviour;
 
-    private enum WeaponState { GrowingUnderThreshold, GrowingOverThreshold, Charging, Shooting };
-    private WeaponState weapon_state;
+    public enum WeaponState { GrowingUnderThreshold, GrowingOverThreshold, Charging, Shooting };
+    [System.NonSerialized]
+    public WeaponState weapon_state;
 
     private const float hit_score = 100.0f;
     private const float hit_lower_threshold = 0.65f;
@@ -87,7 +88,7 @@ public class WeaponBehaviour : MonoBehaviour
         player_behaviour = player.GetComponent<PlayerBehaviour>();
         sprite_renderer = GetComponent<SpriteRenderer>();
 
-        transform.position = new Vector3((int)side * 150.0f, 225.0f - 150.0f * (int)lane, 0.0f);
+        transform.position = new Vector3((int)side * 150.5f, 225.0f - 150.0f * (int)lane, 0.0f);
         /* To calculate x position: side enum is set to either -1 or 1 and then used in the calculation
          * To calculate y position: lane enum is cast into an int and is used to calculate how far down from the first lane its position is going to be.*/
 
@@ -118,7 +119,7 @@ public class WeaponBehaviour : MonoBehaviour
                 break;
         }
         gameObject.name = "Weapon_" + player.tag + "_" + lane.ToString();
-        gameObject.tag = "Weapon_" + player.tag + "_Lane" + (int)(lane+1);
+        gameObject.tag = "Weapon_" + player.tag + "_" + lane.ToString();
     }
 
     // Update is called once per frame
@@ -239,29 +240,49 @@ public class WeaponBehaviour : MonoBehaviour
         {
             if (lane == player_behaviour.lane)
             {
-                if (Input.GetKeyDown(input_key))
+                GameObject[] weapons_in_lane = GameObject.FindGameObjectsWithTag(gameObject.tag);
+                bool biggest_in_lane = true;
+                if (weapons_in_lane.Length > 1)
                 {
-                    Debug.Log(side + " disabled a " + attack_colour + " weapon!!");
-                    switch (weapon_state)
+                    for (int i = 0; i < weapons_in_lane.Length; i++)
                     {
-                        case WeaponState.GrowingOverThreshold:
-                            score_behaviour.addScore((int)(hit_score * grow_timer / grow_interval));
-                            break;
-                        case WeaponState.Charging:
-                            score_behaviour.addScore((int)(hit_score - (hit_score / 2) * (stay_charged_timer / stay_charged_interval)));
-                            break;
+                        if (gameObject.GetInstanceID() != weapons_in_lane[i].GetInstanceID())
+                        {
+                            WeaponBehaviour other_weapon_behaviour = weapons_in_lane[i].GetComponent<WeaponBehaviour>();
+                            if (grow_timer + stay_charged_timer < other_weapon_behaviour.grow_timer + other_weapon_behaviour.stay_charged_timer)
+                            {
+                                biggest_in_lane = false;
+                            }
+                        }
                     }
-
-                    Destroy(gameObject);
-
                 }
-                else if (Input.GetKeyDown(red_key) || Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key))
+
+                if (biggest_in_lane == true)
                 {
-                    grow_timer = grow_interval;
-                    sprite_renderer.color = bad;
-                    attack_colour = AttackColour.Bad;
-                    input_key = KeyCode.None;
-                    Debug.Log(side + " shot a weapon with the wrong attack colour");
+                    if (Input.GetKeyDown(input_key))
+                    {
+                        Debug.Log(side + " disabled a " + attack_colour + " weapon!!");
+                        switch (weapon_state)
+                        {
+                            case WeaponState.GrowingOverThreshold:
+                                score_behaviour.addScore((int)(hit_score * grow_timer / grow_interval));
+                                break;
+                            case WeaponState.Charging:
+                                score_behaviour.addScore((int)(hit_score - (hit_score / 2) * (stay_charged_timer / stay_charged_interval)));
+                                break;
+                        }
+
+                        Destroy(gameObject);
+
+                    }
+                    else if (Input.GetKeyDown(red_key) || Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key))
+                    {
+                        grow_timer = grow_interval;
+                        sprite_renderer.color = bad;
+                        attack_colour = AttackColour.Bad;
+                        input_key = KeyCode.None;
+                        Debug.Log(side + " shot a weapon with the wrong attack colour");
+                    }
                 }
             }
         }

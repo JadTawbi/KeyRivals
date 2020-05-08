@@ -12,7 +12,6 @@ public class PlayerBehaviour : MonoBehaviour
     public KeyCode move_up, move_down;
     private KeyCode red_key, green_key, blue_key, yellow_key;
     private Vector3 move_distance;
-    private GameObject[] active_weapons;
 
     public GameObject weapon_prefab;
     public Transform weapon_spawner;
@@ -26,8 +25,16 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject health;
     private HealthBehaviour health_behaviour;
 
+    private float stun_timer;
+    private const float stun_interval = 5.0f;
+
+    public GameObject score;
+    private ScoreBehaviour score_behaviour;
+
     void Start()
     {
+        stun_timer = 0.0f;
+
         move_distance = new Vector3(0.0f, 150.0f, 0.0f);
 
         if (gameObject.CompareTag("Player1"))
@@ -46,9 +53,13 @@ public class PlayerBehaviour : MonoBehaviour
             blue_key = KeyCode.K;
             yellow_key = KeyCode.L;
         }
+
         recover_red_pressed = recover_green_pressed = recover_blue_pressed = recover_yellow_pressed = false;
+
         stun_overlay.SetActive(false);
+
         health_behaviour = health.GetComponent<HealthBehaviour>();
+        score_behaviour = score.GetComponent<ScoreBehaviour>();
     }
 
     // Update is called once per frame
@@ -92,17 +103,9 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
         }
 
-        active_weapons = GameObject.FindGameObjectsWithTag("Weapon"); //To-do: Refactor to make player check all inputs
-        bool weapon_is_occupied = false;
-        for (int i = 0; i < active_weapons.Length; i++)
-        {
-            if (("Weapon_" + gameObject.name + "_" + lane.ToString()) == active_weapons[i].name)
-            {
-                weapon_is_occupied = true;
-                break;
-            }
-        }
-        if (weapon_is_occupied == false)
+        GameObject[] weapons_in_lane = GameObject.FindGameObjectsWithTag("Weapon_" + gameObject.tag + "_" + lane.ToString());
+        //Debug.Log("There is " + weapons_in_lane.Length + " weapons in the " + lane.ToString() + " lane.");
+        if (weapons_in_lane.Length == 0)
         {
             WeaponBehaviour new_weapon_behaviour = Instantiate(weapon_prefab, weapon_spawner).GetComponent<WeaponBehaviour>();
             new_weapon_behaviour.grow_interval = weapon_spawner.GetComponent<WeaponSpawnerBehaviour>().spawn_offset;
@@ -111,6 +114,13 @@ public class PlayerBehaviour : MonoBehaviour
             new_weapon_behaviour.attack_colour = WeaponBehaviour.AttackColour.Bad;
 
             Debug.Log(gameObject.name + " charges up an inactive weapon in " + lane + " lane :(");
+        }
+        else if (weapons_in_lane.Length == 1)
+        {
+            if (weapons_in_lane[0].GetComponent<WeaponBehaviour>().weapon_state == WeaponBehaviour.WeaponState.GrowingUnderThreshold)
+            {
+                score_behaviour.resetStreak();
+            }
         }
     }
 
@@ -156,10 +166,13 @@ public class PlayerBehaviour : MonoBehaviour
             recover_yellow_pressed = true;
         }
 
-        if(recover_red_pressed && recover_green_pressed && recover_blue_pressed && recover_yellow_pressed)
+        if((recover_red_pressed && recover_green_pressed && recover_blue_pressed && recover_yellow_pressed) || (stun_timer >= stun_interval))
         {
+            stun_timer = 0.0f;
             changeToPlayerState(PlayerState.Alive);
         }
+
+        stun_timer += Time.deltaTime;
     }
 
     public void changeToPlayerState(PlayerState state)

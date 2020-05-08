@@ -973,6 +973,7 @@ MonoBehaviour:
   weapon_spawner: {fileID: 1929569137}
   stun_overlay: {fileID: 1758789435}
   health: {fileID: 1519470570}
+  score: {fileID: 1788825693}
 --- !u!212 &509144851
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1012,9 +1013,9 @@ SpriteRenderer:
   m_SortingLayerID: 2143734781
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 441f5657fdb6da7409bc41c8c2ad67b4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4983744020bc78d4795178ccba38a90a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.4, y: 2.72}
@@ -2151,7 +2152,7 @@ SpriteRenderer:
   m_SortingLayerID: 2143734781
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8d4dc2583d0f99c43bcf6aa429a69cea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec381acd7fc029b48b265101e2066c43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2196,6 +2197,7 @@ MonoBehaviour:
   weapon_spawner: {fileID: 1929569137}
   stun_overlay: {fileID: 422607519}
   health: {fileID: 2071066874}
+  score: {fileID: 412791430}
 --- !u!1 &1684429653
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,7 +2628,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7936fda552a40824cb92f916e7051d7d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
