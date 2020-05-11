@@ -34,6 +34,9 @@ public class WeaponBehaviour : MonoBehaviour
     private const float hit_score = 100.0f;
     private const float hit_lower_threshold = 0.65f;
 
+    public GameObject part;
+    private const int part_drop_chance = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -270,6 +273,12 @@ public class WeaponBehaviour : MonoBehaviour
                             case WeaponState.Charging:
                                 score_behaviour.addScore((int)(hit_score - (hit_score / 2) * (stay_charged_timer / stay_charged_interval)));
                                 break;
+                        }
+                        if (Random.Range(0.0f, 100.0f) <= part_drop_chance)
+                        {
+                            Vector3 new_part_position = transform.position + new Vector3(104.0f * (int)side, 0.0f, 0.0f);
+                            Quaternion new_part_rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f * (int)side);
+                            Instantiate(part, new_part_position, new_part_rotation);
                         }
 
                         Destroy(gameObject);

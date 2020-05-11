@@ -97,3 +97,4 @@ MonoBehaviour:
   lane: 0
   attack_colour: 0
   side: -1
+  part: {fileID: 886869504675853419, guid: 3cd15d66be14aa54fb108af37e7050eb, type: 3}

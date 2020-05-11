@@ -18,6 +18,7 @@ TagManager:
   - Weapon_Player2_Second
   - Weapon_Player2_Third
   - Weapon_Player2_Fourth
+  - Part
   layers:
   - Default
   - TransparentFX

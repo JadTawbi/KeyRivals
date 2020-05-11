@@ -193,4 +193,13 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Part") == true)
+        {
+            // add part to slot
+            Destroy(collision.gameObject);
+            Debug.Log(side + (" has collected a power up part"));
+        }
+    }
 }
