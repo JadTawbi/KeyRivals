@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class HealthBehaviour : MonoBehaviour
 {
-    public GameObject hp1, hp2, hp3;
+    public GameObject[] hp_objects = new GameObject[3];
     [System.NonSerialized]
     public int hit_points;
+    private const int MAX_HP = 3;
 
     public GameObject player;
     private PlayerBehaviour player_behaviour;
@@ -33,58 +34,27 @@ public class HealthBehaviour : MonoBehaviour
 
     private void checkHitPoints()
     {
-        if (hit_points < 3)
+        for (int i = 0; i < MAX_HP; i++)
         {
-            if (hp3.activeSelf == true)
+            if (i < hit_points)
             {
-                hp3.SetActive(false);
-            }
-            if (hit_points < 2)
-            {
-                if (hp2.activeSelf == true)
+                if (hp_objects[i].activeSelf != true)
                 {
-                    hp2.SetActive(false);
-                }
-                if (hit_points < 1)
-                {
-                    if (hp1.activeSelf == true)
-                    {
-                        hp1.SetActive(false);
-                        player_behaviour.changeToPlayerState(PlayerBehaviour.PlayerState.Stunned);
-                    }
-                }
-                else if (hp1.activeSelf == false)
-                {
-                    hp1.SetActive(true);
+                    hp_objects[i].SetActive(true);
                 }
             }
             else
             {
-                if (hp2.activeSelf == false)
+                if (hp_objects[i].activeSelf != false)
                 {
-                    hp2.SetActive(true);
-                }
-                if (hp1.activeSelf == false)
-                {
-                    hp1.SetActive(true);
-                }
+                    hp_objects[i].SetActive(false);
+                    if (i == 0)
+                    {
+                        player_behaviour.changeToPlayerState(PlayerBehaviour.PlayerState.Stunned);
+                    }
+                } 
             }
         }
-        else
-        {
-            if (hp3.activeSelf == false)
-            {
-                hp3.SetActive(true);
-            }
-            if (hp2.activeSelf == false)
-            {
-                hp2.SetActive(true);
-            }
-            if (hp1.activeSelf == false)
-            {
-                hp1.SetActive(true);
-            }
-        } 
     }
 
     public void loseHealth()

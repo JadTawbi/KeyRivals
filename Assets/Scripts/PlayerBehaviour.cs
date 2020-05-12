@@ -31,6 +31,9 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject score;
     private ScoreBehaviour score_behaviour;
 
+    public GameObject powerup_builder;
+    private BuilderBehaviour builder_behaviour;
+
     void Start()
     {
         stun_timer = 0.0f;
@@ -60,6 +63,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         health_behaviour = health.GetComponent<HealthBehaviour>();
         score_behaviour = score.GetComponent<ScoreBehaviour>();
+        builder_behaviour = powerup_builder.GetComponent<BuilderBehaviour>();
     }
 
     // Update is called once per frame
@@ -197,7 +201,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if(collision.CompareTag("Part") == true)
         {
-            // add part to slot
+            GameObject collision_game_object = collision.gameObject;
+            builder_behaviour.addPart(collision_game_object.GetComponent<SpriteRenderer>().sprite, collision_game_object.GetComponent<PartBehaviour>().part_type);
             Destroy(collision.gameObject);
             Debug.Log(side + (" has collected a power up part"));
         }
