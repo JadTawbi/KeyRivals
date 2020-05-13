@@ -199,7 +199,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Part") == true)
+        if(collision.CompareTag("Part") == true && builder_behaviour.part_count < 3)
         {
             GameObject collision_game_object = collision.gameObject;
             builder_behaviour.addPart(collision_game_object.GetComponent<SpriteRenderer>().sprite, collision_game_object.GetComponent<PartBehaviour>().part_type);

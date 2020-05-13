@@ -720,7 +720,7 @@ SpriteRenderer:
   m_SortingLayerID: 1067405079
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7549c775afb4a634ca2fd3d598d01ee5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 79612652d643dcd47ba0bca1f748c14c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1310,7 +1310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 509144849}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 720, y: 225, z: 0}
+  m_LocalPosition: {x: 730, y: 225, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 434442008}
@@ -2167,9 +2167,9 @@ MonoBehaviour:
   m_enableVertexGradient: 1
   m_colorMode: 1
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 1, g: 0.5786965, b: 0.25943398, a: 1}
     topRight: {r: 1, g: 0.8839975, b: 0.5518868, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 0.5786965, b: 0.25943398, a: 1}
     bottomRight: {r: 1, g: 0.8839975, b: 0.5518868, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
@@ -2742,7 +2742,7 @@ SpriteRenderer:
   m_SortingLayerID: 2143734781
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 4983744020bc78d4795178ccba38a90a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4c5e4b5071b4d11498bd9858ec5b7f8e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2761,7 +2761,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677370561}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -720, y: 225, z: 0}
+  m_LocalPosition: {x: -730, y: 225, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 434442008}
@@ -3197,7 +3197,7 @@ SpriteRenderer:
   m_SortingLayerID: 1067405079
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7549c775afb4a634ca2fd3d598d01ee5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 79612652d643dcd47ba0bca1f748c14c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3585,9 +3585,9 @@ MonoBehaviour:
   m_enableVertexGradient: 1
   m_colorMode: 1
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 1, g: 0.5803922, b: 0.25882354, a: 1}
     topRight: {r: 1, g: 0.88235295, b: 0.5529412, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 0.5803922, b: 0.25882354, a: 1}
     bottomRight: {r: 1, g: 0.88235295, b: 0.5529412, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}

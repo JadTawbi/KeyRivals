@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PartBehaviour : MonoBehaviour
 {
-    private const float speed = 150.0f, floor_position = 815;
+    private const float speed = 150.0f, floor_position = 825;
 
-    public enum PartType { One = 1, Two = 2, Three = 3 };
+    public enum PartType { Blue = 1, Red = 2, Yellow = 3 };
     [System.NonSerialized]
     public PartType part_type;
 
@@ -36,13 +36,13 @@ public class PartBehaviour : MonoBehaviour
     {
         switch(new_type)
         {
-            case PartType.One:
+            case PartType.Blue:
                 sprite_renderer.sprite = type_one_sprite;
                 break;
-            case PartType.Two:
+            case PartType.Red:
                 sprite_renderer.sprite = type_two_sprite;
                 break;
-            case PartType.Three:
+            case PartType.Yellow:
                 sprite_renderer.sprite = type_three_sprite;
                 break;
         }

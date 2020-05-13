@@ -35,7 +35,7 @@ public class WeaponBehaviour : MonoBehaviour
     private const float hit_lower_threshold = 0.65f;
 
     public GameObject part;
-    private const int part_drop_chance = 10;
+    private const int part_drop_chance = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -279,7 +279,7 @@ public class WeaponBehaviour : MonoBehaviour
                             Vector3 new_part_position = transform.position + new Vector3(104.0f * (int)side, 0.0f, 0.0f);
                             Quaternion new_part_rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f * (int)side);
                             PartBehaviour new_part_behaviour = Instantiate(part, new_part_position, new_part_rotation).GetComponent<PartBehaviour>();
-                            new_part_behaviour.changeType((PartBehaviour.PartType)Random.Range(1, 3));
+                            new_part_behaviour.changeType((PartBehaviour.PartType)Random.Range(1, 4));
                         }
 
                         Destroy(gameObject);
