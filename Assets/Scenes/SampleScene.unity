@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &14774522
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -666,7 +666,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &365965538
 Transform:
   m_ObjectHideFlags: 0
@@ -908,7 +908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &422607520
 Transform:
   m_ObjectHideFlags: 0
@@ -962,7 +962,7 @@ SpriteRenderer:
   m_SortingLayerID: 1544199485
   m_SortingLayer: 4
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b8025b652c54f07428e590f012e58191, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0, b: 0, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
@@ -970,7 +970,7 @@ SpriteRenderer:
   m_Size: {x: 9.6, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &434442007
@@ -1226,7 +1226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &488360444
 Transform:
   m_ObjectHideFlags: 0
@@ -1330,6 +1330,8 @@ MonoBehaviour:
     type: 3}
   weapon_spawner: {fileID: 1929569137}
   stun_overlay: {fileID: 1758789435}
+  stun_overlay_sprite: {fileID: 21300000, guid: b8025b652c54f07428e590f012e58191,
+    type: 3}
   health: {fileID: 1519470570}
   score: {fileID: 1788825693}
   powerup_builder: {fileID: 1550768698}
@@ -1899,7 +1901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1175293194
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2096,6 +2098,36 @@ MonoBehaviour:
   - {fileID: 365965537}
   - {fileID: 2130686433}
   part_count: 0
+--- !u!1 &1343836058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1343836059}
+  m_Layer: 0
+  m_Name: Parts
+  m_TagString: Parts Container
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1343836059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343836058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1407836737
 GameObject:
   m_ObjectHideFlags: 0
@@ -2454,6 +2486,10 @@ MonoBehaviour:
   - {fileID: 1684429653}
   - {fileID: 868325320}
   - {fileID: 137241051}
+  hp_sprites:
+  - {fileID: 21300000, guid: 02e82679d9460114a9a5c3b302ccdecc, type: 3}
+  - {fileID: 21300000, guid: bd578bbf3415899418a873d6bda9a6a6, type: 3}
+  - {fileID: 21300000, guid: 4d9f1329962aae049a556096073f5845, type: 3}
   player: {fileID: 509144849}
 --- !u!4 &1519470572
 Transform:
@@ -2702,7 +2738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1634567858
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2870,6 +2906,8 @@ MonoBehaviour:
     type: 3}
   weapon_spawner: {fileID: 1929569137}
   stun_overlay: {fileID: 422607519}
+  stun_overlay_sprite: {fileID: 21300000, guid: b8025b652c54f07428e590f012e58191,
+    type: 3}
   health: {fileID: 2071066874}
   score: {fileID: 412791430}
   powerup_builder: {fileID: 1252566619}
@@ -3098,7 +3136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1758789436
 Transform:
   m_ObjectHideFlags: 0
@@ -3152,7 +3190,7 @@ SpriteRenderer:
   m_SortingLayerID: 1544199485
   m_SortingLayer: 4
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b8025b652c54f07428e590f012e58191, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0, b: 0, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
@@ -3160,7 +3198,7 @@ SpriteRenderer:
   m_Size: {x: 9.6, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1788825693
@@ -3835,6 +3873,10 @@ MonoBehaviour:
   - {fileID: 1529314047}
   - {fileID: 1407836737}
   - {fileID: 45866600}
+  hp_sprites:
+  - {fileID: 21300000, guid: 02e82679d9460114a9a5c3b302ccdecc, type: 3}
+  - {fileID: 21300000, guid: bd578bbf3415899418a873d6bda9a6a6, type: 3}
+  - {fileID: 21300000, guid: 4d9f1329962aae049a556096073f5845, type: 3}
   player: {fileID: 1677370561}
 --- !u!4 &2071066876
 Transform:
@@ -3902,7 +3944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2130686434
 Transform:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ TagManager:
   - Weapon_Player2_Third
   - Weapon_Player2_Fourth
   - Part
+  - Parts Container
   layers:
   - Default
   - TransparentFX

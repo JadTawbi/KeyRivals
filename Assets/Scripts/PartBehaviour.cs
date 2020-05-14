@@ -7,7 +7,7 @@ public class PartBehaviour : MonoBehaviour
 {
     private const float speed = 150.0f, floor_position = 825;
 
-    public enum PartType { Blue = 1, Red = 2, Yellow = 3 };
+    public enum PartType { Blue, Red, Yellow };
     [System.NonSerialized]
     public PartType part_type;
 
@@ -16,7 +16,7 @@ public class PartBehaviour : MonoBehaviour
 
     void Start()
     {
-
+        gameObject.name = part_type.ToString() + " Part";
     }
 
     void Update()

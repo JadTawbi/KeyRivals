@@ -31,11 +31,12 @@ public class WeaponBehaviour : MonoBehaviour
     [System.NonSerialized]
     public WeaponState weapon_state;
 
-    private const float hit_score = 100.0f;
-    private const float hit_lower_threshold = 0.65f;
+    private const float HIT_SCORE = 100.0f;
+    private const float HIT_LOWER_THRESHOLD = 0.65f;
 
     public GameObject part;
-    private const int part_drop_chance = 100;
+    private const int PART_DROP_CHANCE = 100;
+    private Transform parts_parent;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,7 @@ public class WeaponBehaviour : MonoBehaviour
         yellow = new Color(0.969f, 1.0f, 0.0f);
         bad = new Color(0.60f, 0, 0.80f);
 
-        initializeCharacteristics();
+        initializeProperties();
 
         if (attack_colour == AttackColour.Bad)
         {
@@ -61,9 +62,11 @@ public class WeaponBehaviour : MonoBehaviour
             grow_timer = 0.0f;
             weapon_state = WeaponState.GrowingOverThreshold;
         }
+
+        parts_parent = GameObject.FindWithTag("Parts Container").transform;
     }
 
-    void initializeCharacteristics()
+    void initializeProperties()
     {
         switch (side)
         {
@@ -130,13 +133,16 @@ public class WeaponBehaviour : MonoBehaviour
     {
         checkWeaponState();
 
-        checkHitMiss();
+        if (player_behaviour.player_state == PlayerBehaviour.PlayerState.Alive)
+        {
+            checkHitMiss();
+        }
         growFilling();
     }
 
     void checkWeaponState()
     {
-        if (grow_timer < grow_interval * hit_lower_threshold)
+        if (grow_timer < grow_interval * HIT_LOWER_THRESHOLD)
         {
             if (weapon_state != WeaponState.GrowingUnderThreshold)
             {
@@ -268,18 +274,18 @@ public class WeaponBehaviour : MonoBehaviour
                         switch (weapon_state)
                         {
                             case WeaponState.GrowingOverThreshold:
-                                score_behaviour.addScore((int)(hit_score * grow_timer / grow_interval));
+                                score_behaviour.addScore((int)(HIT_SCORE * grow_timer / grow_interval));
                                 break;
                             case WeaponState.Charging:
-                                score_behaviour.addScore((int)(hit_score - (hit_score / 2) * (stay_charged_timer / stay_charged_interval)));
+                                score_behaviour.addScore((int)(HIT_SCORE - (HIT_SCORE / 2) * (stay_charged_timer / stay_charged_interval)));
                                 break;
                         }
-                        if (Random.Range(0.0f, 100.0f) <= part_drop_chance)
+                        if (Random.Range(0.0f, 100.0f) <= PART_DROP_CHANCE)
                         {
                             Vector3 new_part_position = transform.position + new Vector3(104.0f * (int)side, 0.0f, 0.0f);
                             Quaternion new_part_rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f * (int)side);
-                            PartBehaviour new_part_behaviour = Instantiate(part, new_part_position, new_part_rotation).GetComponent<PartBehaviour>();
-                            new_part_behaviour.changeType((PartBehaviour.PartType)Random.Range(1, 4));
+                            PartBehaviour new_part_behaviour = Instantiate(part, new_part_position, new_part_rotation, parts_parent).GetComponent<PartBehaviour>();
+                            new_part_behaviour.changeType((PartBehaviour.PartType)Random.Range(0, 3));
                         }
 
                         Destroy(gameObject);

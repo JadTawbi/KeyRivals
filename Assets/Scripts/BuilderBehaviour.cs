@@ -5,55 +5,40 @@ using UnityEngine;
 
 public class BuilderBehaviour : MonoBehaviour
 {
-    public GameObject[] parts = new GameObject[3];
-    private PartBehaviour.PartType[] parts_type = new PartBehaviour.PartType[3];
-    public int part_count;
     private const int MAX_PARTS = 3;
+    public GameObject[] parts = new GameObject[MAX_PARTS];
+    private SpriteRenderer[] parts_sprite_renderer = new SpriteRenderer[MAX_PARTS];
+    private PartBehaviour.PartType[] parts_type;
+    public int part_count;
 
-    public enum PowerUpType { Character = 1, One = 5/6, Two = 7/11, Three = 8/9, Four = 11/14, Five = 15/19, Six = 16/17, Seven = 21/22};
+    public enum PowerUpType { Character = 0, One = 12, Two = 21, Three = 102, Four = 120, Five = 111, Six = 201, Seven = 210 };
     private PowerUpType power_up_type;
+    private int[] part_type_amounts;
 
-    //1 2 3
-
-    // (first*second + first*third + second*third) / (first squared + second squared + third squared) = unique number 
-    /* 111 = a = 1+1+1 / 1+1+1 = 1
-     * 112 = b = 1+2+2 / 1+1+4 = 5/6
-     * 113 = c = 1+3+3 / 1+1+9 = 7/11
-     * 121 = b = 2+1+2 / 1+4+1 = 5/6
-     * 122 = d = 2+2+4 / 1+4+4 = 8/9
-     * 123 = e = 2+3+6 / 1+4+9 = 11/14
-     * 131 = c = 3+1+3 / 1+9+1 = 7/11
-     * 132 = e = 3+2+6 / 1+9+4 = 11/14
-     * 133 = f = 3+3+9 / 1+9+9 = 15/19
-     * 211 = b = 2+2+1 / 4+1+1 = 5/6
-     * 212 = d = 2+4+2 / 4+1+4 = 8/9
-     * 213 = e = 2+6+3 / 4+1+9 = 11/14
-     * 221 = d = 4+2+2 / 4+4+1 = 8/9
-     * 222 = a = 4+4+4 / 4+4+4 = 1
-     * 223 = g = 4+6+6 / 4+4+9 = 16/17
-     * 231 = e = 6+2+3 / 4+9+1 = 11/14
-     * 232 = g = 6+4+6 / 4+9+4 = 16/17
-     * 233 = h = 6+6+9 / 4+9+9 = 21/22
-     * 311 = c = 3+3+1 / 9+1+1 = 7/11
-     * 312 = e = 3+6+2 / 9+1+4 = 11/14
-     * 313 = f = 3+9+3 / 9+1+9 = 15/19
-     * 321 = e = 6+3+2 / 9+4+1 = 11/14
-     * 322 = g = 6+6+4 / 9+4+4 = 16/17
-     * 323 = h = 6+9+6 / 9+4+9 = 21/22
-     * 331 = f = 9+3+3 / 9+9+1 = 15/19
-     * 332 = h = 9+6+6 / 9+9+4 = 21/22
-     * 333 = a = 9+9+9 / 9+9+9 = 1
-     * 
-     * a=1, b=5/6, c=7/11, d=8/9, e=11/14, f=15/19, g=16/17, h=21/22
-     */
-
-
-    public enum PowerupType { A}
+    public enum BuilderState { Collecting, PowerupReady };
+    private BuilderState builder_state;
 
     void Start()
     {
-        part_count = 0;
+        for (int i = 0; i < MAX_PARTS; i++)
+        {
+            parts_sprite_renderer[i] = parts[i].GetComponent<SpriteRenderer>();
+        }
+        initializeProperties();
         //To-do: Set PowerUPType.Character to a character specific script;
+    }
+
+    private void initializeProperties()
+    {
+        parts_type = new PartBehaviour.PartType[3];
+        part_count = 0;
+        part_type_amounts = new int[3] { 0, 0, 0 };
+        builder_state = BuilderState.Collecting;
+        power_up_type = PowerUpType.Character;
+        for (int i = 0; i < MAX_PARTS; i++)
+        {
+            parts_sprite_renderer[i].sprite = null;
+        }
     }
 
     void Update()
@@ -63,32 +48,53 @@ public class BuilderBehaviour : MonoBehaviour
 
     public void addPart(Sprite new_part_sprite, PartBehaviour.PartType new_part_type)
     {
-        if (part_count < MAX_PARTS)
+        if (builder_state == BuilderState.Collecting)
         {
-            parts[part_count].GetComponent<SpriteRenderer>().sprite = new_part_sprite;
-            parts_type[part_count] = new_part_type;
-            parts[part_count].SetActive(true);
-            part_count++;
-        }
+            if (part_count < MAX_PARTS)
+            {
+                parts_sprite_renderer[part_count].sprite = new_part_sprite;
+                parts_type[part_count] = new_part_type;
+                part_type_amounts[(int)new_part_type]++;
+                part_count++;
+            }
 
-        if (part_count == 3)
-        {
-            //Build powerup
-            // (first*second + first*third + second*third) / (first squared + second squared + third squared) = unique number
+            if (part_count == MAX_PARTS)
+            {
+                bool character_specific_powerup = false;
+                for (int i = 0; i < MAX_PARTS; i++)
+                {
+                    if (part_type_amounts[i] == MAX_PARTS)
+                    {
+                        character_specific_powerup = true;
+                    }
+                }
+                if (character_specific_powerup == true)
+                {
+                    power_up_type = PowerUpType.Character;
+                }
+                else
+                {
+                    int power_up_code = 0;
+                    for (int i = 0; i < MAX_PARTS; i++)
+                    {
+                        power_up_code += part_type_amounts[i] * (int)(Mathf.Pow(10, (MAX_PARTS - 1) - i));
+                    }
+                    power_up_type = (PowerUpType)power_up_code;
+                }
 
-            int part1_type_int, part2_type_int, part3_type_int;
-            part1_type_int = (int)parts_type[0];
-            part2_type_int = (int)parts_type[1];
-            part3_type_int = (int)parts_type[2];
-            power_up_type = (PowerUpType)((part1_type_int * part2_type_int + part1_type_int * part3_type_int + part2_type_int * part3_type_int) /
-                                           (Mathf.Pow(part1_type_int, 2) + Mathf.Pow(part2_type_int, 2) + Mathf.Pow(part3_type_int, 2)));
-            Debug.Log("Player has created a PowerUp of type " + power_up_type + " by combining parts " + part1_type_int + ", " + part2_type_int + " and " + part3_type_int);
-            //set active powerup
+                Debug.Log(gameObject.name + " built a powerup of type " + power_up_type.ToString());
+
+                builder_state = BuilderState.PowerupReady;
+
+                //set active powerup
+            }
         }
     }
 
-    public void resetPowerup()
+    public void usePowerup()
     {
-        //to be called when player uses powerup
+        //use powerup
+
+        initializeProperties();
     }
 }

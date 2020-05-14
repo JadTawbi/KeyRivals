@@ -22,11 +22,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     bool recover_red_pressed, recover_green_pressed, recover_blue_pressed, recover_yellow_pressed;
     public GameObject stun_overlay;
+    private SpriteRenderer stun_overlay_sprite_renderer;
+    public Sprite stun_overlay_sprite;
     public GameObject health;
     private HealthBehaviour health_behaviour;
 
     private float stun_timer;
-    private const float stun_interval = 5.0f;
+    private const float STUN_INTERVAL = 5.0f;
 
     public GameObject score;
     private ScoreBehaviour score_behaviour;
@@ -59,11 +61,12 @@ public class PlayerBehaviour : MonoBehaviour
 
         recover_red_pressed = recover_green_pressed = recover_blue_pressed = recover_yellow_pressed = false;
 
-        stun_overlay.SetActive(false);
-
         health_behaviour = health.GetComponent<HealthBehaviour>();
         score_behaviour = score.GetComponent<ScoreBehaviour>();
         builder_behaviour = powerup_builder.GetComponent<BuilderBehaviour>();
+
+        stun_overlay_sprite_renderer = stun_overlay.GetComponent<SpriteRenderer>();
+        stun_overlay_sprite_renderer.sprite = null;
     }
 
     // Update is called once per frame
@@ -170,7 +173,7 @@ public class PlayerBehaviour : MonoBehaviour
             recover_yellow_pressed = true;
         }
 
-        if((recover_red_pressed && recover_green_pressed && recover_blue_pressed && recover_yellow_pressed) || (stun_timer >= stun_interval))
+        if((recover_red_pressed && recover_green_pressed && recover_blue_pressed && recover_yellow_pressed) || (stun_timer >= STUN_INTERVAL))
         {
             stun_timer = 0.0f;
             changeToPlayerState(PlayerState.Alive);
@@ -185,13 +188,13 @@ public class PlayerBehaviour : MonoBehaviour
         {
             case PlayerState.Alive:
                 player_state = PlayerState.Alive;
-                stun_overlay.SetActive(false);
+                stun_overlay_sprite_renderer.sprite = null;
                 health_behaviour.resetHealth();
                 Debug.Log(gameObject.name + " is now alive");
                 break;
             case PlayerState.Stunned:
                 player_state = PlayerState.Stunned;
-                stun_overlay.SetActive(true);
+                stun_overlay_sprite_renderer.sprite = stun_overlay_sprite;
                 recover_red_pressed = recover_green_pressed = recover_blue_pressed = recover_yellow_pressed = false;
                 Debug.Log(gameObject.name + " is now stunned");
                 break;
@@ -199,12 +202,12 @@ public class PlayerBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Part") == true && builder_behaviour.part_count < 3)
+        if(collision.CompareTag("Part") == true)
         {
             GameObject collision_game_object = collision.gameObject;
             builder_behaviour.addPart(collision_game_object.GetComponent<SpriteRenderer>().sprite, collision_game_object.GetComponent<PartBehaviour>().part_type);
             Destroy(collision.gameObject);
-            Debug.Log(side + (" has collected a power up part"));
+            Debug.Log(side + (" has collected a " + collision.name));
         }
     }
 }
