@@ -13,8 +13,6 @@ public class BuilderBehaviour : MonoBehaviour
     public enum PowerUpType { Character = 1, One = 5/6, Two = 7/11, Three = 8/9, Four = 11/14, Five = 15/19, Six = 16/17, Seven = 21/22};
     private PowerUpType power_up_type;
 
-    private WeaponBehaviour.Side side;
-
     //1 2 3
 
     // (first*second + first*third + second*third) / (first squared + second squared + third squared) = unique number 
@@ -84,7 +82,7 @@ public class BuilderBehaviour : MonoBehaviour
             part3_type_int = (int)parts_type[2];
             power_up_type = (PowerUpType)((part1_type_int * part2_type_int + part1_type_int * part3_type_int + part2_type_int * part3_type_int) /
                                            (Mathf.Pow(part1_type_int, 2) + Mathf.Pow(part2_type_int, 2) + Mathf.Pow(part3_type_int, 2)));
-            Debug.Log(side + " has created a PowerUp of type " + power_up_type + " by combining a " + part1_type_int + ", "+ part2_type_int +" and "+ part3_type_int +" part");
+            Debug.Log("Player has created a PowerUp of type " + power_up_type + " by combining parts " + part1_type_int + ", " + part2_type_int + " and " + part3_type_int);
             //set active powerup
         }
     }
