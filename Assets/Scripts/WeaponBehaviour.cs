@@ -35,7 +35,7 @@ public class WeaponBehaviour : MonoBehaviour
     private const float HIT_LOWER_THRESHOLD = 0.65f;
 
     public GameObject part;
-    private const int PART_DROP_CHANCE = 100;
+    private const int PART_DROP_CHANCE = 5;
     private Transform parts_parent;
 
     // Start is called before the first frame update

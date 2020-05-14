@@ -36,14 +36,21 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject powerup_builder;
     private BuilderBehaviour builder_behaviour;
 
+    public enum PlayerCharacter { BassFisher, BigLightBeam, CrownJules, HotDogg, Jojitsu, LadyGooGooGaGa, Powerdog };
+    public Sprite bass_fisher_sprite, big_light_beam_sprite, crown_jules_sprite, hot_dogg_sprite, jojitsu_sprite, lady_goo_goo_ga_ga_sprite, power_dog_sprite;
+    private SpriteRenderer sprite_renderer;
+
     void Start()
     {
         stun_timer = 0.0f;
 
         move_distance = new Vector3(0.0f, 150.0f, 0.0f);
 
+        sprite_renderer = gameObject.GetComponent<SpriteRenderer>();
+
         if (gameObject.CompareTag("Player1"))
         {
+            loadCharacter(CharacterSelectMenuBehaviour.player1_character);
             side = WeaponBehaviour.Side.Player1;
             red_key = KeyCode.Z;
             green_key = KeyCode.X;
@@ -52,6 +59,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
         else if (gameObject.CompareTag("Player2"))
         {
+            loadCharacter(CharacterSelectMenuBehaviour.player2_character);
             side = WeaponBehaviour.Side.Player2;
             red_key = KeyCode.H;
             green_key = KeyCode.J;
@@ -67,6 +75,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         stun_overlay_sprite_renderer = stun_overlay.GetComponent<SpriteRenderer>();
         stun_overlay_sprite_renderer.sprite = null;
+
     }
 
     // Update is called once per frame
@@ -208,6 +217,34 @@ public class PlayerBehaviour : MonoBehaviour
             builder_behaviour.addPart(collision_game_object.GetComponent<SpriteRenderer>().sprite, collision_game_object.GetComponent<PartBehaviour>().part_type);
             Destroy(collision.gameObject);
             Debug.Log(side + (" has collected a " + collision.name));
+        }
+    }
+
+    private void loadCharacter(PlayerCharacter player_character_to_load)
+    {
+        switch (player_character_to_load)
+        {
+            case PlayerCharacter.BassFisher:
+                sprite_renderer.sprite = bass_fisher_sprite;
+                break;
+            case PlayerCharacter.BigLightBeam:
+                sprite_renderer.sprite = big_light_beam_sprite;
+                break;
+            case PlayerCharacter.CrownJules:
+                sprite_renderer.sprite = crown_jules_sprite;
+                break;
+            case PlayerCharacter.HotDogg:
+                sprite_renderer.sprite = hot_dogg_sprite;
+                break;
+            case PlayerCharacter.Jojitsu:
+                sprite_renderer.sprite = jojitsu_sprite;
+                break;
+            case PlayerCharacter.LadyGooGooGaGa:
+                sprite_renderer.sprite = lady_goo_goo_ga_ga_sprite;
+                break;
+            case PlayerCharacter.Powerdog:
+                sprite_renderer.sprite = power_dog_sprite;
+                break;
         }
     }
 }

@@ -55,13 +55,13 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
     private int notes_displayed;
 
-    public enum Track { LucidDream, Schukran, ElTió };
+    public enum Track { LucidDream, Schukran, ElTió, Rivals };
     private TextAsset midi_as_text;
 
     // Start is called before the first frame update
     void Start()
     {
-        loadTrack(Track.Schukran);
+        loadTrack(SongSelectMenuBehaviour.track);
 
         Stream midi_as_memory_stream = new MemoryStream(midi_as_text.bytes);
         midi_file = new MidiFile(midi_as_memory_stream, true);
@@ -89,7 +89,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         switch (track_to_load)
         {
             case Track.LucidDream:
-                midi_as_text = Resources.Load("MIDI/LucidDreamMIDI_1.0") as TextAsset;   //MIDI file extension changed to .bytes manually
+                midi_as_text = Resources.Load("MIDI/LucidDreamMIDI_1.1") as TextAsset;   //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/Lucid Dream - Full 17_4 Mix") as AudioClip;
                 beats_per_minute = 90;
                 break;
@@ -103,6 +103,12 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 audio_source.clip = Resources.Load("Music/El Tió - Full 30_4") as AudioClip;
                 beats_per_minute = 125;
                 break;
+            case Track.Rivals:
+                midi_as_text = Resources.Load("MIDI/RivalsMIDI_1.0") as TextAsset;  //MIDI file extension changed to .bytes manually
+                audio_source.clip = Resources.Load("Music/Rivals - Full 10_5") as AudioClip;
+                beats_per_minute = 120;
+                break;
+
         }
         
         spawn_offset = (60.0f / beats_per_minute) * 2.0f;
