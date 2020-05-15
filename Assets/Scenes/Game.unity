@@ -860,6 +860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: {fileID: 296477368}
   score: {fileID: 1419905956}
+  easing: {fileID: 2079953500}
 --- !u!1 &413741390
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,10 +2291,10 @@ MonoBehaviour:
   m_enableVertexGradient: 1
   m_colorMode: 1
   m_fontColorGradient:
-    topLeft: {r: 1, g: 0.5786965, b: 0.25943398, a: 1}
-    topRight: {r: 1, g: 0.8839975, b: 0.5518868, a: 1}
-    bottomLeft: {r: 1, g: 0.5786965, b: 0.25943398, a: 1}
-    bottomRight: {r: 1, g: 0.8839975, b: 0.5518868, a: 1}
+    topLeft: {r: 0.34509802, g: 1, b: 0.74399656, a: 1}
+    topRight: {r: 0, g: 0.73709583, b: 1, a: 1}
+    bottomLeft: {r: 0.34509802, g: 1, b: 0.74399656, a: 1}
+    bottomRight: {r: 0, g: 0.73709583, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -3267,6 +3268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: {fileID: 485099312}
   score: {fileID: 2025073471}
+  easing: {fileID: 0}
 --- !u!1 &1810979439
 GameObject:
   m_ObjectHideFlags: 0
@@ -3923,6 +3925,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2079953499}
+  - component: {fileID: 2079953500}
   m_Layer: 5
   m_Name: Score
   m_TagString: Score
@@ -3946,6 +3949,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2079953500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079953498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422f4fdac5eea49468931c756468ff24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2130686433
 GameObject:
   m_ObjectHideFlags: 0
