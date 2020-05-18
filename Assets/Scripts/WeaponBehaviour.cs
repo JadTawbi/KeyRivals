@@ -11,7 +11,13 @@ public class WeaponBehaviour : MonoBehaviour
 
     public enum AttackColour { Red, Green, Blue, Yellow, Bad};
     public AttackColour attack_colour;
-    private Color red, green, blue, yellow, bad;
+    [System.NonSerialized]
+    static public Color 
+        red = new Color(1.0f, 0.153f, 0.0f),
+        green = new Color(0.0f, 1.0f, 0.431f),
+        blue = new Color(0.212f, 0.929f, 0.871f),
+        yellow = new Color(0.969f, 1.0f, 0.0f),
+        bad = new Color(0.60f, 0, 0.80f);
     private KeyCode input_key;
     private KeyCode red_key, green_key, blue_key, yellow_key;
 
@@ -43,12 +49,6 @@ public class WeaponBehaviour : MonoBehaviour
     {
         stay_charged_interval = grow_interval/4;
         stay_charged_timer = 0.0f;
-
-        red = new Color(1.0f, 0.153f, 0.0f);
-        green = new Color(0.0f, 1.0f, 0.431f);
-        blue = new Color(0.212f, 0.929f, 0.871f);
-        yellow = new Color(0.969f, 1.0f, 0.0f);
-        bad = new Color(0.60f, 0, 0.80f);
 
         initializeProperties();
 
@@ -236,6 +236,9 @@ public class WeaponBehaviour : MonoBehaviour
                 break;
             case WeaponState.Shooting:
                 //Debug.Log(attack_colour + " weapon shot " + side);
+                GameObject beam_to_shoot = GameObject.FindWithTag("Beam_" + side.ToString() + "_" + lane.ToString());
+                beam_to_shoot.GetComponent<SpriteRenderer>().color = bad;
+                beam_to_shoot.GetComponent<Animator>().SetTrigger("weaponShoot");
                 health_behaviour.loseHealth();
                 score_behaviour.resetStreak();
                 Destroy(gameObject);
@@ -287,7 +290,9 @@ public class WeaponBehaviour : MonoBehaviour
                             PartBehaviour new_part_behaviour = Instantiate(part, new_part_position, new_part_rotation, parts_parent).GetComponent<PartBehaviour>();
                             new_part_behaviour.changeType((PartBehaviour.PartType)Random.Range(0, 3));
                         }
-
+                        GameObject noice_to_play = GameObject.FindWithTag("Noice_" + side.ToString() + "_" + lane.ToString());
+                        noice_to_play.GetComponent<SpriteRenderer>().color = sprite_renderer.color;
+                        noice_to_play.GetComponent<Animator>().SetTrigger("noiceTrigger");
                         Destroy(gameObject);
 
                     }

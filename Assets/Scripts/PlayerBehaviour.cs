@@ -117,25 +117,25 @@ public class PlayerBehaviour : MonoBehaviour
         switch (attack_colour)
         {
             case WeaponBehaviour.AttackColour.Red:
-                beams[(int)lane].GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.153f, 0.0f);
+                beams[(int)lane].GetComponent<SpriteRenderer>().color = WeaponBehaviour.red;
                 break;
             case WeaponBehaviour.AttackColour.Green:
-                beams[(int)lane].GetComponent<SpriteRenderer>().color = new Color(0.0f, 1.0f, 0.431f);
+                beams[(int)lane].GetComponent<SpriteRenderer>().color = WeaponBehaviour.green;
                 break;
             case WeaponBehaviour.AttackColour.Blue:
-                beams[(int)lane].GetComponent<SpriteRenderer>().color = new Color(0.212f, 0.929f, 0.871f);
+                beams[(int)lane].GetComponent<SpriteRenderer>().color = WeaponBehaviour.blue;
                 break;
             case WeaponBehaviour.AttackColour.Yellow:
-                beams[(int)lane].GetComponent<SpriteRenderer>().color = new Color(0.969f, 1.0f, 0.0f);
+                beams[(int)lane].GetComponent<SpriteRenderer>().color = WeaponBehaviour.yellow;
                 break;
         }
 
-        beams[(int)lane].GetComponent<Animator>().SetTrigger("shootBeam");
 
         GameObject[] weapons_in_lane = GameObject.FindGameObjectsWithTag("Weapon_" + gameObject.tag + "_" + lane.ToString());
         //Debug.Log("There is " + weapons_in_lane.Length + " weapons in the " + lane.ToString() + " lane.");
         if (weapons_in_lane.Length == 0)
         {
+            beams[(int)lane].GetComponent<Animator>().SetTrigger("playerShoot");
             WeaponBehaviour new_weapon_behaviour = Instantiate(weapon_prefab, weapon_spawner).GetComponent<WeaponBehaviour>();
             new_weapon_behaviour.grow_interval = weapon_spawner.GetComponent<WeaponSpawnerBehaviour>().spawn_offset;
             new_weapon_behaviour.lane = lane;
@@ -149,6 +149,10 @@ public class PlayerBehaviour : MonoBehaviour
             if (weapons_in_lane[0].GetComponent<WeaponBehaviour>().weapon_state == WeaponBehaviour.WeaponState.GrowingUnderThreshold)
             {
                 score_behaviour.resetStreak();
+            }
+            else
+            {
+                beams[(int)lane].GetComponent<Animator>().SetTrigger("playerShoot");
             }
         }
     }
@@ -195,7 +199,7 @@ public class PlayerBehaviour : MonoBehaviour
             recover_yellow_pressed = true;
         }
 
-        if((recover_red_pressed && recover_green_pressed && recover_blue_pressed && recover_yellow_pressed) || (stun_timer >= STUN_INTERVAL))
+        if ((recover_red_pressed && recover_green_pressed && recover_blue_pressed && recover_yellow_pressed) || (stun_timer >= STUN_INTERVAL))
         {
             stun_timer = 0.0f;
             changeToPlayerState(PlayerState.Alive);
@@ -206,16 +210,18 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void changeToPlayerState(PlayerState state)
     {
-        switch(state)
+        switch (state)
         {
             case PlayerState.Alive:
                 player_state = PlayerState.Alive;
+                gameObject.GetComponent<Animator>().SetBool("stunActive", false);
                 stun_overlay_sprite_renderer.sprite = null;
                 health_behaviour.resetHealth();
                 Debug.Log(gameObject.name + " is now alive");
                 break;
             case PlayerState.Stunned:
                 player_state = PlayerState.Stunned;
+                gameObject.GetComponent<Animator>().SetBool("stunActive", true);
                 stun_overlay_sprite_renderer.sprite = stun_overlay_sprite;
                 recover_red_pressed = recover_green_pressed = recover_blue_pressed = recover_yellow_pressed = false;
                 Debug.Log(gameObject.name + " is now stunned");
@@ -224,7 +230,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Part") == true)
+        if (collision.CompareTag("Part") == true)
         {
             GameObject collision_game_object = collision.gameObject;
             builder_behaviour.addPart(collision_game_object.GetComponent<SpriteRenderer>().sprite, collision_game_object.GetComponent<PartBehaviour>().part_type);

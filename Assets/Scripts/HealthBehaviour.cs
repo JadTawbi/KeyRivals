@@ -95,6 +95,7 @@ public class HealthBehaviour : MonoBehaviour
             if (invincibility_timer >= INVINCIBILITY_INTERVAL)
             {
                 invincibility_active = false;
+                player.GetComponent<Animator>().SetBool("invincibilityActive", false);
                 invincibility_timer = 0.0f;
             }
             else
@@ -107,5 +108,6 @@ public class HealthBehaviour : MonoBehaviour
     void activateInvincibility()
     {
         invincibility_active = true;
+        player.GetComponent<Animator>().SetBool("invincibilityActive", true);
     }
 }

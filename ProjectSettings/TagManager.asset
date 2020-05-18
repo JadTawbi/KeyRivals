@@ -20,8 +20,23 @@ TagManager:
   - Weapon_Player2_Fourth
   - Part
   - Parts Container
-  - Beam
   - Beam Container
+  - Beam_Player1_First
+  - Beam_Player1_Second
+  - Beam_Player1_Third
+  - Beam_Player1_Fourth
+  - Beam_Player2_First
+  - Beam_Player2_Second
+  - Beam_Player2_Third
+  - Beam_Player2_Fourth
+  - Noice_Player1_First
+  - Noice_Player1_Second
+  - Noice_Player1_Third
+  - Noice_Player1_Fourth
+  - Noice_Player2_First
+  - Noice_Player2_Second
+  - Noice_Player2_Third
+  - Noice_Player2_Fourth
   layers:
   - Default
   - TransparentFX
