@@ -2179,7 +2179,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ec381acd7fc029b48b265101e2066c43, type: 3}
   - {fileID: 21300000, guid: 4983744020bc78d4795178ccba38a90a, type: 3}
   - {fileID: 21300000, guid: a60b9b8a942019d42aca87a5cedb69e3, type: 3}
-  - {fileID: 21300000, guid: 4c5e4b5071b4d11498bd9858ec5b7f8e, type: 3}
+  - {fileID: 21300000, guid: fbc940d2ad76e1745aa048be9e382c4b, type: 3}
   - {fileID: 21300000, guid: 947a10379d46e68489b412ab048fc06d, type: 3}
   beams:
   - {fileID: 233875421}
@@ -4660,7 +4660,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ec381acd7fc029b48b265101e2066c43, type: 3}
   - {fileID: 21300000, guid: 4983744020bc78d4795178ccba38a90a, type: 3}
   - {fileID: 21300000, guid: a60b9b8a942019d42aca87a5cedb69e3, type: 3}
-  - {fileID: 21300000, guid: 4c5e4b5071b4d11498bd9858ec5b7f8e, type: 3}
+  - {fileID: 21300000, guid: fbc940d2ad76e1745aa048be9e382c4b, type: 3}
   - {fileID: 21300000, guid: 947a10379d46e68489b412ab048fc06d, type: 3}
   beams:
   - {fileID: 1502919433}
