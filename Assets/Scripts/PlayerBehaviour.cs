@@ -155,6 +155,10 @@ public class PlayerBehaviour : MonoBehaviour
                 beams[(int)lane].GetComponent<Animator>().SetTrigger("playerShoot");
             }
         }
+        else
+        {
+            beams[(int)lane].GetComponent<Animator>().SetTrigger("playerShoot");
+        }
     }
 
     void checkBeamInput()
