@@ -1325,8 +1325,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lane: 0
-  move_up: 273
-  move_down: 274
+  move_up: 395
+  move_down: 394
   weapon_prefab: {fileID: 3440301979625167842, guid: dc311899b99013f4598443cbeaf21f33,
     type: 3}
   weapon_spawner: {fileID: 1929569137}
@@ -2910,8 +2910,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lane: 0
-  move_up: 119
-  move_down: 115
+  move_up: 354
+  move_down: 355
   weapon_prefab: {fileID: 3440301979625167842, guid: dc311899b99013f4598443cbeaf21f33,
     type: 3}
   weapon_spawner: {fileID: 1929569137}

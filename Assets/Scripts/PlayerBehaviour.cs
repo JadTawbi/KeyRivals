@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -40,6 +41,33 @@ public class PlayerBehaviour : MonoBehaviour
     public Sprite bass_fisher_sprite, big_light_beam_sprite, crown_jules_sprite, hot_dogg_sprite, jojitsu_sprite, lady_goo_goo_ga_ga_sprite, power_dog_sprite;
     private SpriteRenderer sprite_renderer;
 
+    PlayerControls player_controls;
+
+    private void Awake()
+    {
+        player_controls = new PlayerControls();
+        player_controls.Gameplay.MoveLeft.performed += ctx => moveLeft();
+    }
+
+    void moveLeft()
+    {
+        if (lane != WeaponBehaviour.Lane.First)
+        {
+            transform.position += move_distance;
+            lane--;
+            //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+        }
+    }
+    void moveRight()
+    {
+        if (lane != WeaponBehaviour.Lane.Fourth)
+        {
+            transform.position -= move_distance;
+            lane++;
+            //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+        }
+    }
+
     void Start()
     {
         stun_timer = 0.0f;
@@ -52,19 +80,19 @@ public class PlayerBehaviour : MonoBehaviour
         {
             loadCharacter(CharacterSelectMenuBehaviour.player1_character);
             side = WeaponBehaviour.Side.Player1;
-            red_key = KeyCode.Z;
-            green_key = KeyCode.X;
-            blue_key = KeyCode.C;
-            yellow_key = KeyCode.V;
+            red_key = KeyCode.Joystick1Button2;
+            green_key = KeyCode.Joystick1Button1;
+            blue_key = KeyCode.Joystick1Button0;
+            yellow_key = KeyCode.Joystick1Button3;
         }
         else if (gameObject.CompareTag("Player2"))
         {
             loadCharacter(CharacterSelectMenuBehaviour.player2_character);
             side = WeaponBehaviour.Side.Player2;
-            red_key = KeyCode.H;
-            green_key = KeyCode.J;
-            blue_key = KeyCode.K;
-            yellow_key = KeyCode.L;
+            red_key = KeyCode.Joystick3Button2;
+            green_key = KeyCode.Joystick3Button1;
+            blue_key = KeyCode.Joystick3Button0;
+            yellow_key = KeyCode.Joystick3Button3;
         }
 
         recover_red_pressed = recover_green_pressed = recover_blue_pressed = recover_yellow_pressed = false;
@@ -92,23 +120,49 @@ public class PlayerBehaviour : MonoBehaviour
                 checkStunInput();
                 break;
         }
+        for (int i = 0; i < 20; i++)
+        {
+            if (Input.GetKeyDown("joystick 1 button " + i))
+            {
+                print("joystick 1 button " + i);
+            }
+            if (Input.GetKeyDown("joystick 2 button " + i))
+            {
+                print("joystick 2 button " + i);
+            }
+            if (Input.GetKeyDown("joystick 3 button " + i))
+            {
+                print("joystick 3 button " + i);
+            }
+            //for (int j = 1; j < 8; j++)
+            //{
+            //    if (Input.GetKeyDown("joystick " + j + " button " + i))
+            //    {
+            //        print("joystick " + j + " button " + i);
+            //    }
+            //}
+            //if (Input.GetKeyDown("joystick button " + i))
+            //{
+            //    print("joystick button " + i);
+            //}
+        }
     }
 
-    void movePlayer()
-    {
-        if (Input.GetKeyDown(move_up) && lane != WeaponBehaviour.Lane.First)
-        {
-            transform.position += move_distance;
-            lane--;
-            //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
-        }
-        if (Input.GetKeyDown(move_down) && lane != WeaponBehaviour.Lane.Fourth)
-        {
-            transform.position -= move_distance;
-            lane++;
-            //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
-        }
-    }
+    //void movePlayer()
+    //{
+    //    if (Input.GetKeyDown(move_up) && lane != WeaponBehaviour.Lane.First)
+    //    {
+    //        transform.position += move_distance;
+    //        lane--;
+    //        //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+    //    }
+    //    if (Input.GetKeyDown(move_down) && lane != WeaponBehaviour.Lane.Fourth)
+    //    {
+    //        transform.position -= move_distance;
+    //        lane++;
+    //        //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+    //    }
+    //}
 
     void shootBeam()
     {

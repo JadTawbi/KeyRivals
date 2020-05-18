@@ -74,20 +74,20 @@ public class WeaponBehaviour : MonoBehaviour
                 player = GameObject.FindWithTag("Player1");
                 health_behaviour = GameObject.Find("Health Player1").GetComponent<HealthBehaviour>();
                 score_behaviour = GameObject.Find("Score Player1").GetComponent<ScoreBehaviour>();
-                red_key = KeyCode.Z;
-                green_key = KeyCode.X;
-                blue_key = KeyCode.C;
-                yellow_key = KeyCode.V;
+                red_key = KeyCode.Joystick1Button2;
+                green_key = KeyCode.Joystick1Button1;
+                blue_key = KeyCode.Joystick1Button0;
+                yellow_key = KeyCode.Joystick1Button3;
                 break;
 
             case Side.Player2:
                 player = GameObject.FindWithTag("Player2");
                 health_behaviour = GameObject.Find("Health Player2").GetComponent<HealthBehaviour>();
                 score_behaviour = GameObject.Find("Score Player2").GetComponent<ScoreBehaviour>();
-                red_key = KeyCode.H;
-                green_key = KeyCode.J;
-                blue_key = KeyCode.K;
-                yellow_key = KeyCode.L;
+                red_key = KeyCode.Joystick3Button2;
+                green_key = KeyCode.Joystick3Button1;
+                blue_key = KeyCode.Joystick3Button0;
+                yellow_key = KeyCode.Joystick3Button3;
                 break;
         }
 
