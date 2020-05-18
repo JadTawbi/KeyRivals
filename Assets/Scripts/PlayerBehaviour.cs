@@ -37,8 +37,10 @@ public class PlayerBehaviour : MonoBehaviour
     private BuilderBehaviour builder_behaviour;
 
     public enum PlayerCharacter { BassFisher, BigLightBeam, CrownJules, HotDogg, Jojitsu, LadyGooGooGaGa, Powerdog };
-    public Sprite bass_fisher_sprite, big_light_beam_sprite, crown_jules_sprite, hot_dogg_sprite, jojitsu_sprite, lady_goo_goo_ga_ga_sprite, power_dog_sprite;
+    public Sprite[] player_sprites = new Sprite[7];
     private SpriteRenderer sprite_renderer;
+
+    public GameObject[] beams = new GameObject[4];
 
     void Start()
     {
@@ -114,10 +116,21 @@ public class PlayerBehaviour : MonoBehaviour
     {
         switch (attack_colour)
         {
-            // change the color of the beam here
-            default:
+            case WeaponBehaviour.AttackColour.Red:
+                beams[(int)lane].GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.153f, 0.0f);
+                break;
+            case WeaponBehaviour.AttackColour.Green:
+                beams[(int)lane].GetComponent<SpriteRenderer>().color = new Color(0.0f, 1.0f, 0.431f);
+                break;
+            case WeaponBehaviour.AttackColour.Blue:
+                beams[(int)lane].GetComponent<SpriteRenderer>().color = new Color(0.212f, 0.929f, 0.871f);
+                break;
+            case WeaponBehaviour.AttackColour.Yellow:
+                beams[(int)lane].GetComponent<SpriteRenderer>().color = new Color(0.969f, 1.0f, 0.0f);
                 break;
         }
+
+        beams[(int)lane].GetComponent<Animator>().SetTrigger("shootBeam");
 
         GameObject[] weapons_in_lane = GameObject.FindGameObjectsWithTag("Weapon_" + gameObject.tag + "_" + lane.ToString());
         //Debug.Log("There is " + weapons_in_lane.Length + " weapons in the " + lane.ToString() + " lane.");
@@ -222,29 +235,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void loadCharacter(PlayerCharacter player_character_to_load)
     {
-        switch (player_character_to_load)
-        {
-            case PlayerCharacter.BassFisher:
-                sprite_renderer.sprite = bass_fisher_sprite;
-                break;
-            case PlayerCharacter.BigLightBeam:
-                sprite_renderer.sprite = big_light_beam_sprite;
-                break;
-            case PlayerCharacter.CrownJules:
-                sprite_renderer.sprite = crown_jules_sprite;
-                break;
-            case PlayerCharacter.HotDogg:
-                sprite_renderer.sprite = hot_dogg_sprite;
-                break;
-            case PlayerCharacter.Jojitsu:
-                sprite_renderer.sprite = jojitsu_sprite;
-                break;
-            case PlayerCharacter.LadyGooGooGaGa:
-                sprite_renderer.sprite = lady_goo_goo_ga_ga_sprite;
-                break;
-            case PlayerCharacter.Powerdog:
-                sprite_renderer.sprite = power_dog_sprite;
-                break;
-        }
+        sprite_renderer.sprite = player_sprites[(int)player_character_to_load];
     }
 }
