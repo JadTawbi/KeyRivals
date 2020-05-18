@@ -18,6 +18,7 @@ public class WeaponBehaviour : MonoBehaviour
         blue = new Color(0.212f, 0.929f, 0.871f),
         yellow = new Color(0.969f, 1.0f, 0.0f),
         bad = new Color(0.60f, 0, 0.80f);
+    private Color sprite_color;
     private KeyCode input_key;
     private KeyCode red_key, green_key, blue_key, yellow_key;
 
@@ -101,29 +102,28 @@ public class WeaponBehaviour : MonoBehaviour
         switch (attack_colour)
         {
             case AttackColour.Red:
-                sprite_renderer.color = red;
+                sprite_color = red;
                 input_key = red_key;
                 break;
-
             case AttackColour.Green:
-                sprite_renderer.color = green;
+                sprite_color = green;
                 input_key = green_key;
                 break;
-
             case AttackColour.Blue:
-                sprite_renderer.color = blue;
+                sprite_color = blue;
                 input_key = blue_key;
                 break;
-
             case AttackColour.Yellow:
-                sprite_renderer.color = yellow;
+                sprite_color = yellow;
                 input_key = yellow_key;
                 break;
             case AttackColour.Bad:
-                sprite_renderer.color = bad;
+                sprite_color = bad;
                 input_key = KeyCode.None;
                 break;
         }
+        sprite_renderer.color = sprite_color;
+
         gameObject.name = "Weapon_" + player.tag + "_" + lane.ToString();
         gameObject.tag = "Weapon_" + player.tag + "_" + lane.ToString();
     }
@@ -291,7 +291,7 @@ public class WeaponBehaviour : MonoBehaviour
                             new_part_behaviour.changeType((PartBehaviour.PartType)Random.Range(0, 3));
                         }
                         GameObject noice_to_play = GameObject.FindWithTag("Noice_" + side.ToString() + "_" + lane.ToString());
-                        noice_to_play.GetComponent<SpriteRenderer>().color = sprite_renderer.color;
+                        noice_to_play.GetComponent<SpriteRenderer>().color = sprite_color;
                         noice_to_play.GetComponent<Animator>().SetTrigger("noiceTrigger");
                         Destroy(gameObject);
 
