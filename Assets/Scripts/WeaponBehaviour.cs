@@ -291,7 +291,7 @@ public class WeaponBehaviour : MonoBehaviour
                             new_part_behaviour.changeType((PartBehaviour.PartType)Random.Range(0, 3));
                         }
                         GameObject noice_to_play = GameObject.FindWithTag("Noice_" + side.ToString() + "_" + lane.ToString());
-                        noice_to_play.GetComponent<SpriteRenderer>().color = sprite_color;
+                        noice_to_play.GetComponent<SpriteRenderer>().color = sprite_color + new Color(0.3f,0.3f,0.3f);
                         noice_to_play.GetComponent<Animator>().SetTrigger("noiceTrigger");
                         Destroy(gameObject);
 
