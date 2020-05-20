@@ -55,7 +55,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
     private int notes_displayed;
 
-    public enum Track { LucidDream, Schukran, ElTió, Rivals };
+    public enum Track { LucidDream, Schukran, ElTió, Rivals, SEKBeat, Lagom, Deeper};
     private TextAsset midi_as_text;
 
     // Start is called before the first frame update
@@ -90,25 +90,39 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         {
             case Track.LucidDream:
                 midi_as_text = Resources.Load("MIDI/LucidDreamMIDI_1.1") as TextAsset;   //MIDI file extension changed to .bytes manually
-                audio_source.clip = Resources.Load("Music/Lucid Dream - Full 17_4 Mix") as AudioClip;
+                audio_source.clip = Resources.Load("Music/LucidDreamLoudBright16bit") as AudioClip;
                 beats_per_minute = 90;
                 break;
             case Track.Schukran:
                 midi_as_text = Resources.Load("MIDI/SchukranMIDI_1.2") as TextAsset;   //MIDI file extension changed to .bytes manually
-                audio_source.clip = Resources.Load("Music/Schukran (شكراً) Full - 26_4") as AudioClip;
+                audio_source.clip = Resources.Load("Music/SchukranLoudBrightLessbass16bit") as AudioClip;
                 beats_per_minute = 90;
                 break;
             case Track.ElTió:
                 midi_as_text = Resources.Load("MIDI/ElTióMIDI_1.3") as TextAsset;   //MIDI file extension changed to .bytes manually
-                audio_source.clip = Resources.Load("Music/El Tió - Full 30_4") as AudioClip;
+                audio_source.clip = Resources.Load("Music/ElTióLoudBrightWarm16bit") as AudioClip;
                 beats_per_minute = 125;
                 break;
             case Track.Rivals:
-                midi_as_text = Resources.Load("MIDI/RivalsMIDI_1.0") as TextAsset;  //MIDI file extension changed to .bytes manually
-                audio_source.clip = Resources.Load("Music/Rivals - Full 10_5") as AudioClip;
+                midi_as_text = Resources.Load("MIDI/RivalsMIDI_1.1") as TextAsset;  //MIDI file extension changed to .bytes manually
+                audio_source.clip = Resources.Load("Music/RivalsBright16bit") as AudioClip;
                 beats_per_minute = 120;
                 break;
-
+            case Track.SEKBeat:
+                midi_as_text = Resources.Load("MIDI/SEKBeatMIDI_1.0") as TextAsset;  //MIDI file extension changed to .bytes manually
+                audio_source.clip = Resources.Load("Music/SEKBeatBrightWarm16bit") as AudioClip;
+                beats_per_minute = 150;
+                break;
+            case Track.Lagom:
+                midi_as_text = Resources.Load("MIDI/LagomMIDI_1.0") as TextAsset;  //MIDI file extension changed to .bytes manually
+                audio_source.clip = Resources.Load("Music/LagomLoudBright16bit") as AudioClip;
+                beats_per_minute = 150;
+                break;
+            case Track.Deeper:
+                midi_as_text = Resources.Load("MIDI/DeeperMIDI_1.0") as TextAsset;  //MIDI file extension changed to .bytes manually
+                audio_source.clip = Resources.Load("Music/DeeperBrightLessBassLoud16bit") as AudioClip;
+                beats_per_minute = 150;
+                break;
         }
         
         spawn_offset = (60.0f / beats_per_minute) * 2.0f;

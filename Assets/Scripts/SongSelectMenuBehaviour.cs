@@ -27,4 +27,16 @@ public class SongSelectMenuBehaviour : MonoBehaviour
     {
         track = WeaponSpawnerBehaviour.Track.Rivals;
     }
+    public void loadSEKBeat()
+    {
+        track = WeaponSpawnerBehaviour.Track.SEKBeat;
+    }
+    public void loadLagom()
+    {
+        track = WeaponSpawnerBehaviour.Track.Lagom;
+    }
+    public void loadDeeper()
+    {
+        track = WeaponSpawnerBehaviour.Track.Deeper;
+    }
 }
