@@ -55,7 +55,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
     private int notes_displayed;
 
-    public enum Track { LucidDream, Schukran, ElTió, Rivals, SEKBeat, Lagom, Deeper};
+    public enum Track { LucidDream, Schukran, ElTió, Rivals, SEKBeat, Lagom, Deeper, Practice};
     private TextAsset midi_as_text;
 
     // Start is called before the first frame update
@@ -123,8 +123,14 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 audio_source.clip = Resources.Load("Music/DeeperBrightLessBassLoud16bit") as AudioClip;
                 beats_per_minute = 150;
                 break;
+            case Track.Practice:
+                midi_as_text = Resources.Load("MIDI/PracticeMIDI_1.0") as TextAsset;    //MIDI file extension changed to .bytes manually
+                audio_source.clip = Resources.Load("PLACEHOLDER") as AudioClip; //To-Do: Load practice song
+                beats_per_minute = 104;
+                break;
+
         }
-        
+
         spawn_offset = (60.0f / beats_per_minute) * 2.0f;
     }
 

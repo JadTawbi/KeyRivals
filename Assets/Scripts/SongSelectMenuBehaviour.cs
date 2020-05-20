@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SongSelectMenuBehaviour : MonoBehaviour
 {
     public static WeaponSpawnerBehaviour.Track track;
-    public void Play()
+    public void play()
     {
         SceneManager.LoadScene("Game");
     }
@@ -38,5 +38,9 @@ public class SongSelectMenuBehaviour : MonoBehaviour
     public void loadDeeper()
     {
         track = WeaponSpawnerBehaviour.Track.Deeper;
+    }
+    public void loadPractice()
+    {
+        track = WeaponSpawnerBehaviour.Track.Practice;
     }
 }
