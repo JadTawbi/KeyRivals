@@ -83,16 +83,19 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (player_state)
+        if (GameBehaviour.paused == false)
         {
-            case PlayerState.Alive:
-                movePlayer();
-                checkBeamInput();
-                break;
+            switch (player_state)
+            {
+                case PlayerState.Alive:
+                    movePlayer();
+                    checkBeamInput();
+                    break;
 
-            case PlayerState.Stunned:
-                checkStunInput();
-                break;
+                case PlayerState.Stunned:
+                    checkStunInput();
+                    break;
+            }
         }
     }
 

@@ -34,8 +34,11 @@ public class HealthBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkHitPoints();
-        checkInvincibility();
+        if (GameBehaviour.paused == false)
+        {
+            checkHitPoints();
+            checkInvincibility();
+        }
     }
 
     private void checkHitPoints()

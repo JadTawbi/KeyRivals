@@ -2327,6 +2327,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2342,6 +2343,38 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8257a2a11c3cdcf4ab5785ffcc9484c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon_spawner: {fileID: 1929569135}
+  game_objects_with_animation:
+  - {fileID: 1677370561}
+  - {fileID: 509144849}
+  - {fileID: 1502919433}
+  - {fileID: 1651545852}
+  - {fileID: 1195006717}
+  - {fileID: 118189441}
+  - {fileID: 233875421}
+  - {fileID: 110045594}
+  - {fileID: 1453568629}
+  - {fileID: 1271413412}
+  - {fileID: 1231633723}
+  - {fileID: 871875763}
+  - {fileID: 501656488}
+  - {fileID: 2109855048}
+  - {fileID: 374368560}
+  - {fileID: 1093683945}
+  - {fileID: 203691288}
+  - {fileID: 253779567}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -5199,7 +5232,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7936fda552a40824cb92f916e7051d7d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

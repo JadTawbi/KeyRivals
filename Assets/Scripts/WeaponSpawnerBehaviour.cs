@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using NAudio.Midi;
 using System.IO;
-using System.Linq;
-
 
 public class WeaponSpawnerBehaviour : MonoBehaviour
 {
@@ -125,7 +123,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 break;
             case Track.Practice:
                 midi_as_text = Resources.Load("MIDI/PracticeMIDI_1.0") as TextAsset;    //MIDI file extension changed to .bytes manually
-                audio_source.clip = Resources.Load("PLACEHOLDER") as AudioClip; //To-Do: Load practice song
+                audio_source.clip = Resources.Load("Music/Practice Room -21_5") as AudioClip;
                 beats_per_minute = 104;
                 break;
 
@@ -137,9 +135,16 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (notes.Count > 0)
+        if (GameBehaviour.paused == false)
         {
-            spawnWeapons();
+            if (notes.Count > 0)
+            {
+                spawnWeapons();
+            }
+            if (audio_source.isPlaying == false)
+            {
+                Debug.Log("Audio source finished playing");
+            }
         }
     }
 

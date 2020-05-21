@@ -131,13 +131,16 @@ public class WeaponBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkWeaponState();
-
-        if (player_behaviour.player_state == PlayerBehaviour.PlayerState.Alive)
+        if (GameBehaviour.paused == false)
         {
-            checkHitMiss();
+            checkWeaponState();
+
+            if (player_behaviour.player_state == PlayerBehaviour.PlayerState.Alive)
+            {
+                checkHitMiss();
+            }
+            growFilling();
         }
-        growFilling();
     }
 
     void checkWeaponState()
@@ -283,7 +286,7 @@ public class WeaponBehaviour : MonoBehaviour
                                 score_behaviour.addScore((int)(HIT_SCORE - (HIT_SCORE / 2) * (stay_charged_timer / stay_charged_interval)));
                                 break;
                         }
-                        if (Random.Range(0.0f, 100.0f) <= PART_DROP_CHANCE)
+                        if (TutorialBehaviour.practice == false && Random.Range(0.0f, 100.0f) <= PART_DROP_CHANCE)
                         {
                             Vector3 new_part_position = transform.position + new Vector3(104.0f * (int)side, 0.0f, 0.0f);
                             Quaternion new_part_rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f * (int)side);

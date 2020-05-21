@@ -21,7 +21,10 @@ public class PartBehaviour : MonoBehaviour
 
     void Update()
     {
-        movePart();
+        if (GameBehaviour.paused == false)
+        {
+            movePart();
+        }
     }
     private void movePart()
     {
