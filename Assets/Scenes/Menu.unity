@@ -4772,6 +4772,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5269a252582c7a749a56581abd150bee, type: 3}
   - {fileID: 21300000, guid: 5b21adf9c10ab634c9f16d8ee015e613, type: 3}
   - {fileID: 21300000, guid: 90e1bce941b107444a22fd86a3f3e82f, type: 3}
+  - {fileID: 21300000, guid: b06596eb1d990f64db2da77a2be5cd9b, type: 3}
   tutorial_display: {fileID: 1522050166}
 --- !u!1 &803824652
 GameObject:
