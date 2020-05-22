@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class TutorialBehaviour : MonoBehaviour
 {
-    private const int TUTORIAL_LENGTH = 3;
+    private const int TUTORIAL_LENGTH =9;
     public Sprite[] tutorial_sprites = new Sprite[TUTORIAL_LENGTH];
     public GameObject tutorial_display;
     private Image tutorial_image;
