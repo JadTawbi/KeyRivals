@@ -34,27 +34,28 @@ public class GameBehaviour : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (paused == false)
+            togglePause();
+        }
+    }
+    public void togglePause()
+    {
+        if(paused == false)
+        {
+            weapon_spawner_audio_source.Pause();
+            foreach (Animator animator in animators)
             {
-                //To-Do: Display menu
-                weapon_spawner_audio_source.Pause();
-                foreach (Animator animator in animators)
-                {
-                    animator.speed = 0;
-                }
-                paused = true;
+                animator.speed = 0;
             }
-            else
+            paused = true;
+        }
+        else
+        {
+            weapon_spawner_audio_source.UnPause();
+            foreach (Animator animator in animators)
             {
-                //To-Do: Don't display menu
-                weapon_spawner_audio_source.UnPause();
-                foreach (Animator animator in animators)
-                {
-                    animator.speed = 1;
-                }
-                paused = false;
+                animator.speed = 1;
             }
-
+            paused = false;
         }
     }
 }

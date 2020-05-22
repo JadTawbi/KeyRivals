@@ -145,7 +145,8 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
             {
                 Debug.Log("Audio source finished playing");
             }
-        }
+            checkVolume();
+        }        
     }
 
     private void spawnWeapons()
@@ -179,4 +180,11 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         spawn_timer += Time.deltaTime;
     }
 
+    private void checkVolume()
+    {
+        if(audio_source.volume != OptionsMenuBehaviour.volume_value)
+        {
+            audio_source.volume = OptionsMenuBehaviour.volume_value;
+        }
+    }
 }
