@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameBehaviour : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameBehaviour : MonoBehaviour
 
     public GameObject[] game_objects_with_animation;
     private Animator[] animators;
+
+    public GameObject pause_canvas, pause_menu, options_menu;
 
     private void Start()
     {
@@ -46,6 +49,9 @@ public class GameBehaviour : MonoBehaviour
             {
                 animator.speed = 0;
             }
+            pause_canvas.SetActive(true);
+            pause_menu.SetActive(true);
+            options_menu.SetActive(false);
             paused = true;
         }
         else
@@ -55,7 +61,13 @@ public class GameBehaviour : MonoBehaviour
             {
                 animator.speed = 1;
             }
+            pause_canvas.SetActive(false);
             paused = false;
         }
+    }
+
+    public void quitToMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

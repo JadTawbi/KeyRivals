@@ -8,6 +8,7 @@ public class MainMenuBehaviour : MonoBehaviour
     private void Start()
     {
         CharacterSelectMenuBehaviour.randomizeCharacters();
+        OptionsMenuBehaviour.volume_value = 0.5f;
     }
     public void Quit()
     {
