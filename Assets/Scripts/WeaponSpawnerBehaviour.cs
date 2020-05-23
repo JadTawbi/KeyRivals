@@ -97,7 +97,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 beats_per_minute = 90;
                 break;
             case Track.ElTió:
-                midi_as_text = Resources.Load("MIDI/ElTióMIDI_1.3") as TextAsset;   //MIDI file extension changed to .bytes manually
+                midi_as_text = Resources.Load("MIDI/ElTióMIDI_2.0") as TextAsset;   //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/ElTióLoudBrightWarm16bit") as AudioClip;
                 beats_per_minute = 125;
                 break;
@@ -107,17 +107,17 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 beats_per_minute = 120;
                 break;
             case Track.SEKBeat:
-                midi_as_text = Resources.Load("MIDI/SEKBeatMIDI_1.0") as TextAsset;  //MIDI file extension changed to .bytes manually
+                midi_as_text = Resources.Load("MIDI/SEKBeatMIDI_2.0") as TextAsset;  //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/SEKBeatBrightWarm16bit") as AudioClip;
                 beats_per_minute = 150;
                 break;
             case Track.Lagom:
-                midi_as_text = Resources.Load("MIDI/LagomMIDI_1.0") as TextAsset;  //MIDI file extension changed to .bytes manually
+                midi_as_text = Resources.Load("MIDI/LagomMIDI_2.0") as TextAsset;  //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/LagomLoudBright16bit") as AudioClip;
                 beats_per_minute = 150;
                 break;
             case Track.Deeper:
-                midi_as_text = Resources.Load("MIDI/DeeperMIDI_1.0") as TextAsset;  //MIDI file extension changed to .bytes manually
+                midi_as_text = Resources.Load("MIDI/DeeperMIDI_2.0") as TextAsset;  //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/DeeperBrightLessBassLoud16bit") as AudioClip;
                 beats_per_minute = 150;
                 break;

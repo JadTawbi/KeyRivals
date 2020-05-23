@@ -15,7 +15,7 @@ public class HealthBehaviour : MonoBehaviour
     private PlayerBehaviour player_behaviour;
 
     private float invincibility_timer;
-    private const float INVINCIBILITY_INTERVAL = 1.5f;
+    private const float INVINCIBILITY_INTERVAL = 2.0f;
     private bool invincibility_active;
     
     // Start is called before the first frame update
