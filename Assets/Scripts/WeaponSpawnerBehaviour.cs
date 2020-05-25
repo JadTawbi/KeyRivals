@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NAudio.Midi;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class WeaponSpawnerBehaviour : MonoBehaviour
 {
@@ -56,6 +57,8 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     public enum Track { LucidDream, Schukran, ElTió, Rivals, SEKBeat, Lagom, Deeper, Practice};
     private TextAsset midi_as_text;
 
+    public bool has_song_started;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,8 +82,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
         notes_displayed = 0;
 
-
-        audio_source.Play();
+        has_song_started = false;
     }
     private void loadTrack(Track track_to_load)
     {
@@ -139,11 +141,15 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         {
             if (notes.Count > 0)
             {
-                spawnWeapons();
+                if (has_song_started == true)
+                {
+                    spawnWeapons();
+                }
             }
-            if (audio_source.isPlaying == false)
+            if (audio_source.isPlaying == false && has_song_started == true)
             {
                 Debug.Log("Audio source finished playing");
+                SceneManager.LoadScene("Menu");
             }
             checkVolume();
         }        
@@ -186,5 +192,11 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         {
             audio_source.volume = OptionsMenuBehaviour.volume_value;
         }
+    }
+
+    public void playSong()
+    {
+        audio_source.Play();
+        has_song_started = true;
     }
 }
