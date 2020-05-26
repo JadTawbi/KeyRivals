@@ -43,5 +43,6 @@ public class WinScreenBehaviour : MonoBehaviour
         SceneManager.LoadScene("Menu");
         player1.SetActive(false);
         player2.SetActive(false);
+        player1_score = player2_score = 0;
     }
 }

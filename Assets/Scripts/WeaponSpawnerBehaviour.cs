@@ -109,7 +109,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 beats_per_minute = 125;
                 break;
             case Track.Rivals:
-                midi_as_text = Resources.Load("MIDI/RivalsMIDI_1.1") as TextAsset;  //MIDI file extension changed to .bytes manually
+                midi_as_text = Resources.Load("MIDI/RivalsMIDI_2.0") as TextAsset;  //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/RivalsBright16bit") as AudioClip;
                 beats_per_minute = 120;
                 break;
@@ -153,9 +153,16 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
             }
             if (audio_source.isPlaying == false && has_song_started == true)
             {
-                WinScreenBehaviour.player1_score = score_behaviour_p1.score_amount;
-                WinScreenBehaviour.player2_score = score_behaviour_p2.score_amount;
-                SceneManager.LoadScene("WinScreen");
+                if (WinScreenBehaviour.player1_score == 0 && WinScreenBehaviour.player2_score == 0) 
+                {
+                    SceneManager.LoadScene("Menu");
+                }
+                else
+                {
+                    WinScreenBehaviour.player1_score = score_behaviour_p1.score_amount;
+                    WinScreenBehaviour.player2_score = score_behaviour_p2.score_amount;
+                    SceneManager.LoadScene("WinScreen");
+                }
             }
             checkVolume();
         }        
