@@ -116,7 +116,7 @@ public class GameBehaviour : MonoBehaviour
     public void quitToMainMenu()
     {
         SceneManager.LoadScene("Menu");
-        paused = false;
+        //paused = false;
     }
 
     private void pauseSounds(bool pause_state)

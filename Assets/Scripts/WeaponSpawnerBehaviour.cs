@@ -88,6 +88,8 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
         score_behaviour_p1 = score_player1.GetComponent<ScoreBehaviour>();
         score_behaviour_p2 = score_player2.GetComponent<ScoreBehaviour>();
+
+        GameBehaviour.paused = false;
     }
     private void loadTrack(Track track_to_load)
     {
@@ -153,16 +155,9 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
             }
             if (audio_source.isPlaying == false && has_song_started == true)
             {
-                if (score_behaviour_p1.score_amount == 0 && score_behaviour_p2.score_amount == 0) 
-                {
-                    SceneManager.LoadScene("Menu");
-                }
-                else
-                {
-                    WinScreenBehaviour.player1_score = score_behaviour_p1.score_amount;
-                    WinScreenBehaviour.player2_score = score_behaviour_p2.score_amount;
-                    SceneManager.LoadScene("WinScreen");
-                }
+                WinScreenBehaviour.player1_score = score_behaviour_p1.score_amount;
+                WinScreenBehaviour.player2_score = score_behaviour_p2.score_amount;
+                SceneManager.LoadScene("WinScreen");
             }
             checkVolume();
         }        
