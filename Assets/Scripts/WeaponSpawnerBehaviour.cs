@@ -153,7 +153,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
             }
             if (audio_source.isPlaying == false && has_song_started == true)
             {
-                if (WinScreenBehaviour.player1_score == 0 && WinScreenBehaviour.player2_score == 0) 
+                if (score_behaviour_p1.score_amount == 0 && score_behaviour_p2.score_amount == 0) 
                 {
                     SceneManager.LoadScene("Menu");
                 }
