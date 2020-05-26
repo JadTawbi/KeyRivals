@@ -59,6 +59,8 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
     public bool has_song_started;
 
+    public GameObject score_player1, score_player2;
+    private ScoreBehaviour score_behaviour_p1, score_behaviour_p2;
     // Start is called before the first frame update
     void Start()
     {
@@ -83,6 +85,9 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         notes_displayed = 0;
 
         has_song_started = false;
+
+        score_behaviour_p1 = score_player1.GetComponent<ScoreBehaviour>();
+        score_behaviour_p2 = score_player2.GetComponent<ScoreBehaviour>();
     }
     private void loadTrack(Track track_to_load)
     {
@@ -148,8 +153,9 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
             }
             if (audio_source.isPlaying == false && has_song_started == true)
             {
-                Debug.Log("Audio source finished playing");
-                SceneManager.LoadScene("Menu");
+                WinScreenBehaviour.player1_score = score_behaviour_p1.score_amount;
+                WinScreenBehaviour.player2_score = score_behaviour_p2.score_amount;
+                SceneManager.LoadScene("WinScreen");
             }
             checkVolume();
         }        

@@ -6,7 +6,9 @@ using TMPro;
 public class ScoreBehaviour : MonoBehaviour
 {
     public GameObject multiplier, score;
-    private int multiplier_amount, score_amount, streak_counter;
+    private int multiplier_amount, streak_counter;
+    [System.NonSerialized]
+    public int score_amount;
     private TextMeshPro multiplier_TMPro, score_TMPro;
 
     //score easing
