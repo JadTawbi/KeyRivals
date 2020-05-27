@@ -120,7 +120,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 beats_per_minute = 125;
                 break;
             case Track.Rivals:
-                midi_as_text = Resources.Load("MIDI/RivalsMIDI_2.0") as TextAsset;  //MIDI file extension changed to .bytes manually
+                midi_as_text = Resources.Load("MIDI/RivalsMIDI_2.1") as TextAsset;  //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/RivalsBright16bit") as AudioClip;
                 beats_per_minute = 120;
                 break;

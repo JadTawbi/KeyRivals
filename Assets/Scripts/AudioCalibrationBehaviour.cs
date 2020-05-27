@@ -24,6 +24,16 @@ public class AudioCalibrationBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        initialize();
+    }
+
+    private void OnEnable()
+    {
+        initialize();
+    }
+
+    private void initialize()
+    {
         audio_calibration_timer = metronome_timer = 0.0f;
 
         timestamps = new List<float>();
@@ -74,7 +84,9 @@ public class AudioCalibrationBehaviour : MonoBehaviour
     {
         for (int i = 0; i < timestamps.Count; i++)
         {
-            audio_lag_values_per_timestamp.Add(timestamps[i] - METRONOME_INTERVAL * (int)(timestamps[i] / METRONOME_INTERVAL));
+            float audio_lag_value = timestamps[i] - METRONOME_INTERVAL * (int)(timestamps[i] / METRONOME_INTERVAL); //Calculation of the modulus
+            audio_lag_value = Mathf.Min(audio_lag_value, METRONOME_INTERVAL - audio_lag_value); //Value closest to the interval
+            audio_lag_values_per_timestamp.Add(audio_lag_value);
         }
 
         float audio_lag_total = 0.0f;

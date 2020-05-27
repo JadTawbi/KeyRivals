@@ -23,6 +23,16 @@ public class VideoCalibrationBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        initialize();
+    }
+
+    private void OnEnable()
+    {
+        initialize();
+    }
+
+    private void initialize()
+    {
         video_calibration_timer = weapon_grow_timer = 0.0f;
 
         timestamps = new List<float>();
@@ -34,7 +44,6 @@ public class VideoCalibrationBehaviour : MonoBehaviour
 
         back_button.SetActive(true);
         accept_button.SetActive(false);
-
     }
 
     // Update is called once per frame
@@ -86,7 +95,9 @@ public class VideoCalibrationBehaviour : MonoBehaviour
     {
         for (int i = 0; i < timestamps.Count; i++)
         {
-            video_lag_values_per_timestamp.Add(timestamps[i] - WEAPON_GROW_INTERVAL * (int)(timestamps[i] / WEAPON_GROW_INTERVAL));
+            float video_lag_value = timestamps[i] - WEAPON_GROW_INTERVAL * (int)(timestamps[i] / WEAPON_GROW_INTERVAL);
+            video_lag_value = Mathf.Min(video_lag_value, WEAPON_GROW_INTERVAL - video_lag_value);
+            video_lag_values_per_timestamp.Add(video_lag_value);
         }
 
         float video_lag_total = 0.0f;
