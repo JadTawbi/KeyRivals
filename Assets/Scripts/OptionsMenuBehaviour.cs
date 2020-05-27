@@ -19,7 +19,6 @@ public class OptionsMenuBehaviour : MonoBehaviour
         volume_value = volume_slider_slider.value;
         volume_value_displayed = (int)(volume_value * 100);
     }
-
     private void Update()
     {
         volume_value = volume_slider_slider.value;

@@ -18,6 +18,7 @@ public class GameBehaviour : MonoBehaviour
 
     private float clapping_timer;
     public const float CLAPPING_INTERVAL = 4.0f;
+    private bool clapping_done;
 
     public AudioSource audio_source;
     private AudioClip clapping_audio_clip;
@@ -37,6 +38,7 @@ public class GameBehaviour : MonoBehaviour
 
         clapping_timer = 0.0f;
         clapping_audio_clip = Resources.Load("Sounds/IntroSoundEffect_01") as AudioClip;
+        clapping_done = false;
 
         audio_source.PlayOneShot(clapping_audio_clip);
     }
@@ -62,12 +64,10 @@ public class GameBehaviour : MonoBehaviour
 
     private void waitForClapping()
     {
-        if (clapping_timer >= CLAPPING_INTERVAL)
+        if (clapping_done == false && clapping_timer >= CLAPPING_INTERVAL)
         {
-            if (weapon_spawner_behaviour.has_song_started == false)
-            {
-                weapon_spawner_behaviour.playSong();
-            }
+            weapon_spawner_behaviour.startLagTimers();
+            clapping_done = true;
         }
         else
         {

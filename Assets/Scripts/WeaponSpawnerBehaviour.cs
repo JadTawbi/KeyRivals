@@ -57,10 +57,14 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     public enum Track { LucidDream, Schukran, ElTió, Rivals, SEKBeat, Lagom, Deeper, Practice};
     private TextAsset midi_as_text;
 
-    public bool has_song_started;
+    public bool has_song_started, has_weapon_spawn_started;
 
     public GameObject score_player1, score_player2;
     private ScoreBehaviour score_behaviour_p1, score_behaviour_p2;
+
+    private bool audio_lag_done, video_lag_done, lag_timers_on;
+    private float audio_lag_timer, video_lag_timer, audio_lag, video_lag;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,12 +88,17 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
         notes_displayed = 0;
 
-        has_song_started = false;
+        has_song_started = has_weapon_spawn_started = false;
 
         score_behaviour_p1 = score_player1.GetComponent<ScoreBehaviour>();
         score_behaviour_p2 = score_player2.GetComponent<ScoreBehaviour>();
 
         GameBehaviour.paused = false;
+
+        audio_lag_done = video_lag_done = lag_timers_on = false;
+        audio_lag_timer = video_lag_timer = 0.0f;
+        audio_lag = MainMenuBehaviour.audio_lag;
+        video_lag = MainMenuBehaviour.video_lag;
     }
     private void loadTrack(Track track_to_load)
     {
@@ -148,18 +157,21 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         {
             if (notes.Count > 0)
             {
-                if (has_song_started == true)
+                if (has_weapon_spawn_started == true)
                 {
                     spawnWeapons();
                 }
             }
+            
             if (audio_source.isPlaying == false && has_song_started == true)
             {
                 WinScreenBehaviour.player1_score = score_behaviour_p1.score_amount;
                 WinScreenBehaviour.player2_score = score_behaviour_p2.score_amount;
                 SceneManager.LoadScene("WinScreen");
             }
+            
             checkVolume();
+            checkLagTimers();
         }        
     }
 
@@ -202,9 +214,49 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         }
     }
 
-    public void playSong()
+    private void startSong()
     {
         audio_source.Play();
         has_song_started = true;
+    }
+    private void startWeaponSpawn()
+    {
+        has_weapon_spawn_started = true;
+    }
+
+    public void startLagTimers()
+    {
+        lag_timers_on = true;
+    }
+
+    private void checkLagTimers()
+    {
+        if (lag_timers_on == true)
+        {
+            if (audio_lag_done == false && audio_lag_timer >= audio_lag)
+            {
+                audio_lag_done = true;
+                startWeaponSpawn();
+            }
+            else if (audio_lag_timer < audio_lag)
+            {
+                audio_lag_timer += Time.deltaTime;
+            }
+
+            if (video_lag_done == false && video_lag_timer >= video_lag)
+            {
+                video_lag_done = true;
+                startSong();
+            }
+            else if (video_lag_timer < video_lag)
+            {
+                video_lag_timer += Time.deltaTime;
+            }
+
+            if (audio_lag_done == true && video_lag_done == true)
+            {
+                lag_timers_on = false;
+            }
+        }
     }
 }

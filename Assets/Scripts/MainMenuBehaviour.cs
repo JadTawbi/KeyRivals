@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MainMenuBehaviour : MonoBehaviour
 {
+    public static float audio_lag, video_lag;
+
     private void Start()
     {
         CharacterSelectMenuBehaviour.randomizeCharacters();
