@@ -7846,7 +7846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: {fileID: 485099312}
   score: {fileID: 2025073471}
-  easing: {fileID: 0}
+  easing: {fileID: 2079953500}
 --- !u!1 &1810979439
 GameObject:
   m_ObjectHideFlags: 0
