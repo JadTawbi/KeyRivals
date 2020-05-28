@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -309,7 +309,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48974712}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 430, y: -420, z: 0}
+  m_LocalPosition: {x: 600, y: -420, z: 0}
   m_LocalScale: {x: 2.0324, y: 2.0324, z: 2.0324}
   m_Children: []
   m_Father: {fileID: 236290654}
@@ -1601,7 +1601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287155485}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -430, y: -420, z: 0}
+  m_LocalPosition: {x: -600, y: -420, z: 0}
   m_LocalScale: {x: 2.0324, y: 2.0324, z: 2.0324}
   m_Children: []
   m_Father: {fileID: 236290654}
@@ -1642,7 +1642,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.874
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.8
+  m_Intensity: 0
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000174f9f3f73f2dd55fdcbc67f3d9d0a5c
   m_LightCookieSprite: {fileID: 0}
@@ -1692,8 +1692,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292230069}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -100, z: 0}
   m_LocalScale: {x: 2.0324, y: 2.0324, z: 2.0324}
   m_Children: []
   m_Father: {fileID: 236290654}
@@ -3433,7 +3433,7 @@ MonoBehaviour:
   score: {fileID: 1788825693}
   powerup_builder: {fileID: 1550768698}
   player_sprites:
-  - {fileID: 21300000, guid: 11b318446701bb046a5b5a79d26ecc95, type: 3}
+  - {fileID: 21300000, guid: dc25b2697e3a81b4d9a727b442765e5d, type: 3}
   - {fileID: 21300000, guid: 8d4dc2583d0f99c43bcf6aa429a69cea, type: 3}
   - {fileID: 21300000, guid: ec381acd7fc029b48b265101e2066c43, type: 3}
   - {fileID: 21300000, guid: 4983744020bc78d4795178ccba38a90a, type: 3}
@@ -4483,7 +4483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832812404}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -430, y: 420, z: 0}
+  m_LocalPosition: {x: -600, y: 420, z: 0}
   m_LocalScale: {x: 2.0324, y: 2.0324, z: 2.0324}
   m_Children: []
   m_Father: {fileID: 236290654}
@@ -7441,7 +7441,7 @@ MonoBehaviour:
   score: {fileID: 412791430}
   powerup_builder: {fileID: 1252566619}
   player_sprites:
-  - {fileID: 21300000, guid: 11b318446701bb046a5b5a79d26ecc95, type: 3}
+  - {fileID: 21300000, guid: dc25b2697e3a81b4d9a727b442765e5d, type: 3}
   - {fileID: 21300000, guid: 8d4dc2583d0f99c43bcf6aa429a69cea, type: 3}
   - {fileID: 21300000, guid: ec381acd7fc029b48b265101e2066c43, type: 3}
   - {fileID: 21300000, guid: 4983744020bc78d4795178ccba38a90a, type: 3}
@@ -8120,6 +8120,7 @@ MonoBehaviour:
     type: 3}
   audio_source: {fileID: 1929569138}
   has_song_started: 0
+  has_weapon_spawn_started: 0
   score_player1: {fileID: 412791430}
   score_player2: {fileID: 1788825693}
 --- !u!4 &1929569137
@@ -9568,7 +9569,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138444804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 430, y: 420, z: 0}
+  m_LocalPosition: {x: 600, y: 420, z: 0}
   m_LocalScale: {x: 2.0324, y: 2.0324, z: 2.0324}
   m_Children: []
   m_Father: {fileID: 236290654}
