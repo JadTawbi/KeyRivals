@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
 using System;
+using UnityEditor;
 
 public class WinScreenBehaviour : MonoBehaviour
 {
@@ -13,8 +14,7 @@ public class WinScreenBehaviour : MonoBehaviour
     public TextMeshProUGUI player1_score_TMP, player2_score_TMP, winner_score_TMP, winner_TMP;
     public GameObject player1, player2, winner;
 
-    private float t1, t2, player1_easing_time, player2_easing_time;
-    private const float SCORE_TO_TIME_FACTOR = 100000.0f;
+    private float t1, t2;
     private int player1_displayed_score, player2_displayed_score;
 
     List<int> player1_score_digits, player2_score_digits;
@@ -23,8 +23,8 @@ public class WinScreenBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player1_score = 765169;
-        player2_score = 431649;
+        //player1_score = 786261;
+        //player2_score = 431649;
 
         player1_score_digits = new List<int>();
         player2_score_digits = new List<int>();
@@ -50,18 +50,17 @@ public class WinScreenBehaviour : MonoBehaviour
         t1 = t2 = 0.0f;
         player1_displayed_score = player2_displayed_score = 0;
 
-        player1_easing_time = player1_score / SCORE_TO_TIME_FACTOR;
-        player2_easing_time = player2_score / SCORE_TO_TIME_FACTOR;
-
-        if(player1_score >= player2_score)
+        if(player1_score > player2_score)
         {
             winner_TMP.text = "Player 1";
-            winner_score_TMP.text = player1_score.ToString();
+        }
+        else if (player1_score < player2_score)
+        {
+            winner_TMP.text = "Player 2";
         }
         else
         {
-            winner_TMP.text = "Player 2";
-            winner_score_TMP.text = player2_score.ToString();
+            winner_TMP.text = "Players 1 and 2";
         }
     }
 
@@ -75,14 +74,6 @@ public class WinScreenBehaviour : MonoBehaviour
         if (t1 == 1.0f && t2 == 1.0f)
         {
             winner.SetActive(true);
-            if (player1_score >= player2_score)
-            {
-                player1.SetActive(false);
-            }
-            else
-            {
-                player2.SetActive(false);
-            }
         }
     }
 
