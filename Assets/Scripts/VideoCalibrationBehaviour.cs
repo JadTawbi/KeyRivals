@@ -13,7 +13,6 @@ public class VideoCalibrationBehaviour : MonoBehaviour
 
     private List<float> timestamps;
     private List<float> video_lag_values_per_timestamp;
-    private static float final_video_lag;
 
     public TextMeshProUGUI display_TMP;
 
@@ -107,16 +106,14 @@ public class VideoCalibrationBehaviour : MonoBehaviour
         }
         if (video_lag_values_per_timestamp.Count != 0)
         {
-            final_video_lag = video_lag_total / video_lag_values_per_timestamp.Count;
+            PlayerPrefs.SetFloat("video lag", video_lag_total / video_lag_values_per_timestamp.Count);
         }
         else
         {
-            final_video_lag = 0.0f;
+            PlayerPrefs.SetFloat("video lag", 0.0f);
         }
 
-        MainMenuBehaviour.video_lag = final_video_lag;
-
-        int video_lag_in_ms_rounded = Mathf.RoundToInt(final_video_lag * 1000);
+        int video_lag_in_ms_rounded = Mathf.RoundToInt(PlayerPrefs.GetFloat("video lag", 0.0f) * 1000);
 
         display_TMP.text = "The video lag has been set to \n " + video_lag_in_ms_rounded.ToString() + " milliseconds";
         back_button.SetActive(false);

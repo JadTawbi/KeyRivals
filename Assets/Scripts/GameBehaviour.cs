@@ -8,13 +8,13 @@ public class GameBehaviour : MonoBehaviour
     public static bool paused = false;
 
     public GameObject weapon_spawner;
-    private AudioSource weapon_spawner_audio_source;
     private WeaponSpawnerBehaviour weapon_spawner_behaviour;
 
     public GameObject[] game_objects_with_animation;
     private Animator[] animators;
 
     public GameObject pause_canvas, pause_menu, options_menu;
+    private OptionsMenuBehaviour options_menu_behaviour;
 
     private float clapping_timer;
     public const float CLAPPING_INTERVAL = 4.0f;
@@ -25,9 +25,10 @@ public class GameBehaviour : MonoBehaviour
 
     private void Start()
     {
-        weapon_spawner_audio_source = weapon_spawner.GetComponent<AudioSource>();
         weapon_spawner_behaviour = weapon_spawner.GetComponent<WeaponSpawnerBehaviour>();
-        audio_source.volume = OptionsMenuBehaviour.volume_value;
+        options_menu_behaviour = options_menu.GetComponent<OptionsMenuBehaviour>();
+
+        audio_source.volume = PlayerPrefs.GetFloat("volume", OptionsMenuBehaviour.DEFAULT_VOLUME);
 
         animators = new Animator[game_objects_with_animation.Length];
         int i = 0;
@@ -79,7 +80,7 @@ public class GameBehaviour : MonoBehaviour
     {
         if(paused == false)
         {
-            pauseSounds(true);
+            options_menu_behaviour.pauseSound();
             foreach (Animator animator in animators)
             {
                 animator.speed = 0;
@@ -94,7 +95,7 @@ public class GameBehaviour : MonoBehaviour
         }
         else
         {
-            pauseSounds(false);
+            options_menu_behaviour.unPauseSound();
             foreach (Animator animator in animators)
             {
                 animator.speed = 1;
@@ -108,20 +109,5 @@ public class GameBehaviour : MonoBehaviour
     public void quitToMainMenu()
     {
         SceneManager.LoadScene("Menu");
-        //paused = false;
-    }
-
-    private void pauseSounds(bool pause_state)
-    {
-        if (pause_state == true)
-        {
-            weapon_spawner_audio_source.Pause();
-            audio_source.Pause();
-        }
-        else
-        {
-            weapon_spawner_audio_source.UnPause();
-            audio_source.UnPause();
-        }
     }
 }

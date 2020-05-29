@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class MainMenuBehaviour : MonoBehaviour
 {
-    public static float audio_lag, video_lag;
     public AudioSource audio_source;
     public enum MainMenuTrack { Neon, PickMyBrain };
+
+    public GameObject options_menu;
 
     private void Start()
     {
         loadTrack((MainMenuTrack)Random.Range(0,2));
+
+        options_menu.GetComponent<OptionsMenuBehaviour>().checkVolume();
+
         audio_source.Play();
         CharacterSelectMenuBehaviour.randomizeCharacters();
     }
@@ -27,6 +31,7 @@ public class MainMenuBehaviour : MonoBehaviour
                 break;
         }
     }
+
     public void Quit()
     {
 #if UNITY_EDITOR

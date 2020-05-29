@@ -69,7 +69,8 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     void Start()
     {
         loadTrack(SongSelectMenuBehaviour.track);
-        audio_source.volume = OptionsMenuBehaviour.volume_value;
+
+        audio_source.volume = PlayerPrefs.GetFloat("volume", OptionsMenuBehaviour.DEFAULT_VOLUME);
 
         Stream midi_as_memory_stream = new MemoryStream(midi_as_text.bytes);
         midi_file = new MidiFile(midi_as_memory_stream, true);
@@ -98,8 +99,8 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
         audio_lag_done = video_lag_done = lag_timers_on = false;
         audio_lag_timer = video_lag_timer = 0.0f;
-        audio_lag = MainMenuBehaviour.audio_lag;
-        video_lag = MainMenuBehaviour.video_lag;
+        audio_lag = PlayerPrefs.GetFloat("audio lag", 0.0f);
+        video_lag = PlayerPrefs.GetFloat("video lag", 0.0f);
     }
     private void loadTrack(PlayableTrack track_to_load)
     {

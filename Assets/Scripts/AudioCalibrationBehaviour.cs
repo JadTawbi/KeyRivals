@@ -14,7 +14,6 @@ public class AudioCalibrationBehaviour : MonoBehaviour
 
     private List<float> timestamps;
     private List<float> audio_lag_values_per_timestamp;
-    private static float final_audio_lag;
 
     public TextMeshProUGUI display_TMP;
 
@@ -96,16 +95,14 @@ public class AudioCalibrationBehaviour : MonoBehaviour
         }
         if (audio_lag_values_per_timestamp.Count != 0)
         {
-            final_audio_lag = audio_lag_total / audio_lag_values_per_timestamp.Count;
+            PlayerPrefs.SetFloat("audio lag", audio_lag_total / audio_lag_values_per_timestamp.Count);
         }
         else
         {
-            final_audio_lag = 0.0f;
+            PlayerPrefs.SetFloat("audio lag", 0.0f);
         }
 
-        MainMenuBehaviour.audio_lag = final_audio_lag;
-
-        int audio_lag_in_ms_rounded = Mathf.RoundToInt(final_audio_lag * 1000);
+        int audio_lag_in_ms_rounded = Mathf.RoundToInt(PlayerPrefs.GetFloat("audio lag", 0.0f) * 1000);
 
         display_TMP.text = "The audio lag has been set to\n" + audio_lag_in_ms_rounded.ToString() + " milliseconds";
         back_button.SetActive(false);
