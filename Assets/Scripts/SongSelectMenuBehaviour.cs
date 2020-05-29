@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SongSelectMenuBehaviour : MonoBehaviour
 {
-    public static WeaponSpawnerBehaviour.Track track;
+    public static WeaponSpawnerBehaviour.PlayableTrack track;
     public void play()
     {
         SceneManager.LoadScene("Game");
@@ -13,42 +13,42 @@ public class SongSelectMenuBehaviour : MonoBehaviour
 
     public void loadLucidDream()
     {
-        track = WeaponSpawnerBehaviour.Track.LucidDream;
+        track = WeaponSpawnerBehaviour.PlayableTrack.LucidDream;
         TutorialBehaviour.practice = false;
     }
     public void loadSchukran()
     {
-        track = WeaponSpawnerBehaviour.Track.Schukran;
+        track = WeaponSpawnerBehaviour.PlayableTrack.Schukran;
         TutorialBehaviour.practice = false;
     }
     public void loadElTió()
     {
-        track = WeaponSpawnerBehaviour.Track.ElTió;
+        track = WeaponSpawnerBehaviour.PlayableTrack.ElTió;
         TutorialBehaviour.practice = false;
     }
     public void loadRivals()
     {
-        track = WeaponSpawnerBehaviour.Track.Rivals;
+        track = WeaponSpawnerBehaviour.PlayableTrack.Rivals;
         TutorialBehaviour.practice = false;
     }
     public void loadSEKBeat()
     {
-        track = WeaponSpawnerBehaviour.Track.SEKBeat;
+        track = WeaponSpawnerBehaviour.PlayableTrack.SEKBeat;
         TutorialBehaviour.practice = false;
     }
     public void loadLagom()
     {
-        track = WeaponSpawnerBehaviour.Track.Lagom;
+        track = WeaponSpawnerBehaviour.PlayableTrack.Lagom;
         TutorialBehaviour.practice = false;
     }
     public void loadDeeper()
     {
-        track = WeaponSpawnerBehaviour.Track.Deeper;
+        track = WeaponSpawnerBehaviour.PlayableTrack.Deeper;
         TutorialBehaviour.practice = false;
     }
     public void loadPractice()
     {
-        track = WeaponSpawnerBehaviour.Track.Practice;
+        track = WeaponSpawnerBehaviour.PlayableTrack.Practice;
         TutorialBehaviour.practice = true;
     }
 }

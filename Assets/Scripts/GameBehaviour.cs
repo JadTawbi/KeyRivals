@@ -27,6 +27,7 @@ public class GameBehaviour : MonoBehaviour
     {
         weapon_spawner_audio_source = weapon_spawner.GetComponent<AudioSource>();
         weapon_spawner_behaviour = weapon_spawner.GetComponent<WeaponSpawnerBehaviour>();
+        audio_source.volume = OptionsMenuBehaviour.volume_value;
 
         animators = new Animator[game_objects_with_animation.Length];
         int i = 0;
@@ -50,7 +51,6 @@ public class GameBehaviour : MonoBehaviour
         if (paused == false)
         {
             waitForClapping();
-            checkVolume();
         }
     }
 
@@ -72,14 +72,6 @@ public class GameBehaviour : MonoBehaviour
         else
         {
             clapping_timer += Time.deltaTime;
-        }
-    }
-
-    private void checkVolume()
-    {
-        if (audio_source.volume != OptionsMenuBehaviour.volume_value)
-        {
-            audio_source.volume = OptionsMenuBehaviour.volume_value;
         }
     }
 

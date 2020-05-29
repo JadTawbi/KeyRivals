@@ -54,7 +54,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
     private int notes_displayed;
 
-    public enum Track { LucidDream, Schukran, ElTió, Rivals, SEKBeat, Lagom, Deeper, Practice};
+    public enum PlayableTrack { LucidDream, Schukran, ElTió, Rivals, SEKBeat, Lagom, Deeper, Practice};
     private TextAsset midi_as_text;
 
     public bool has_song_started, has_weapon_spawn_started;
@@ -69,6 +69,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     void Start()
     {
         loadTrack(SongSelectMenuBehaviour.track);
+        audio_source.volume = OptionsMenuBehaviour.volume_value;
 
         Stream midi_as_memory_stream = new MemoryStream(midi_as_text.bytes);
         midi_file = new MidiFile(midi_as_memory_stream, true);
@@ -100,46 +101,46 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         audio_lag = MainMenuBehaviour.audio_lag;
         video_lag = MainMenuBehaviour.video_lag;
     }
-    private void loadTrack(Track track_to_load)
+    private void loadTrack(PlayableTrack track_to_load)
     {
         switch (track_to_load)
         {
-            case Track.LucidDream:
+            case PlayableTrack.LucidDream:
                 midi_as_text = Resources.Load("MIDI/LucidDreamMIDI_1.1") as TextAsset;   //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/LucidDreamLoudBright16bit") as AudioClip;
                 beats_per_minute = 90;
                 break;
-            case Track.Schukran:
+            case PlayableTrack.Schukran:
                 midi_as_text = Resources.Load("MIDI/SchukranMIDI_1.2") as TextAsset;   //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/SchukranLoudBrightLessbass16bit") as AudioClip;
                 beats_per_minute = 90;
                 break;
-            case Track.ElTió:
+            case PlayableTrack.ElTió:
                 midi_as_text = Resources.Load("MIDI/ElTióMIDI_2.0") as TextAsset;   //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/ElTióLoudBrightWarm16bit") as AudioClip;
                 beats_per_minute = 125;
                 break;
-            case Track.Rivals:
+            case PlayableTrack.Rivals:
                 midi_as_text = Resources.Load("MIDI/RivalsMIDI_2.1") as TextAsset;  //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/RivalsBright16bit") as AudioClip;
                 beats_per_minute = 120;
                 break;
-            case Track.SEKBeat:
+            case PlayableTrack.SEKBeat:
                 midi_as_text = Resources.Load("MIDI/SEKBeatMIDI_2.0") as TextAsset;  //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/SEKBeatBrightWarm16bit") as AudioClip;
                 beats_per_minute = 150;
                 break;
-            case Track.Lagom:
+            case PlayableTrack.Lagom:
                 midi_as_text = Resources.Load("MIDI/LagomMIDI_2.0") as TextAsset;  //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/LagomLoudBright16bit") as AudioClip;
                 beats_per_minute = 150;
                 break;
-            case Track.Deeper:
+            case PlayableTrack.Deeper:
                 midi_as_text = Resources.Load("MIDI/DeeperMIDI_2.0") as TextAsset;  //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/DeeperBrightLessBassLoud16bit") as AudioClip;
                 beats_per_minute = 150;
                 break;
-            case Track.Practice:
+            case PlayableTrack.Practice:
                 midi_as_text = Resources.Load("MIDI/PracticeMIDI_1.0") as TextAsset;    //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/Practice Room -21_5") as AudioClip;
                 beats_per_minute = 104;
@@ -169,8 +170,6 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 WinScreenBehaviour.player2_score = score_behaviour_p2.score_amount;
                 SceneManager.LoadScene("WinScreen");
             }
-            
-            checkVolume();
             checkLagTimers();
         }        
     }
@@ -204,14 +203,6 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         }
 
         spawn_timer += Time.deltaTime;
-    }
-
-    private void checkVolume()
-    {
-        if(audio_source.volume != OptionsMenuBehaviour.volume_value)
-        {
-            audio_source.volume = OptionsMenuBehaviour.volume_value;
-        }
     }
 
     private void startSong()
