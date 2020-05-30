@@ -65,6 +65,9 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     private bool audio_lag_done, video_lag_done, lag_timers_on;
     private float audio_lag_timer, video_lag_timer, audio_lag, video_lag;
 
+    public GameObject boss_eye;
+    private Animator boss_eye_animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -101,6 +104,9 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         audio_lag_timer = video_lag_timer = 0.0f;
         audio_lag = PlayerPrefs.GetFloat("audio lag", 0.0f);
         video_lag = PlayerPrefs.GetFloat("video lag", 0.0f);
+
+        boss_eye_animator = boss_eye.GetComponent<Animator>();
+        boss_eye_animator.speed = beats_per_minute / 60.0f;
     }
     private void loadTrack(PlayableTrack track_to_load)
     {

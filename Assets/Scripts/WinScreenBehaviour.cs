@@ -90,7 +90,7 @@ public class WinScreenBehaviour : MonoBehaviour
     {
         if (player1_score_digits.Count > 0)
         {
-            float time_to_elapse = (player1_score_digits[0] * player1_score_digits.Count) / 20.0f;
+            float time_to_elapse = (player1_score_digits[0] * player1_score_digits.Count) / 5.0f;
 
             t1 = Mathf.MoveTowards(t1, 1.0f, Time.deltaTime / time_to_elapse);
             player1_displayed_score = (int)Mathf.Lerp(player1_lerp_start, player1_score, t1);
@@ -111,7 +111,7 @@ public class WinScreenBehaviour : MonoBehaviour
 
         if (player2_score_digits.Count > 0)
         {
-            float time_to_elapse = (player2_score_digits[0] * player2_score_digits.Count) / 20.0f;
+            float time_to_elapse = (player2_score_digits[0] * player2_score_digits.Count) / 5.0f;
 
             t2 = Mathf.MoveTowards(t2, 1.0f, Time.deltaTime / time_to_elapse);
             player2_displayed_score = (int)Mathf.Lerp(player2_lerp_start, player2_score, t2);
