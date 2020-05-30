@@ -41,7 +41,7 @@ public class AudioCalibrationBehaviour : MonoBehaviour
         timer_done = false;
 
         display_TMP.text = "Press Z every time you hear the metronome to calibrate audio lag.\nThis will take about one minute.";
-        current_lag_TMP.text = "Current audio lag: " + PlayerPrefs.GetFloat("audio lag", 0.0f).ToString() + " ms";
+        current_lag_TMP.text = "Current audio lag: " + ((int)(1000 * (PlayerPrefs.GetFloat("audio lag", 0.0f)))).ToString() + " ms";
 
         back_button.SetActive(true);
         accept_button.SetActive(false);

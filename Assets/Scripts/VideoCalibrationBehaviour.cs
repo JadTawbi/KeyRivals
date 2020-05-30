@@ -40,7 +40,7 @@ public class VideoCalibrationBehaviour : MonoBehaviour
         timer_done = false;
 
         display_TMP.text = "Press Z every time the colored circles reach the edge of the circumference to calibrate video lag.\nThis will take about one minute.";
-        current_lag_TMP.text = "Current video lag: " + PlayerPrefs.GetFloat("video lag", 0.0f).ToString() + " ms";
+        current_lag_TMP.text = "Current video lag: " + ((int)(1000 * PlayerPrefs.GetFloat("video lag", 0.0f))).ToString() + " ms";
 
         back_button.SetActive(true);
         accept_button.SetActive(false);
