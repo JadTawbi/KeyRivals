@@ -65,8 +65,8 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     private bool audio_lag_done, video_lag_done, lag_timers_on;
     private float audio_lag_timer, video_lag_timer, audio_lag, video_lag;
 
-    public GameObject boss_eye;
-    private Animator boss_eye_animator;
+    public GameObject boss_eye, boss;
+    private Animator boss_eye_animator, boss_animator;
 
     // Start is called before the first frame update
     void Start()
@@ -105,6 +105,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         audio_lag = PlayerPrefs.GetFloat("audio lag", 0.0f);
         video_lag = PlayerPrefs.GetFloat("video lag", 0.0f);
 
+        boss_animator = boss.GetComponent<Animator>();
         boss_eye_animator = boss_eye.GetComponent<Animator>();
         boss_eye_animator.speed = beats_per_minute / 60.0f;
     }
@@ -216,6 +217,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     {
         audio_source.Play();
         has_song_started = true;
+        boss_animator.SetTrigger("startMoving");
     }
     private void startWeaponSpawn()
     {

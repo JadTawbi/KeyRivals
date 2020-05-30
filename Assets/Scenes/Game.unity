@@ -8650,6 +8650,7 @@ MonoBehaviour:
   score_player1: {fileID: 412791430}
   score_player2: {fileID: 1788825693}
   boss_eye: {fileID: 138991263}
+  boss: {fileID: 138991263}
 --- !u!4 &1929569137
 Transform:
   m_ObjectHideFlags: 0
