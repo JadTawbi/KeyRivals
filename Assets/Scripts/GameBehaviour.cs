@@ -42,7 +42,8 @@ public class GameBehaviour : MonoBehaviour
         clapping_audio_clip = Resources.Load("Sounds/IntroSoundEffect_01") as AudioClip;
         clapping_done = false;
 
-        audio_source.PlayOneShot(clapping_audio_clip);
+        audio_source.clip = clapping_audio_clip;
+        audio_source.Play();
     }
 
     private void Update()

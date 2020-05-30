@@ -11,7 +11,7 @@ public class WinScreenBehaviour : MonoBehaviour
 {
     [System.NonSerialized]
     public static int player1_score, player2_score;
-    public TextMeshProUGUI player1_score_TMP, player2_score_TMP, winner_score_TMP, winner_TMP;
+    public TextMeshProUGUI player1_score_TMP, player2_score_TMP, wins_TMP, winner_TMP;
     public GameObject player1, player2, winner;
 
     private float t1, t2;
@@ -20,12 +20,11 @@ public class WinScreenBehaviour : MonoBehaviour
     List<int> player1_score_digits, player2_score_digits;
     int player1_lerp_start, player2_lerp_start;
 
+    public AudioSource audio_source;
+
     // Start is called before the first frame update
     void Start()
     {
-        //player1_score = 786261;
-        //player2_score = 431649;
-
         player1_score_digits = new List<int>();
         player2_score_digits = new List<int>();
 
@@ -60,8 +59,12 @@ public class WinScreenBehaviour : MonoBehaviour
         }
         else
         {
-            winner_TMP.text = "Players 1 and 2";
+            winner_TMP.text = "Both players";
+            wins_TMP.text = "tied!";
         }
+
+        audio_source.volume = PlayerPrefs.GetFloat("volume", OptionsMenuBehaviour.DEFAULT_VOLUME);
+        audio_source.Play();
     }
 
     // Update is called once per frame
@@ -80,8 +83,6 @@ public class WinScreenBehaviour : MonoBehaviour
     public void quitToMainMenu()
     {
         SceneManager.LoadScene("Menu");
-        player1.SetActive(false);
-        player2.SetActive(false);
         player1_score = player2_score = 0;
     }
 

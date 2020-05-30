@@ -1,0 +1,374 @@
+fileFormatVersion: 2
+guid: 0e73d626074aac342986fc4efc6ea553
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2241027046240031102
+    second: bossShootAnimSpriteSheet1.3_0
+  - first:
+      213: -4812588725312021759
+    second: bossShootAnimSpriteSheet1.3_1
+  - first:
+      213: 4774411226587299785
+    second: bossShootAnimSpriteSheet1.3_2
+  - first:
+      213: -4337916751447664284
+    second: bossShootAnimSpriteSheet1.3_3
+  - first:
+      213: 770672290908088524
+    second: bossShootAnimSpriteSheet1.3_4
+  - first:
+      213: -2987262637541039622
+    second: bossShootAnimSpriteSheet1.3_5
+  - first:
+      213: -6116447853831826522
+    second: bossShootAnimSpriteSheet1.3_6
+  - first:
+      213: 7851772908908233283
+    second: bossShootAnimSpriteSheet1.3_7
+  - first:
+      213: 555619386405251528
+    second: bossShootAnimSpriteSheet1.3_8
+  - first:
+      213: -2228104476455921820
+    second: bossShootAnimSpriteSheet1.3_9
+  - first:
+      213: -6241894645634357324
+    second: bossShootAnimSpriteSheet1.3_10
+  - first:
+      213: 4171204842813109920
+    second: bossShootAnimSpriteSheet1.3_11
+  - first:
+      213: 1595011708130754461
+    second: bossShootAnimSpriteSheet1.3_12
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28ee1d066c546e0e0800000000000000
+      internalID: -2241027046240031102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10b1ab17d00463db0800000000000000
+      internalID: -4812588725312021759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cf7f54f6bd124240800000000000000
+      internalID: 4774411226587299785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_3
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 469deb4a2bf9cc3c0800000000000000
+      internalID: -4337916751447664284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_4
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc820d98d5af1ba00800000000000000
+      internalID: 770672290908088524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_5
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af1e196557c1b86d0800000000000000
+      internalID: -2987262637541039622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_6
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a3572155130e1ba0800000000000000
+      internalID: -6116447853831826522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_7
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 342c2843cd917fc60800000000000000
+      internalID: 7851772908908233283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_8
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c9610d53e4f5b700800000000000000
+      internalID: 555619386405251528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_9
+      rect:
+        serializedVersion: 2
+        x: 2700
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 467136e98ce2411e0800000000000000
+      internalID: -2228104476455921820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bossShootAnimSpriteSheet1.3_10
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 0
+        width: 300.36365
+        height: 650
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b72d8904e55069a0800000000000000
+      internalID: -6241894645634357324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

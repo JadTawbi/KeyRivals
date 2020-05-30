@@ -35,11 +35,13 @@ public class OptionsMenuBehaviour : MonoBehaviour
     }
     public void checkVolume()
     {
+        float volume = PlayerPrefs.GetFloat("volume", DEFAULT_VOLUME);
+
         foreach (AudioSource audio_source in audio_sources)
         {
-            if (audio_source.volume != PlayerPrefs.GetFloat("volume", DEFAULT_VOLUME))
+            if (audio_source.volume != volume)
             {
-                audio_source.volume = PlayerPrefs.GetFloat("volume", DEFAULT_VOLUME);
+                audio_source.volume = volume;
             }
         }
     }
