@@ -1,0 +1,488 @@
+fileFormatVersion: 2
+guid: e6f75b587f2f13741a92377cc0b23f90
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5738540311744521871
+    second: recoveryAnimation_spritesheet_1.0_0
+  - first:
+      213: -4553507760683666025
+    second: recoveryAnimation_spritesheet_1.0_1
+  - first:
+      213: -7722634934917850472
+    second: recoveryAnimation_spritesheet_1.0_2
+  - first:
+      213: 1810112010772660316
+    second: recoveryAnimation_spritesheet_1.0_3
+  - first:
+      213: -6361933344286667282
+    second: recoveryAnimation_spritesheet_1.0_4
+  - first:
+      213: 3011386384483903849
+    second: recoveryAnimation_spritesheet_1.0_5
+  - first:
+      213: -4822711576540302340
+    second: recoveryAnimation_spritesheet_1.0_6
+  - first:
+      213: 7480011172997176110
+    second: recoveryAnimation_spritesheet_1.0_7
+  - first:
+      213: -5499915921147663211
+    second: recoveryAnimation_spritesheet_1.0_8
+  - first:
+      213: 1130805965501368784
+    second: recoveryAnimation_spritesheet_1.0_9
+  - first:
+      213: 69154224742434077
+    second: recoveryAnimation_spritesheet_1.0_10
+  - first:
+      213: -1349413754489305788
+    second: recoveryAnimation_spritesheet_1.0_11
+  - first:
+      213: 5322763776656462191
+    second: recoveryAnimation_spritesheet_1.0_12
+  - first:
+      213: -2511281489261295227
+    second: recoveryAnimation_spritesheet_1.0_13
+  - first:
+      213: 2362320105945140819
+    second: recoveryAnimation_spritesheet_1.0_14
+  - first:
+      213: 8281716759986239776
+    second: recoveryAnimation_spritesheet_1.0_15
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2244
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17955359dfb9c50b0800000000000000
+      internalID: -5738540311744521871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_1
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 2244
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 795377231d0bec0c0800000000000000
+      internalID: -4553507760683666025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_2
+      rect:
+        serializedVersion: 2
+        x: 1742
+        y: 2244
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89a13366170b3d490800000000000000
+      internalID: -7722634934917850472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_3
+      rect:
+        serializedVersion: 2
+        x: 2613
+        y: 2244
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c50c5cd884fce1910800000000000000
+      internalID: 1810112010772660316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1496
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eed8411945fd5b7a0800000000000000
+      internalID: -6361933344286667282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_5
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 1496
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9696c9036f79ac920800000000000000
+      internalID: 3011386384483903849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_6
+      rect:
+        serializedVersion: 2
+        x: 1742
+        y: 1496
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf3b62a7f59421db0800000000000000
+      internalID: -4822711576540302340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_7
+      rect:
+        serializedVersion: 2
+        x: 2613
+        y: 1496
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2b1372f7865ec760800000000000000
+      internalID: 7480011172997176110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 748
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59c6a790c9f5ca3b0800000000000000
+      internalID: -5499915921147663211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_9
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 748
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d90a9bc80e61bf00800000000000000
+      internalID: 1130805965501368784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_10
+      rect:
+        serializedVersion: 2
+        x: 1742
+        y: 748
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d158d78a66fa5f000800000000000000
+      internalID: 69154224742434077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_11
+      rect:
+        serializedVersion: 2
+        x: 2613
+        y: 748
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44583acf65be54de0800000000000000
+      internalID: -1349413754489305788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f61dce224714ed940800000000000000
+      internalID: 5322763776656462191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_13
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 0
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58901957ac2262dd0800000000000000
+      internalID: -2511281489261295227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_14
+      rect:
+        serializedVersion: 2
+        x: 1742
+        y: 0
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35e8f98ce95a8c020800000000000000
+      internalID: 2362320105945140819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recoveryAnimation_spritesheet_1.0_15
+      rect:
+        serializedVersion: 2
+        x: 2613
+        y: 0
+        width: 871
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 029f069c3819ee270800000000000000
+      internalID: 8281716759986239776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

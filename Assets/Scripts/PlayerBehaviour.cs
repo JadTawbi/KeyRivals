@@ -37,10 +37,20 @@ public class PlayerBehaviour : MonoBehaviour
     private BuilderBehaviour builder_behaviour;
 
     public enum PlayerCharacter { BassFisher, BigLightBeam, CrownJules, HotDogg, Jojitsu, LadyGooGooGaGa, Powerdog };
-    public Sprite[] player_sprites = new Sprite[7];
+    private PlayerCharacter player_character;
+    [System.Serializable]
+    public class SpriteCollection
+    {
+        public List<Sprite> sprites;
+    }
+    public List<SpriteCollection> sprite_collections;
+
     private SpriteRenderer sprite_renderer;
 
     public GameObject[] beams = new GameObject[4];
+
+    public GameObject stun_recovery;
+    private Animator stun_recovery_animator;
 
     void Start()
     {
@@ -78,6 +88,7 @@ public class PlayerBehaviour : MonoBehaviour
         stun_overlay_sprite_renderer = stun_overlay.GetComponent<SpriteRenderer>();
         stun_overlay_sprite_renderer.sprite = null;
 
+        stun_recovery_animator = stun_recovery.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -105,12 +116,14 @@ public class PlayerBehaviour : MonoBehaviour
         {
             transform.position += move_distance;
             lane--;
+            sprite_renderer.sprite = sprite_collections[(int)player_character].sprites[(int)lane];
             //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
         }
         if (Input.GetKeyDown(move_down) && lane != WeaponBehaviour.Lane.Fourth)
         {
             transform.position -= move_distance;
             lane++;
+            sprite_renderer.sprite = sprite_collections[(int)player_character].sprites[(int)lane];
             //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
         }
     }
@@ -222,6 +235,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Alive:
                 player_state = PlayerState.Alive;
                 gameObject.GetComponent<Animator>().SetBool("stunActive", false);
+                stun_recovery_animator.SetBool("stunned", false);
                 stun_overlay_sprite_renderer.sprite = null;
                 health_behaviour.resetHealth();
                 Debug.Log(gameObject.name + " is now alive");
@@ -229,6 +243,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Stunned:
                 player_state = PlayerState.Stunned;
                 gameObject.GetComponent<Animator>().SetBool("stunActive", true);
+                stun_recovery_animator.SetBool("stunned", true);
                 stun_overlay_sprite_renderer.sprite = stun_overlay_sprite;
                 recover_red_pressed = recover_green_pressed = recover_blue_pressed = recover_yellow_pressed = false;
                 Debug.Log(gameObject.name + " is now stunned");
@@ -248,6 +263,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void loadCharacter(PlayerCharacter player_character_to_load)
     {
-        sprite_renderer.sprite = player_sprites[(int)player_character_to_load];
+        sprite_renderer.sprite = sprite_collections[(int)player_character_to_load].sprites[0];
+        player_character = player_character_to_load;
     }
 }

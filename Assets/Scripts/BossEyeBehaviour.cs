@@ -14,7 +14,7 @@ public class BossEyeBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Random.Range(0.0f, 100.0f) <= 0.1f)
+        if (Random.Range(0.0f, 100.0f) <= 0.01f)
         {
             animator.SetTrigger("startBlink");
         }
