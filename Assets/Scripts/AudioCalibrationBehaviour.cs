@@ -15,7 +15,7 @@ public class AudioCalibrationBehaviour : MonoBehaviour
     private List<float> timestamps;
     private List<float> audio_lag_values_per_timestamp;
 
-    public TextMeshProUGUI display_TMP;
+    public TextMeshProUGUI display_TMP, current_lag_TMP;
 
     public GameObject back_button, accept_button;
 
@@ -41,6 +41,7 @@ public class AudioCalibrationBehaviour : MonoBehaviour
         timer_done = false;
 
         display_TMP.text = "Press Z every time you hear the metronome to calibrate audio lag.\nThis will take about one minute.";
+        current_lag_TMP.text = "Current audio lag: " + PlayerPrefs.GetFloat("audio lag", 0.0f).ToString() + " ms";
 
         back_button.SetActive(true);
         accept_button.SetActive(false);
@@ -105,6 +106,7 @@ public class AudioCalibrationBehaviour : MonoBehaviour
         int audio_lag_in_ms_rounded = Mathf.RoundToInt(PlayerPrefs.GetFloat("audio lag", 0.0f) * 1000);
 
         display_TMP.text = "The audio lag has been set to\n" + audio_lag_in_ms_rounded.ToString() + " milliseconds";
+        current_lag_TMP.text = "Current audio lag: " + audio_lag_in_ms_rounded.ToString() + " ms";
         back_button.SetActive(false);
         accept_button.SetActive(true);
     }
