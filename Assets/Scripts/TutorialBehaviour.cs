@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TutorialBehaviour : MonoBehaviour
 {
-    private const int TUTORIAL_LENGTH =10;
-    public Sprite[] tutorial_sprites = new Sprite[TUTORIAL_LENGTH];
+    public Sprite[] tutorial_sprites;
     public GameObject tutorial_display;
     private Image tutorial_image;
     private int current_sprite;
@@ -22,7 +22,7 @@ public class TutorialBehaviour : MonoBehaviour
     public void loadNextTutorial()
     {
         current_sprite++;
-        if (current_sprite > TUTORIAL_LENGTH - 1)
+        if (current_sprite > tutorial_sprites.Count() - 1)
         {
             current_sprite = 0;
         }
@@ -34,7 +34,7 @@ public class TutorialBehaviour : MonoBehaviour
         current_sprite--;
         if (current_sprite < 0)
         {
-            current_sprite = TUTORIAL_LENGTH - 1;
+            current_sprite = tutorial_sprites.Count() - 1;
         }
         tutorial_image.sprite = tutorial_sprites[current_sprite];
     }
