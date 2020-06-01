@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +14,7 @@ public class GameBehaviour : MonoBehaviour
 
     public GameObject[] game_objects_with_animation;
     private Animator[] animators;
+    private float[] animation_speeds;
 
     public GameObject pause_canvas, pause_menu, options_menu;
     private OptionsMenuBehaviour options_menu_behaviour;
@@ -44,6 +47,15 @@ public class GameBehaviour : MonoBehaviour
 
         audio_source.clip = clapping_audio_clip;
         audio_source.Play();
+
+        animation_speeds = new float[game_objects_with_animation.Count()];
+
+        i = 0;
+        foreach(Animator animator in animators)
+        {
+            animation_speeds[i] = animator.speed;
+            i++;
+        }
     }
 
     private void Update()
@@ -97,9 +109,11 @@ public class GameBehaviour : MonoBehaviour
         else
         {
             options_menu_behaviour.unPauseSound();
+            int i = 0;
             foreach (Animator animator in animators)
             {
-                animator.speed = 1;
+                animator.speed = animation_speeds[i];
+                i++;
             }
             pause_canvas.SetActive(false);
             paused = false;
