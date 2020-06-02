@@ -23,7 +23,7 @@ public class SongSelectMenuBehaviour : MonoBehaviour
     }
     public void loadElTió()
     {
-        track = WeaponSpawnerBehaviour.PlayableTrack.ElTió;
+        track = WeaponSpawnerBehaviour.PlayableTrack.ElTio;
         TutorialBehaviour.practice = false;
     }
     public void loadRivals()

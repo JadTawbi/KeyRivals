@@ -54,7 +54,7 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
 
     private int notes_displayed;
 
-    public enum PlayableTrack { LucidDream, Schukran, ElTió, Rivals, SEKBeat, Lagom, Deeper, Practice};
+    public enum PlayableTrack { LucidDream, Schukran, ElTio, Rivals, SEKBeat, Lagom, Deeper, Practice};
     private TextAsset midi_as_text;
 
     public bool has_song_started, has_weapon_spawn_started;
@@ -123,13 +123,13 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 audio_source.clip = Resources.Load("Music/SchukranLoudBrightLessbass16bit") as AudioClip;
                 beats_per_minute = 90;
                 break;
-            case PlayableTrack.ElTió:
+            case PlayableTrack.ElTio:
                 midi_as_text = Resources.Load("MIDI/ElTióMIDI_2.0") as TextAsset;   //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/ElTióLoudBrightWarm16bit") as AudioClip;
                 beats_per_minute = 125;
                 break;
             case PlayableTrack.Rivals:
-                midi_as_text = Resources.Load("MIDI/RivalsMIDI_2.1") as TextAsset;  //MIDI file extension changed to .bytes manually
+                midi_as_text = Resources.Load("MIDI/RivalsMIDI_2.2") as TextAsset;  //MIDI file extension changed to .bytes manually
                 audio_source.clip = Resources.Load("Music/RivalsBright16bit") as AudioClip;
                 beats_per_minute = 120;
                 break;

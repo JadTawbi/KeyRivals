@@ -11,7 +11,7 @@ public class WinScreenBehaviour : MonoBehaviour
 {
     [System.NonSerialized]
     public static int player1_score, player2_score;
-    public TextMeshProUGUI player1_score_TMP, player2_score_TMP, wins_TMP, winner_TMP;
+    public TextMeshProUGUI player1_score_TMP, player2_score_TMP, wins_TMP, winner_TMP, song_TMP;
     public GameObject player1, player2, winner;
 
     private float t1, t2;
@@ -25,6 +25,33 @@ public class WinScreenBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        switch (SongSelectMenuBehaviour.track)
+        {
+            case WeaponSpawnerBehaviour.PlayableTrack.LucidDream:
+                song_TMP.text = "01 - Lucid Dream";
+                break;
+            case WeaponSpawnerBehaviour.PlayableTrack.Schukran:
+                song_TMP.text = "02 - Schukran";
+                break;
+            case WeaponSpawnerBehaviour.PlayableTrack.ElTio:
+                song_TMP.text = "03 - El Tio";
+                break;
+            case WeaponSpawnerBehaviour.PlayableTrack.Rivals:
+                song_TMP.text = "04 - Rivals";
+                break;
+            case WeaponSpawnerBehaviour.PlayableTrack.SEKBeat:
+                song_TMP.text = "05 - SEKBeat";
+                break;
+            case WeaponSpawnerBehaviour.PlayableTrack.Lagom:
+                song_TMP.text = "06 - Lagom";
+                break;
+            case WeaponSpawnerBehaviour.PlayableTrack.Deeper:
+                song_TMP.text = "07 - Deeper";
+                break;
+            case WeaponSpawnerBehaviour.PlayableTrack.Practice:
+                song_TMP.text = "00 - Practice";
+                break;
+        }
         player1_score_digits = new List<int>();
         player2_score_digits = new List<int>();
 
