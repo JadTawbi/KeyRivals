@@ -10,12 +10,15 @@ public class BuilderBehaviour : MonoBehaviour
     private PartBehaviour.PartType[] parts_type;
     public int part_count;
 
-    public enum PowerUpType { Character = 0, One = 12, Two = 21, Three = 102, Four = 120, Five = 111, Six = 201, Seven = 210 };
+    public enum PowerUpType { None = -1, Character = 0, One = 12, Two = 21, Three = 102, Four = 120, Five = 111, Six = 201, Seven = 210 };
     private PowerUpType power_up_type;
     private int[] part_type_amounts;
 
     public enum BuilderState { Collecting, PowerupReady };
     private BuilderState builder_state;
+
+    private float power_up_timer, power_up_timer_interval;
+    private bool timer_running;
 
     void Start()
     {
@@ -33,16 +36,18 @@ public class BuilderBehaviour : MonoBehaviour
         part_count = 0;
         part_type_amounts = new int[3] { 0, 0, 0 };
         builder_state = BuilderState.Collecting;
-        power_up_type = PowerUpType.Character;
+        power_up_type = PowerUpType.None;
         for (int i = 0; i < MAX_PARTS; i++)
         {
             parts_sprite_renderer[i].sprite = null;
         }
+        power_up_timer = power_up_timer_interval = 0.0f;
+        timer_running = false;
     }
 
     void Update()
     {
-        
+        runTimer();
     }
 
     public void addPart(Sprite new_part_sprite, PartBehaviour.PartType new_part_type)
@@ -79,21 +84,98 @@ public class BuilderBehaviour : MonoBehaviour
                         power_up_code += part_type_amounts[i] * (int)(Mathf.Pow(10, (MAX_PARTS - 1) - i));
                     }
                     power_up_type = (PowerUpType)power_up_code;
+                    //power_up_type = PowerUpType.One;
                 }
 
                 Debug.Log(gameObject.name + " built a powerup of type " + power_up_type.ToString());
 
                 builder_state = BuilderState.PowerupReady;
-
-                //set active powerup
             }
         }
     }
 
     public void usePowerup()
     {
-        //use powerup
-
+        if (builder_state == BuilderState.PowerupReady)
+        {
+            switch (power_up_type)
+            {
+                case PowerUpType.None:
+                    break;
+                case PowerUpType.Character:
+                    break;
+                case PowerUpType.One:
+                    PlayerBehaviour.movement_locked = false;
+                    startTimer(5.0f);
+                    break;
+                case PowerUpType.Two:
+                    break;
+                case PowerUpType.Three:
+                    break;
+                case PowerUpType.Four:
+                    break;
+                case PowerUpType.Five:
+                    break;
+                case PowerUpType.Six:
+                    break;
+                case PowerUpType.Seven:
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            Debug.Log("Power Up not ready");
+        }
+    }
+    private void endPowerUpEffect()
+    {
+        switch (power_up_type)
+        {
+            case PowerUpType.None:
+                break;
+            case PowerUpType.Character:
+                break;
+            case PowerUpType.One:
+                PlayerBehaviour.movement_locked = true;
+                break;
+            case PowerUpType.Two:
+                break;
+            case PowerUpType.Three:
+                break;
+            case PowerUpType.Four:
+                break;
+            case PowerUpType.Five:
+                break;
+            case PowerUpType.Six:
+                break;
+            case PowerUpType.Seven:
+                break;
+            default:
+                break;
+        }
         initializeProperties();
+    }
+    private void startTimer(float timer_duration)
+    {
+        timer_running = true;
+        power_up_timer = 0;
+        power_up_timer_interval = timer_duration;
+    }
+    private void runTimer()
+    {
+        if (timer_running == true)
+        {
+            if (power_up_timer < power_up_timer_interval)
+            {
+                power_up_timer += Time.deltaTime;
+            }
+            else
+            {
+                timer_running = false;
+                endPowerUpEffect();
+            }
+        }
     }
 }

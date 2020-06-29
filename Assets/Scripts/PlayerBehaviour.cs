@@ -9,6 +9,15 @@ public class PlayerBehaviour : MonoBehaviour
 
     private WeaponBehaviour.AttackColour attack_colour;
 
+    public static readonly KeyCode
+        red_key_player1 = KeyCode.Z, 
+        red_key_player2 = KeyCode.H,
+        green_key_player1 = KeyCode.X, 
+        green_key_player2 = KeyCode.J,
+        blue_key_player1 = KeyCode.C, 
+        blue_key_player2 = KeyCode.K,
+        yellow_key_player1 = KeyCode.V, 
+        yellow_key_player2 = KeyCode.L;
     public KeyCode move_up, move_down;
     private KeyCode red_key, green_key, blue_key, yellow_key;
     private Vector3 move_distance;
@@ -52,6 +61,13 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject stun_recovery;
     private Animator stun_recovery_animator;
 
+    public static bool movement_locked;  //to use with power ups.
+
+    public static readonly KeyCode 
+        power_up_key_player1 = KeyCode.Space,
+        power_up_key_player2 = KeyCode.Return;
+    private KeyCode power_up_key;
+
     void Start()
     {
         stun_timer = 0.0f;
@@ -64,19 +80,21 @@ public class PlayerBehaviour : MonoBehaviour
         {
             loadCharacter(CharacterSelectMenuBehaviour.player1_character);
             side = WeaponBehaviour.Side.Player1;
-            red_key = KeyCode.Z;
-            green_key = KeyCode.X;
-            blue_key = KeyCode.C;
-            yellow_key = KeyCode.V;
+            red_key = red_key_player1;
+            green_key = green_key_player1;
+            blue_key = blue_key_player1;
+            yellow_key = yellow_key_player1;
+            power_up_key = power_up_key_player1;
         }
         else if (gameObject.CompareTag("Player2"))
         {
             loadCharacter(CharacterSelectMenuBehaviour.player2_character);
             side = WeaponBehaviour.Side.Player2;
-            red_key = KeyCode.H;
-            green_key = KeyCode.J;
-            blue_key = KeyCode.K;
-            yellow_key = KeyCode.L;
+            red_key = red_key_player2;
+            green_key = green_key_player2;
+            blue_key = blue_key_player2;
+            yellow_key = yellow_key_player2;
+            power_up_key = power_up_key_player2;
         }
 
         recover_red_pressed = recover_green_pressed = recover_blue_pressed = recover_yellow_pressed = false;
@@ -89,6 +107,7 @@ public class PlayerBehaviour : MonoBehaviour
         stun_overlay_sprite_renderer.sprite = null;
 
         stun_recovery_animator = stun_recovery.GetComponent<Animator>();
+        movement_locked = true;
     }
 
     // Update is called once per frame
@@ -100,6 +119,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 case PlayerState.Alive:
                     movePlayer();
+                    checkPowerUpInput();
                     checkBeamInput();
                     break;
 
@@ -112,19 +132,39 @@ public class PlayerBehaviour : MonoBehaviour
 
     void movePlayer()
     {
-        if (Input.GetKeyDown(move_up) && lane != WeaponBehaviour.Lane.First)
+        if (Input.GetKeyDown(move_up))
         {
-            transform.position += move_distance;
-            lane--;
-            sprite_renderer.sprite = sprite_collections[(int)player_character].sprites[(int)lane];
-            //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+            if(lane != WeaponBehaviour.Lane.First)
+            { 
+                transform.position += move_distance;
+                lane--;
+                sprite_renderer.sprite = sprite_collections[(int)player_character].sprites[(int)lane];
+                //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+            }
+            else if (movement_locked == false)
+            {
+                transform.position -= move_distance * 3;
+                lane += 3;
+                sprite_renderer.sprite = sprite_collections[(int)player_character].sprites[(int)lane];
+                //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+            }
         }
-        if (Input.GetKeyDown(move_down) && lane != WeaponBehaviour.Lane.Fourth)
+        if (Input.GetKeyDown(move_down))
         {
-            transform.position -= move_distance;
-            lane++;
-            sprite_renderer.sprite = sprite_collections[(int)player_character].sprites[(int)lane];
-            //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+            if (lane != WeaponBehaviour.Lane.Fourth)
+            {
+                transform.position -= move_distance;
+                lane++;
+                sprite_renderer.sprite = sprite_collections[(int)player_character].sprites[(int)lane];
+                //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+            }
+            else if (movement_locked == false)
+            {
+                transform.position += move_distance * 3;
+                lane -= 3;
+                sprite_renderer.sprite = sprite_collections[(int)player_character].sprites[(int)lane];
+                //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
+            }
         }
     }
 
@@ -226,6 +266,14 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         stun_timer += Time.deltaTime;
+    }
+
+    private void checkPowerUpInput()
+    {
+        if(Input.GetKeyDown(power_up_key))
+        {
+            builder_behaviour.usePowerup();
+        }
     }
 
     public void changeToPlayerState(PlayerState state)

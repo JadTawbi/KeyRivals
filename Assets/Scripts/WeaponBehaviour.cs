@@ -12,7 +12,7 @@ public class WeaponBehaviour : MonoBehaviour
     public enum AttackColour { Red, Green, Blue, Yellow, Bad};
     public AttackColour attack_colour;
     [System.NonSerialized]
-    static public Color 
+    static public readonly Color
         red = new Color(1.0f, 0.153f, 0.0f),
         green = new Color(0.0f, 1.0f, 0.431f),
         blue = new Color(0.212f, 0.929f, 0.871f),
@@ -42,7 +42,7 @@ public class WeaponBehaviour : MonoBehaviour
     private const float HIT_LOWER_THRESHOLD = 0.65f;
 
     public GameObject part;
-    private const int PART_DROP_CHANCE = -1;
+    private const int PART_DROP_CHANCE = 50;
     private Transform parts_parent;
 
     // Start is called before the first frame update
@@ -75,20 +75,20 @@ public class WeaponBehaviour : MonoBehaviour
                 player = GameObject.FindWithTag("Player1");
                 health_behaviour = GameObject.Find("Health Player1").GetComponent<HealthBehaviour>();
                 score_behaviour = GameObject.Find("Score Player1").GetComponent<ScoreBehaviour>();
-                red_key = KeyCode.Z;
-                green_key = KeyCode.X;
-                blue_key = KeyCode.C;
-                yellow_key = KeyCode.V;
+                red_key = PlayerBehaviour.red_key_player1;
+                green_key = PlayerBehaviour.green_key_player1;
+                blue_key = PlayerBehaviour.blue_key_player1;
+                yellow_key = PlayerBehaviour.yellow_key_player1;
                 break;
 
             case Side.Player2:
                 player = GameObject.FindWithTag("Player2");
                 health_behaviour = GameObject.Find("Health Player2").GetComponent<HealthBehaviour>();
                 score_behaviour = GameObject.Find("Score Player2").GetComponent<ScoreBehaviour>();
-                red_key = KeyCode.H;
-                green_key = KeyCode.J;
-                blue_key = KeyCode.K;
-                yellow_key = KeyCode.L;
+                red_key = PlayerBehaviour.red_key_player2;
+                green_key = PlayerBehaviour.green_key_player2;
+                blue_key = PlayerBehaviour.blue_key_player2;
+                yellow_key = PlayerBehaviour.yellow_key_player2;
                 break;
         }
 
