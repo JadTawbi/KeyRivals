@@ -17,7 +17,10 @@ public class HealthBehaviour : MonoBehaviour
     private float invincibility_timer;
     private const float INVINCIBILITY_INTERVAL = 2.0f;
     private bool invincibility_active;
-    
+
+    [System.NonSerialized]
+    public bool health_locked;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,7 @@ public class HealthBehaviour : MonoBehaviour
         }
         invincibility_timer = 0.0f;
         invincibility_active = false;
+        health_locked = false;
     }
 
     // Update is called once per frame
@@ -69,26 +73,32 @@ public class HealthBehaviour : MonoBehaviour
 
     public void loseHealth()
     {
-        if (invincibility_active == false)
+        if(health_locked == false)
         {
-            hit_points--;
+            if (invincibility_active == false)
+            {
+                hit_points--;
 
-            if (hit_points < 0)
-            {
-                hit_points = 0;
+                if (hit_points < 0)
+                {
+                    hit_points = 0;
+                }
+                else if (hit_points > 3)
+                {
+                    hit_points = 3;
+                }
+                activateInvincibility();
             }
-            else if (hit_points > 3)
-            {
-                hit_points = 3;
-            }
-            activateInvincibility();
         }
     }
 
     public void resetHealth()
     {
-        hit_points = MAX_HP;
-        activateInvincibility();
+        if(hit_points < MAX_HP)
+        { 
+            hit_points = MAX_HP;
+            activateInvincibility();
+        }
     }
 
     void checkInvincibility()

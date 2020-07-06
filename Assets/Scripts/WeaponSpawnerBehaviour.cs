@@ -68,6 +68,10 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     public GameObject boss_eye, boss;
     private Animator boss_eye_animator, boss_animator;
 
+    public static bool color_locked_player1 = false, color_locked_player2 = false;
+    public static bool color_random_player1 = false, color_random_player2 = false;
+    WeaponBehaviour.AttackColour last_color;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -198,11 +202,31 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
                 switch(i)
                 {
                     case 0:
+                        if(color_locked_player1)
+                        {
+                            new_weapon_behaviour.attack_colour = last_color;
+                        }
+                        else if (color_random_player1)
+                        {
+                            new_weapon_behaviour.attack_colour = (WeaponBehaviour.AttackColour)Random.Range(0, 4);
+                        }
                         new_weapon_behaviour.side = WeaponBehaviour.Side.Player1;
                         break;
                     case 1:
+                        if(color_locked_player2)
+                        {
+                            new_weapon_behaviour.attack_colour = last_color;
+                        }
+                        else if(color_random_player2)
+                        {
+                            new_weapon_behaviour.attack_colour = (WeaponBehaviour.AttackColour)Random.Range(0, 4);
+                        }
                         new_weapon_behaviour.side = WeaponBehaviour.Side.Player2;
                         break;
+                }
+                if(color_locked_player1 == false && color_locked_player2 == false)
+                {
+                    last_color = new_weapon_behaviour.attack_colour; //last note color cached for the powerup
                 }
             }
 

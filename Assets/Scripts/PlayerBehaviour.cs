@@ -61,7 +61,8 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject stun_recovery;
     private Animator stun_recovery_animator;
 
-    public static bool movement_locked;  //to use with power ups.
+    [System.NonSerialized]
+    public bool movement_locked;  //to use with power ups.
 
     public static readonly KeyCode 
         power_up_key_player1 = KeyCode.Space,

@@ -20,6 +20,10 @@ public class BuilderBehaviour : MonoBehaviour
     private float power_up_timer, power_up_timer_interval;
     private bool timer_running;
 
+    public PlayerBehaviour player_behaviour;
+    public ScoreBehaviour score_behaviour_own, score_behaviour_rival;
+    public HealthBehaviour health_behaviour;
+    public WeaponBehaviour.Side side; 
     void Start()
     {
         for (int i = 0; i < MAX_PARTS; i++)
@@ -84,7 +88,7 @@ public class BuilderBehaviour : MonoBehaviour
                         power_up_code += part_type_amounts[i] * (int)(Mathf.Pow(10, (MAX_PARTS - 1) - i));
                     }
                     power_up_type = (PowerUpType)power_up_code;
-                    //power_up_type = PowerUpType.One;
+                    //power_up_type = PowerUpType.Seven;
                 }
 
                 Debug.Log(gameObject.name + " built a powerup of type " + power_up_type.ToString());
@@ -105,22 +109,50 @@ public class BuilderBehaviour : MonoBehaviour
                 case PowerUpType.Character:
                     break;
                 case PowerUpType.One:
-                    PlayerBehaviour.movement_locked = false;
+                    player_behaviour.movement_locked = false;
                     startTimer(5.0f);
                     break;
                 case PowerUpType.Two:
+                    score_behaviour_own.multiplyMultiplierBy(2.0f);
+                    startTimer(0.0f);
                     break;
                 case PowerUpType.Three:
+                    score_behaviour_rival.multiplyMultiplierBy(0.5f);
+                    startTimer(0.0f);
                     break;
                 case PowerUpType.Four:
+                    switch (side)
+                    {
+                        case WeaponBehaviour.Side.Player1:
+                            WeaponSpawnerBehaviour.color_locked_player1 = true;
+                            break;
+                        case WeaponBehaviour.Side.Player2:
+                            WeaponSpawnerBehaviour.color_locked_player2 = true;
+                            break;
+                    }
+                    startTimer(5.0f);
                     break;
                 case PowerUpType.Five:
+                    health_behaviour.health_locked = true;
+                    score_behaviour_own.multiplier_locked = true;
+                    startTimer(5.0f);
                     break;
                 case PowerUpType.Six:
+                    health_behaviour.resetHealth();
+                    score_behaviour_own.increaseMultiplierBy(3);
+                    startTimer(0.0f);
                     break;
                 case PowerUpType.Seven:
-                    break;
-                default:
+                    switch (side)
+                    {
+                        case WeaponBehaviour.Side.Player1:
+                            WeaponSpawnerBehaviour.color_random_player2 = true;
+                            break;
+                        case WeaponBehaviour.Side.Player2:
+                            WeaponSpawnerBehaviour.color_random_player1 = true;
+                            break;
+                    }
+                    startTimer(5.0f);
                     break;
             }
         }
@@ -138,21 +170,39 @@ public class BuilderBehaviour : MonoBehaviour
             case PowerUpType.Character:
                 break;
             case PowerUpType.One:
-                PlayerBehaviour.movement_locked = true;
+                player_behaviour.movement_locked = true;
                 break;
             case PowerUpType.Two:
                 break;
             case PowerUpType.Three:
                 break;
             case PowerUpType.Four:
+                switch (side)
+                {
+                    case WeaponBehaviour.Side.Player1:
+                        WeaponSpawnerBehaviour.color_locked_player1 = false;
+                        break;
+                    case WeaponBehaviour.Side.Player2:
+                        WeaponSpawnerBehaviour.color_locked_player2 = false;
+                        break;
+                }
                 break;
             case PowerUpType.Five:
+                health_behaviour.health_locked = false;
+                score_behaviour_own.multiplier_locked = false;
                 break;
             case PowerUpType.Six:
                 break;
             case PowerUpType.Seven:
-                break;
-            default:
+                switch (side)
+                {
+                    case WeaponBehaviour.Side.Player1:
+                        WeaponSpawnerBehaviour.color_random_player2 = false;
+                        break;
+                    case WeaponBehaviour.Side.Player2:
+                        WeaponSpawnerBehaviour.color_random_player1 = false;
+                        break;
+                }
                 break;
         }
         initializeProperties();

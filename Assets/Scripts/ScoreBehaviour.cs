@@ -14,6 +14,9 @@ public class ScoreBehaviour : MonoBehaviour
     private const float EASING_TIME = 0.2f;
     private TextMeshPro multiplier_TMPro, score_TMPro;
 
+    [System.NonSerialized]
+    public bool multiplier_locked;
+
     void Start()
     {
         score_amount = 0;
@@ -23,6 +26,7 @@ public class ScoreBehaviour : MonoBehaviour
 
         score_displayed = score_before_adding = 0;
         t = 0.0f;
+        multiplier_locked = false;
     }
 
     void Update()
@@ -60,9 +64,22 @@ public class ScoreBehaviour : MonoBehaviour
         }
     }
 
+    public void multiplyMultiplierBy(float x)
+    {
+        multiplier_amount = Mathf.CeilToInt(x*multiplier_amount);
+    }
+
+    public void increaseMultiplierBy(int x)
+    {
+        multiplier_amount += x;
+    }
+
     public void resetStreak()
     {
         streak_counter = 0;
-        multiplier_amount = 1;
+        if(multiplier_locked == false)
+        {
+            multiplier_amount = 1;
+        }
     }
 }

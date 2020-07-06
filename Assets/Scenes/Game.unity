@@ -16151,6 +16151,11 @@ MonoBehaviour:
   - {fileID: 365965537}
   - {fileID: 2130686433}
   part_count: 0
+  player_behaviour: {fileID: 1677370564}
+  score_behaviour_own: {fileID: 412791432}
+  score_behaviour_rival: {fileID: 1788825695}
+  health_behaviour: {fileID: 2071066875}
+  side: -1
 --- !u!1 &1271413412
 GameObject:
   m_ObjectHideFlags: 0
@@ -17772,6 +17777,11 @@ MonoBehaviour:
   - {fileID: 14774521}
   - {fileID: 1634567857}
   part_count: 0
+  player_behaviour: {fileID: 509144850}
+  score_behaviour_own: {fileID: 1788825695}
+  score_behaviour_rival: {fileID: 412791432}
+  health_behaviour: {fileID: 1519470571}
+  side: 1
 --- !u!4 &1550768700
 Transform:
   m_ObjectHideFlags: 0
