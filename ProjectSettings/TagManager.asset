@@ -37,6 +37,8 @@ TagManager:
   - Noice_Player2_Second
   - Noice_Player2_Third
   - Noice_Player2_Fourth
+  - Builder_Player1
+  - Builder_Player2
   layers:
   - Default
   - TransparentFX

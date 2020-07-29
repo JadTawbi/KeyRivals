@@ -21,6 +21,7 @@ public class BuilderBehaviour : MonoBehaviour
     private bool timer_running;
 
     public PlayerBehaviour player_behaviour;
+    private PlayerBehaviour.PlayerCharacter player_character;
     public ScoreBehaviour score_behaviour_own, score_behaviour_rival;
     public HealthBehaviour health_behaviour;
     public WeaponBehaviour.Side side; 
@@ -30,6 +31,7 @@ public class BuilderBehaviour : MonoBehaviour
         {
             parts_sprite_renderer[i] = parts[i].GetComponent<SpriteRenderer>();
         }
+        player_character = player_behaviour.getCharacter();
         initializeProperties();
         //To-do: Set PowerUPType.Character to a character specific script;
     }
@@ -107,10 +109,37 @@ public class BuilderBehaviour : MonoBehaviour
                 case PowerUpType.None:
                     break;
                 case PowerUpType.Character:
+                    switch (player_character)
+                    {
+                        case PlayerBehaviour.PlayerCharacter.BassFisher:
+                            BuilderBehaviour builder_behaviour;
+                            switch (side)
+                            {
+                                case WeaponBehaviour.Side.Player1:
+                                    builder_behaviour = GameObject.FindGameObjectWithTag("Builder_Player2").GetComponent<BuilderBehaviour>();
+                                    break;
+                                case WeaponBehaviour.Side.Player2:
+                                    builder_behaviour = GameObject.FindGameObjectWithTag("Builder_Player1").GetComponent<BuilderBehaviour>();
+                                    break;
+                            }
+                            break;
+                        case PlayerBehaviour.PlayerCharacter.BigLightBeam:
+                            break;
+                        case PlayerBehaviour.PlayerCharacter.CrownJules:
+                            break;
+                        case PlayerBehaviour.PlayerCharacter.HotDogg:
+                            break;
+                        case PlayerBehaviour.PlayerCharacter.Jojitsu:
+                            break;
+                        case PlayerBehaviour.PlayerCharacter.LadyGooGooGaGa:
+                            break;
+                        case PlayerBehaviour.PlayerCharacter.Powerdog:
+                            break;
+                    }
                     break;
                 case PowerUpType.One:
                     player_behaviour.movement_locked = false;
-                    startTimer(5.0f);
+                    startTimer(16.0f);
                     break;
                 case PowerUpType.Two:
                     score_behaviour_own.multiplyMultiplierBy(2.0f);
@@ -130,12 +159,12 @@ public class BuilderBehaviour : MonoBehaviour
                             WeaponSpawnerBehaviour.color_locked_player2 = true;
                             break;
                     }
-                    startTimer(5.0f);
+                    startTimer(8.0f);
                     break;
                 case PowerUpType.Five:
                     health_behaviour.health_locked = true;
                     score_behaviour_own.multiplier_locked = true;
-                    startTimer(5.0f);
+                    startTimer(8.0f);
                     break;
                 case PowerUpType.Six:
                     health_behaviour.resetHealth();
@@ -152,7 +181,7 @@ public class BuilderBehaviour : MonoBehaviour
                             WeaponSpawnerBehaviour.color_random_player1 = true;
                             break;
                     }
-                    startTimer(5.0f);
+                    startTimer(8.0f);
                     break;
             }
         }

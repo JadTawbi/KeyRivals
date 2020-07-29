@@ -315,4 +315,9 @@ public class PlayerBehaviour : MonoBehaviour
         sprite_renderer.sprite = sprite_collections[(int)player_character_to_load].sprites[0];
         player_character = player_character_to_load;
     }
+
+    public PlayerCharacter getCharacter()
+    {
+        return player_character;
+    }
 }
