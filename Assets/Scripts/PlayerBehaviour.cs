@@ -316,7 +316,7 @@ public class PlayerBehaviour : MonoBehaviour
         player_character = player_character_to_load;
     }
 
-    public PlayerCharacter getCharacter()
+    public PlayerCharacter getPlayerCharacter()
     {
         return player_character;
     }

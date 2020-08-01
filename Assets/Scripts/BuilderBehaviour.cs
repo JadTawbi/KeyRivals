@@ -24,19 +24,21 @@ public class BuilderBehaviour : MonoBehaviour
     private PlayerBehaviour.PlayerCharacter player_character;
     public ScoreBehaviour score_behaviour_own, score_behaviour_rival;
     public HealthBehaviour health_behaviour;
-    public WeaponBehaviour.Side side; 
+    public WeaponBehaviour.Side side;
+
+    private bool reset_builder_properties;
     void Start()
     {
         for (int i = 0; i < MAX_PARTS; i++)
         {
             parts_sprite_renderer[i] = parts[i].GetComponent<SpriteRenderer>();
         }
-        player_character = player_behaviour.getCharacter();
         initializeProperties();
+        reset_builder_properties = true;
         //To-do: Set PowerUPType.Character to a character specific script;
     }
 
-    private void initializeProperties()
+    public void initializeProperties()
     {
         parts_type = new PartBehaviour.PartType[3];
         part_count = 0;
@@ -49,6 +51,7 @@ public class BuilderBehaviour : MonoBehaviour
         }
         power_up_timer = power_up_timer_interval = 0.0f;
         timer_running = false;
+        player_character = player_behaviour.getPlayerCharacter();
     }
 
     void Update()
@@ -112,16 +115,19 @@ public class BuilderBehaviour : MonoBehaviour
                     switch (player_character)
                     {
                         case PlayerBehaviour.PlayerCharacter.BassFisher:
-                            BuilderBehaviour builder_behaviour;
-                            switch (side)
+                            reset_builder_properties = false;
+                            BuilderBehaviour rival_builder_behaviour = GameObject.FindGameObjectWithTag("Builder_"+ ((WeaponBehaviour.Side)(-(int)(side))).ToString()).GetComponent<BuilderBehaviour>();
+                            power_up_type = rival_builder_behaviour.getPowerUpType();
+                            if (power_up_type == PowerUpType.None)
                             {
-                                case WeaponBehaviour.Side.Player1:
-                                    builder_behaviour = GameObject.FindGameObjectWithTag("Builder_Player2").GetComponent<BuilderBehaviour>();
-                                    break;
-                                case WeaponBehaviour.Side.Player2:
-                                    builder_behaviour = GameObject.FindGameObjectWithTag("Builder_Player1").GetComponent<BuilderBehaviour>();
-                                    break;
+                                reset_builder_properties = true;
                             }
+                            else if (power_up_type == PowerUpType.Character)
+                            {
+                                player_character = rival_builder_behaviour.getPlayerCharacter();
+                            }
+                            rival_builder_behaviour.initializeProperties();
+                            startTimer(0.0f);
                             break;
                         case PlayerBehaviour.PlayerCharacter.BigLightBeam:
                             break;
@@ -197,6 +203,23 @@ public class BuilderBehaviour : MonoBehaviour
             case PowerUpType.None:
                 break;
             case PowerUpType.Character:
+                switch (player_character)
+                {
+                    case PlayerBehaviour.PlayerCharacter.BassFisher:
+                        break;
+                    case PlayerBehaviour.PlayerCharacter.BigLightBeam:
+                        break;
+                    case PlayerBehaviour.PlayerCharacter.CrownJules:
+                        break;
+                    case PlayerBehaviour.PlayerCharacter.HotDogg:
+                        break;
+                    case PlayerBehaviour.PlayerCharacter.Jojitsu:
+                        break;
+                    case PlayerBehaviour.PlayerCharacter.LadyGooGooGaGa:
+                        break;
+                    case PlayerBehaviour.PlayerCharacter.Powerdog:
+                        break;
+                }
                 break;
             case PowerUpType.One:
                 player_behaviour.movement_locked = true;
@@ -234,7 +257,11 @@ public class BuilderBehaviour : MonoBehaviour
                 }
                 break;
         }
-        initializeProperties();
+        if (reset_builder_properties)
+        {
+            initializeProperties();
+        }
+        reset_builder_properties = true;
     }
     private void startTimer(float timer_duration)
     {
@@ -256,5 +283,14 @@ public class BuilderBehaviour : MonoBehaviour
                 endPowerUpEffect();
             }
         }
+    }
+
+    public PowerUpType getPowerUpType()
+    {
+        return power_up_type;
+    }
+    public PlayerBehaviour.PlayerCharacter getPlayerCharacter()
+    {
+        return player_character;
     }
 }
