@@ -25,6 +25,9 @@ public class BuilderBehaviour : MonoBehaviour
     public ScoreBehaviour score_behaviour_own, score_behaviour_rival;
     public HealthBehaviour health_behaviour;
     public WeaponBehaviour.Side side;
+    public WeaponSpawnerBehaviour weapon_spawner_behaviour;
+    public GameObject poker_chip;
+    private GameObject new_poker_chip;
 
     private bool reset_builder_properties;
     void Start()
@@ -35,7 +38,6 @@ public class BuilderBehaviour : MonoBehaviour
         }
         initializeProperties();
         reset_builder_properties = true;
-        //To-do: Set PowerUPType.Character to a character specific script;
     }
 
     public void initializeProperties()
@@ -52,6 +54,7 @@ public class BuilderBehaviour : MonoBehaviour
         power_up_timer = power_up_timer_interval = 0.0f;
         timer_running = false;
         player_character = player_behaviour.getPlayerCharacter();
+        new_poker_chip = null;
     }
 
     void Update()
@@ -92,8 +95,8 @@ public class BuilderBehaviour : MonoBehaviour
                     {
                         power_up_code += part_type_amounts[i] * (int)(Mathf.Pow(10, (MAX_PARTS - 1) - i));
                     }
-                    power_up_type = (PowerUpType)power_up_code;
-                    //power_up_type = PowerUpType.Seven;
+                    //power_up_type = (PowerUpType)power_up_code;
+                    power_up_type = PowerUpType.Character; //Uncomment to make all powerups be the same type
                 }
 
                 Debug.Log(gameObject.name + " built a powerup of type " + power_up_type.ToString());
@@ -138,6 +141,12 @@ public class BuilderBehaviour : MonoBehaviour
                         case PlayerBehaviour.PlayerCharacter.Jojitsu:
                             break;
                         case PlayerBehaviour.PlayerCharacter.LadyGooGooGaGa:
+                            weapon_spawner_behaviour.poker_chip_active = true;
+                            new_poker_chip = Instantiate(poker_chip, transform);
+                            PokerChipBehaviour new_poker_chip_behaviour = new_poker_chip.GetComponent<PokerChipBehaviour>();
+                            new_poker_chip_behaviour.side = (WeaponBehaviour.Side)(-(int)side);
+                            new_poker_chip_behaviour.lane = (WeaponBehaviour.Lane)(Random.Range(0, 4));
+                            startTimer(8.0f);
                             break;
                         case PlayerBehaviour.PlayerCharacter.Powerdog:
                             break;
@@ -216,6 +225,8 @@ public class BuilderBehaviour : MonoBehaviour
                     case PlayerBehaviour.PlayerCharacter.Jojitsu:
                         break;
                     case PlayerBehaviour.PlayerCharacter.LadyGooGooGaGa:
+                        weapon_spawner_behaviour.poker_chip_active = false;
+                        Destroy(new_poker_chip);
                         break;
                     case PlayerBehaviour.PlayerCharacter.Powerdog:
                         break;

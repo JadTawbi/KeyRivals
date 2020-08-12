@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -16156,6 +16156,9 @@ MonoBehaviour:
   score_behaviour_rival: {fileID: 1788825695}
   health_behaviour: {fileID: 2071066875}
   side: -1
+  weapon_spawner_behaviour: {fileID: 1929569136}
+  poker_chip: {fileID: 856587867392565449, guid: 951d1097f85ff254fb3aeaf1be538c4d,
+    type: 3}
 --- !u!1 &1271413412
 GameObject:
   m_ObjectHideFlags: 0
@@ -17782,6 +17785,9 @@ MonoBehaviour:
   score_behaviour_rival: {fileID: 412791432}
   health_behaviour: {fileID: 1519470571}
   side: 1
+  weapon_spawner_behaviour: {fileID: 1929569136}
+  poker_chip: {fileID: 856587867392565449, guid: 951d1097f85ff254fb3aeaf1be538c4d,
+    type: 3}
 --- !u!4 &1550768700
 Transform:
   m_ObjectHideFlags: 0
