@@ -38,7 +38,7 @@ public class WeaponBehaviour : MonoBehaviour
     [System.NonSerialized]
     public WeaponState weapon_state;
 
-    private const float HIT_SCORE = 100.0f;
+    public static readonly float HIT_SCORE = 100.0f;
     private const float HIT_LOWER_THRESHOLD = 0.65f;
 
     public GameObject part;

@@ -75,6 +75,9 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
     [System.NonSerialized]
     public bool poker_chip_active;
 
+    [System.NonSerialized]
+    public bool weapons_spawning_player1, weapons_spawning_player2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -117,6 +120,8 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         boss_eye_animator.speed = beats_per_minute / 60.0f;
 
         poker_chip_active = false;
+        weapons_spawning_player1 = true;
+        weapons_spawning_player2 = true;
     }
     private void loadTrack(PlayableTrack track_to_load)
     {
@@ -197,64 +202,65 @@ public class WeaponSpawnerBehaviour : MonoBehaviour
         {
             for (int i = 0; i < 2; i++)
             {
-                GameObject poker_chip_in_lane = null;
-                if (poker_chip_active == true)
+                if ((i == 0 && weapons_spawning_player1 == true) || (i == 1 && weapons_spawning_player2 == true))
                 {
-                    switch (i)
+                    GameObject poker_chip_in_lane = null;
+                    if (poker_chip_active == true)
                     {
-                        case 0:
-                            poker_chip_in_lane = GameObject.FindWithTag("PokerChip_Player1_" + notes[0].lane);
-                            break;
-                        case 1:
-                            poker_chip_in_lane = GameObject.FindWithTag("PokerChip_Player2_" + notes[0].lane);
-                            break;
+                        switch (i)
+                        {
+                            case 0:
+                                poker_chip_in_lane = GameObject.FindWithTag("PokerChip_Player1_" + notes[0].lane);
+                                break;
+                            case 1:
+                                poker_chip_in_lane = GameObject.FindWithTag("PokerChip_Player2_" + notes[0].lane);
+                                break;
+                        }
                     }
-                }
-                if (poker_chip_in_lane == null)
-                {
-                    GameObject new_weapon = Instantiate(weapon_prefab, transform);
-                    new_weapon.GetComponent<SpriteRenderer>().sortingOrder = notes_displayed;
+                    if (poker_chip_in_lane == null)
+                    {
+                        GameObject new_weapon = Instantiate(weapon_prefab, transform);
+                        new_weapon.GetComponent<SpriteRenderer>().sortingOrder = notes_displayed;
 
-                    WeaponBehaviour new_weapon_behaviour = new_weapon.GetComponent<WeaponBehaviour>();
-                    new_weapon_behaviour.lane = notes[0].lane;
-                    new_weapon_behaviour.attack_colour = notes[0].attack_colour;
-                    new_weapon_behaviour.grow_interval = spawn_offset; //To-Do: Set it based on the song's BPM
-                    switch (i)
-                    {
-                        case 0:
-                            if (color_locked_player1)
-                            {
-                                new_weapon_behaviour.attack_colour = last_color;
-                            }
-                            else if (color_random_player1)
-                            {
-                                new_weapon_behaviour.attack_colour = (WeaponBehaviour.AttackColour)Random.Range(0, 4);
-                            }
-                            new_weapon_behaviour.side = WeaponBehaviour.Side.Player1;
-                            break;
-                        case 1:
-                            if (color_locked_player2)
-                            {
-                                new_weapon_behaviour.attack_colour = last_color;
-                            }
-                            else if (color_random_player2)
-                            {
-                                new_weapon_behaviour.attack_colour = (WeaponBehaviour.AttackColour)Random.Range(0, 4);
-                            }
-                            new_weapon_behaviour.side = WeaponBehaviour.Side.Player2;
-                            break;
-                    }
-                    if (color_locked_player1 == false && color_locked_player2 == false)
-                    {
-                        last_color = new_weapon_behaviour.attack_colour; //last note color cached for the powerup
+                        WeaponBehaviour new_weapon_behaviour = new_weapon.GetComponent<WeaponBehaviour>();
+                        new_weapon_behaviour.lane = notes[0].lane;
+                        new_weapon_behaviour.attack_colour = notes[0].attack_colour;
+                        new_weapon_behaviour.grow_interval = spawn_offset; //To-Do: Set it based on the song's BPM
+                        switch (i)
+                        {
+                            case 0:
+                                if (color_locked_player1)
+                                {
+                                    new_weapon_behaviour.attack_colour = last_color;
+                                }
+                                else if (color_random_player1)
+                                {
+                                    new_weapon_behaviour.attack_colour = (WeaponBehaviour.AttackColour)Random.Range(0, 4);
+                                }
+                                new_weapon_behaviour.side = WeaponBehaviour.Side.Player1;
+                                break;
+                            case 1:
+                                if (color_locked_player2)
+                                {
+                                    new_weapon_behaviour.attack_colour = last_color;
+                                }
+                                else if (color_random_player2)
+                                {
+                                    new_weapon_behaviour.attack_colour = (WeaponBehaviour.AttackColour)Random.Range(0, 4);
+                                }
+                                new_weapon_behaviour.side = WeaponBehaviour.Side.Player2;
+                                break;
+                        }
+                        if (color_locked_player1 == false && color_locked_player2 == false)
+                        {
+                            last_color = new_weapon_behaviour.attack_colour; //last note color cached for the powerup
+                        }
                     }
                 }
             }
-
             notes.Remove(notes[0]);
             notes_displayed++;
         }
-
         spawn_timer += Time.deltaTime;
     }
 

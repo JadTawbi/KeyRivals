@@ -28,6 +28,7 @@ public class BuilderBehaviour : MonoBehaviour
     public WeaponSpawnerBehaviour weapon_spawner_behaviour;
     public GameObject poker_chip;
     private GameObject new_poker_chip;
+    public GameObject weapon_spawner;
 
     private bool reset_builder_properties;
     void Start()
@@ -149,11 +150,35 @@ public class BuilderBehaviour : MonoBehaviour
                             startTimer(8.0f);
                             break;
                         case PlayerBehaviour.PlayerCharacter.Powerdog:
+                            switch (side)
+                            {
+                                case WeaponBehaviour.Side.Player1:
+                                    weapon_spawner_behaviour.weapons_spawning_player1 = false;
+                                    break;
+                                case WeaponBehaviour.Side.Player2:
+                                    weapon_spawner_behaviour.weapons_spawning_player2 = false;
+                                    break;
+                            }
+
+                            player_behaviour.shooting_locked = true;
+                            player_behaviour.powerdog_powerup_active = true;
+                            player_behaviour.powerdog_colour = (WeaponBehaviour.AttackColour)Random.Range(0, 4);
+                            player_behaviour.movement_locked = true;
+
+                            Component[] weapon_behaviours = weapon_spawner.GetComponentsInChildren<WeaponBehaviour>();
+                            foreach(WeaponBehaviour weapon_behaviour in weapon_behaviours)
+                            {
+                                if (weapon_behaviour.side == side)
+                                {
+                                    Destroy(weapon_behaviour.gameObject);
+                                }
+                            }
+                            startTimer(8.0f);
                             break;
                     }
                     break;
                 case PowerUpType.One:
-                    player_behaviour.movement_locked = false;
+                    player_behaviour.portals_activated = true;
                     startTimer(16.0f);
                     break;
                 case PowerUpType.Two:
@@ -229,11 +254,25 @@ public class BuilderBehaviour : MonoBehaviour
                         Destroy(new_poker_chip);
                         break;
                     case PlayerBehaviour.PlayerCharacter.Powerdog:
+                        switch (side)
+                        {
+                            case WeaponBehaviour.Side.Player1:
+                                weapon_spawner_behaviour.weapons_spawning_player1 = true;
+                                break;
+                            case WeaponBehaviour.Side.Player2:
+                                weapon_spawner_behaviour.weapons_spawning_player2 = true;
+                                break;
+                        }
+                        player_behaviour.shooting_locked = false;
+                        player_behaviour.powerdog_powerup_active = false;
+                        player_behaviour.powerdog_colour = WeaponBehaviour.AttackColour.Bad;
+                        player_behaviour.key_to_mash = KeyCode.None;
+                        player_behaviour.movement_locked = false;
                         break;
                 }
                 break;
             case PowerUpType.One:
-                player_behaviour.movement_locked = true;
+                player_behaviour.portals_activated = false;
                 break;
             case PowerUpType.Two:
                 break;

@@ -62,12 +62,23 @@ public class PlayerBehaviour : MonoBehaviour
     private Animator stun_recovery_animator;
 
     [System.NonSerialized]
-    public bool movement_locked;  //to use with power ups.
+    public bool portals_activated;
 
     public static readonly KeyCode 
         power_up_key_player1 = KeyCode.Space,
         power_up_key_player2 = KeyCode.Return;
     private KeyCode power_up_key;
+
+    [System.NonSerialized]
+    public bool shooting_locked, powerdog_powerup_active;
+
+    [System.NonSerialized]
+    public WeaponBehaviour.AttackColour powerdog_colour;
+    [System.NonSerialized]
+    public KeyCode key_to_mash;
+
+    [System.NonSerialized]
+    public bool movement_locked;
 
     void Start()
     {
@@ -108,7 +119,13 @@ public class PlayerBehaviour : MonoBehaviour
         stun_overlay_sprite_renderer.sprite = null;
 
         stun_recovery_animator = stun_recovery.GetComponent<Animator>();
-        movement_locked = true;
+
+        portals_activated = false;
+        shooting_locked = false;
+        powerdog_powerup_active = false;
+        powerdog_colour = WeaponBehaviour.AttackColour.Bad;
+        key_to_mash = KeyCode.None;
+        movement_locked = false;
     }
 
     // Update is called once per frame
@@ -119,9 +136,19 @@ public class PlayerBehaviour : MonoBehaviour
             switch (player_state)
             {
                 case PlayerState.Alive:
-                    movePlayer();
+                    if (movement_locked == false)
+                    {
+                        movePlayer();
+                    }
                     checkPowerUpInput();
-                    checkBeamInput();
+                    if (shooting_locked == false)
+                    {
+                        checkBeamInput();
+                    }
+                    if (powerdog_powerup_active == true)
+                    {
+                        checkPowerDogInput();
+                    }
                     break;
 
                 case PlayerState.Stunned:
@@ -142,7 +169,7 @@ public class PlayerBehaviour : MonoBehaviour
                 sprite_renderer.sprite = sprite_collections[(int)player_character].sprites[(int)lane];
                 //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
             }
-            else if (movement_locked == false)
+            else if (portals_activated == true)
             {
                 transform.position -= move_distance * 3;
                 lane += 3;
@@ -159,7 +186,7 @@ public class PlayerBehaviour : MonoBehaviour
                 sprite_renderer.sprite = sprite_collections[(int)player_character].sprites[(int)lane];
                 //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
             }
-            else if (movement_locked == false)
+            else if (portals_activated == true)
             {
                 transform.position += move_distance * 3;
                 lane -= 3;
@@ -274,6 +301,38 @@ public class PlayerBehaviour : MonoBehaviour
         if(Input.GetKeyDown(power_up_key))
         {
             builder_behaviour.usePowerup();
+        }
+    }
+
+    private void checkPowerDogInput()
+    {
+        switch(powerdog_colour)
+        {
+            case WeaponBehaviour.AttackColour.Red:
+                key_to_mash = red_key;
+                break;
+            case WeaponBehaviour.AttackColour.Green:
+                key_to_mash = green_key;
+                break;
+            case WeaponBehaviour.AttackColour.Blue:
+                key_to_mash = blue_key;
+                break;
+            case WeaponBehaviour.AttackColour.Yellow:
+                key_to_mash = yellow_key;
+                break;
+            default:
+                key_to_mash = KeyCode.None;
+                break;
+        }
+
+        if (Input.GetKeyDown(key_to_mash))
+        {
+            score_behaviour.addScore((int)WeaponBehaviour.HIT_SCORE /*multiply by a value between 0.0f and 1.0f to balance*/ );
+        }
+        else if (Input.GetKeyDown(red_key) || Input.GetKeyDown(green_key) || Input.GetKeyDown(blue_key) || Input.GetKeyDown(yellow_key))
+        {
+            score_behaviour.resetStreak();
+            //health_behaviour.loseHealth(); do we want this?
         }
     }
 
