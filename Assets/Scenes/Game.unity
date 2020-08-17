@@ -16151,10 +16151,12 @@ MonoBehaviour:
   - {fileID: 365965537}
   - {fileID: 2130686433}
   part_count: 0
-  player_behaviour: {fileID: 1677370564}
+  player_behaviour_own: {fileID: 1677370564}
+  player_behaviour_rival: {fileID: 509144850}
   score_behaviour_own: {fileID: 412791432}
   score_behaviour_rival: {fileID: 1788825695}
-  health_behaviour: {fileID: 2071066875}
+  health_behaviour_own: {fileID: 2071066875}
+  health_behaviour_rival: {fileID: 1519470571}
   side: -1
   weapon_spawner_behaviour: {fileID: 1929569136}
   poker_chip: {fileID: 856587867392565449, guid: 951d1097f85ff254fb3aeaf1be538c4d,
@@ -17781,10 +17783,12 @@ MonoBehaviour:
   - {fileID: 14774521}
   - {fileID: 1634567857}
   part_count: 0
-  player_behaviour: {fileID: 509144850}
+  player_behaviour_own: {fileID: 509144850}
+  player_behaviour_rival: {fileID: 1677370564}
   score_behaviour_own: {fileID: 1788825695}
   score_behaviour_rival: {fileID: 412791432}
-  health_behaviour: {fileID: 1519470571}
+  health_behaviour_own: {fileID: 1519470571}
+  health_behaviour_rival: {fileID: 2071066875}
   side: 1
   weapon_spawner_behaviour: {fileID: 1929569136}
   poker_chip: {fileID: 856587867392565449, guid: 951d1097f85ff254fb3aeaf1be538c4d,

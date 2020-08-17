@@ -71,13 +71,13 @@ public class HealthBehaviour : MonoBehaviour
         }
     }
 
-    public void loseHealth()
+    public void loseHealth( int amount)
     {
         if(health_locked == false)
         {
             if (invincibility_active == false)
             {
-                hit_points--;
+                hit_points-= amount;
 
                 if (hit_points < 0)
                 {

@@ -11,7 +11,7 @@ public class BuilderBehaviour : MonoBehaviour
     public int part_count;
 
     public enum PowerUpType { None = -1, Character = 0, One = 12, Two = 21, Three = 102, Four = 120, Five = 111, Six = 201, Seven = 210 };
-    private PowerUpType power_up_type;
+    public PowerUpType power_up_type;
     private int[] part_type_amounts;
 
     public enum BuilderState { Collecting, PowerupReady };
@@ -20,10 +20,10 @@ public class BuilderBehaviour : MonoBehaviour
     private float power_up_timer, power_up_timer_interval;
     private bool timer_running;
 
-    public PlayerBehaviour player_behaviour;
-    private PlayerBehaviour.PlayerCharacter player_character;
+    public PlayerBehaviour player_behaviour_own, player_behaviour_rival;
+    public PlayerBehaviour.PlayerCharacter player_character;
     public ScoreBehaviour score_behaviour_own, score_behaviour_rival;
-    public HealthBehaviour health_behaviour;
+    public HealthBehaviour health_behaviour_own, health_behaviour_rival;
     public WeaponBehaviour.Side side;
     public WeaponSpawnerBehaviour weapon_spawner_behaviour;
     public GameObject poker_chip;
@@ -54,7 +54,7 @@ public class BuilderBehaviour : MonoBehaviour
         }
         power_up_timer = power_up_timer_interval = 0.0f;
         timer_running = false;
-        player_character = player_behaviour.getPlayerCharacter();
+        player_character = player_behaviour_own.getPlayerCharacter();
         new_poker_chip = null;
     }
 
@@ -136,10 +136,24 @@ public class BuilderBehaviour : MonoBehaviour
                         case PlayerBehaviour.PlayerCharacter.BigLightBeam:
                             break;
                         case PlayerBehaviour.PlayerCharacter.CrownJules:
+                            player_character = (PlayerBehaviour.PlayerCharacter)Random.Range(0, 7);
+                            reset_builder_properties = false;
+                            startTimer(0.0f);
                             break;
                         case PlayerBehaviour.PlayerCharacter.HotDogg:
+                            player_behaviour_rival.movement_inverted = true;
+                            startTimer(8.0f);
                             break;
                         case PlayerBehaviour.PlayerCharacter.Jojitsu:
+                            if(health_behaviour_rival.hit_points >= 3)
+                            {
+                                health_behaviour_rival.loseHealth(2);
+                            }
+                            else
+                            {
+                                health_behaviour_rival.loseHealth(1);
+                            }
+                            startTimer(0.0f);
                             break;
                         case PlayerBehaviour.PlayerCharacter.LadyGooGooGaGa:
                             weapon_spawner_behaviour.poker_chip_active = true;
@@ -160,10 +174,10 @@ public class BuilderBehaviour : MonoBehaviour
                                     break;
                             }
 
-                            player_behaviour.shooting_locked = true;
-                            player_behaviour.powerdog_powerup_active = true;
-                            player_behaviour.powerdog_colour = (WeaponBehaviour.AttackColour)Random.Range(0, 4);
-                            player_behaviour.movement_locked = true;
+                            player_behaviour_own.shooting_locked = true;
+                            player_behaviour_own.powerdog_powerup_active = true;
+                            player_behaviour_own.powerdog_colour = (WeaponBehaviour.AttackColour)Random.Range(0, 4);
+                            player_behaviour_own.movement_locked = true;
 
                             Component[] weapon_behaviours = weapon_spawner.GetComponentsInChildren<WeaponBehaviour>();
                             foreach(WeaponBehaviour weapon_behaviour in weapon_behaviours)
@@ -178,7 +192,7 @@ public class BuilderBehaviour : MonoBehaviour
                     }
                     break;
                 case PowerUpType.One:
-                    player_behaviour.portals_activated = true;
+                    player_behaviour_own.portals_activated = true;
                     startTimer(16.0f);
                     break;
                 case PowerUpType.Two:
@@ -202,12 +216,12 @@ public class BuilderBehaviour : MonoBehaviour
                     startTimer(8.0f);
                     break;
                 case PowerUpType.Five:
-                    health_behaviour.health_locked = true;
+                    health_behaviour_own.health_locked = true;
                     score_behaviour_own.multiplier_locked = true;
                     startTimer(8.0f);
                     break;
                 case PowerUpType.Six:
-                    health_behaviour.resetHealth();
+                    health_behaviour_own.resetHealth();
                     score_behaviour_own.increaseMultiplierBy(3);
                     startTimer(0.0f);
                     break;
@@ -246,6 +260,7 @@ public class BuilderBehaviour : MonoBehaviour
                     case PlayerBehaviour.PlayerCharacter.CrownJules:
                         break;
                     case PlayerBehaviour.PlayerCharacter.HotDogg:
+                        player_behaviour_rival.movement_inverted = false;
                         break;
                     case PlayerBehaviour.PlayerCharacter.Jojitsu:
                         break;
@@ -263,16 +278,16 @@ public class BuilderBehaviour : MonoBehaviour
                                 weapon_spawner_behaviour.weapons_spawning_player2 = true;
                                 break;
                         }
-                        player_behaviour.shooting_locked = false;
-                        player_behaviour.powerdog_powerup_active = false;
-                        player_behaviour.powerdog_colour = WeaponBehaviour.AttackColour.Bad;
-                        player_behaviour.key_to_mash = KeyCode.None;
-                        player_behaviour.movement_locked = false;
+                        player_behaviour_own.shooting_locked = false;
+                        player_behaviour_own.powerdog_powerup_active = false;
+                        player_behaviour_own.powerdog_colour = WeaponBehaviour.AttackColour.Bad;
+                        player_behaviour_own.key_to_mash = KeyCode.None;
+                        player_behaviour_own.movement_locked = false;
                         break;
                 }
                 break;
             case PowerUpType.One:
-                player_behaviour.portals_activated = false;
+                player_behaviour_own.portals_activated = false;
                 break;
             case PowerUpType.Two:
                 break;
@@ -290,7 +305,7 @@ public class BuilderBehaviour : MonoBehaviour
                 }
                 break;
             case PowerUpType.Five:
-                health_behaviour.health_locked = false;
+                health_behaviour_own.health_locked = false;
                 score_behaviour_own.multiplier_locked = false;
                 break;
             case PowerUpType.Six:
@@ -307,7 +322,7 @@ public class BuilderBehaviour : MonoBehaviour
                 }
                 break;
         }
-        if (reset_builder_properties)
+        if (reset_builder_properties == true)
         {
             initializeProperties();
         }

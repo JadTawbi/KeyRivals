@@ -78,7 +78,7 @@ public class PlayerBehaviour : MonoBehaviour
     public KeyCode key_to_mash;
 
     [System.NonSerialized]
-    public bool movement_locked;
+    public bool movement_locked, movement_inverted;
 
     void Start()
     {
@@ -126,6 +126,7 @@ public class PlayerBehaviour : MonoBehaviour
         powerdog_colour = WeaponBehaviour.AttackColour.Bad;
         key_to_mash = KeyCode.None;
         movement_locked = false;
+        movement_inverted = false;
     }
 
     // Update is called once per frame
@@ -160,7 +161,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void movePlayer()
     {
-        if (Input.GetKeyDown(move_up))
+        if ((Input.GetKeyDown(move_up) && movement_inverted == false) || (Input.GetKeyDown(move_down) && movement_inverted == true))
         {
             if(lane != WeaponBehaviour.Lane.First)
             { 
@@ -177,7 +178,7 @@ public class PlayerBehaviour : MonoBehaviour
                 //Debug.Log(gameObject.name + " has moved to the " + lane + " lane");
             }
         }
-        if (Input.GetKeyDown(move_down))
+        if ((Input.GetKeyDown(move_down) && movement_inverted == false) || (Input.GetKeyDown(move_up) && movement_inverted == true))
         {
             if (lane != WeaponBehaviour.Lane.Fourth)
             {

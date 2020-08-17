@@ -242,7 +242,7 @@ public class WeaponBehaviour : MonoBehaviour
                 GameObject beam_to_shoot = GameObject.FindWithTag("Beam_" + side.ToString() + "_" + lane.ToString());
                 beam_to_shoot.GetComponent<SpriteRenderer>().color = bad;
                 beam_to_shoot.GetComponent<Animator>().SetTrigger("weaponShoot");
-                health_behaviour.loseHealth();
+                health_behaviour.loseHealth(1);
                 score_behaviour.resetStreak();
                 Destroy(gameObject);
                 break;
