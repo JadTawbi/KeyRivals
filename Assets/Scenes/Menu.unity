@@ -1021,11 +1021,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfeee9aa0cc2e0e42adb52c6c19e07bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio_source: {fileID: 114297895}
-  display_TMP: {fileID: 959041591}
-  current_lag_TMP: {fileID: 1433091138}
-  back_button: {fileID: 444087297}
-  accept_button: {fileID: 1937119175}
+  audioSource: {fileID: 114297895}
+  displayTMP: {fileID: 959041591}
+  currentLagTMP: {fileID: 1433091138}
+  backButton: {fileID: 444087297}
+  acceptButton: {fileID: 1937119175}
 --- !u!1 &115771264
 GameObject:
   m_ObjectHideFlags: 0
@@ -14529,14 +14529,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a2b69c0c292a24fa1b76bdef78a296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon_1_red: {fileID: 1607096097}
-  weapon_2_green: {fileID: 1935631644}
-  weapon_3_blue: {fileID: 137297212}
-  weapon_4_yellow: {fileID: 1575661699}
-  display_TMP: {fileID: 1726915600}
-  current_lag_TMP: {fileID: 1948346693}
-  back_button: {fileID: 1862925547}
-  accept_button: {fileID: 212660779}
+  weaponRed: {fileID: 1607096097}
+  weaponGreen: {fileID: 1935631644}
+  weaponBlue: {fileID: 137297212}
+  weaponYellow: {fileID: 1575661699}
+  displayTMP: {fileID: 1726915600}
+  currentLagTMP: {fileID: 1948346693}
+  backButton: {fileID: 1862925547}
+  acceptButton: {fileID: 212660779}
 --- !u!1 &984383667
 GameObject:
   m_ObjectHideFlags: 0

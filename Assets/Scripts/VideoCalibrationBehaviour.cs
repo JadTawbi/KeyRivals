@@ -5,120 +5,117 @@ using UnityEngine;
 
 public class VideoCalibrationBehaviour : MonoBehaviour
 {
-    private float video_calibration_timer, weapon_grow_timer;
+    private float videoCalibrationTimer, weaponGrowTimer;
     private const float VIDEO_CALIBRATION_INTERVAL = 60.0f, WEAPON_GROW_INTERVAL = 1.0f;
-    public GameObject weapon_1_red, weapon_2_green, weapon_3_blue, weapon_4_yellow;
+    public GameObject weaponRed, weaponGreen, weaponBlue, weaponYellow;
 
-    private bool timer_done;
+    private bool isTimerDone;
 
     private List<float> timestamps;
-    private List<float> video_lag_values_per_timestamp;
+    private List<float> videoLagValuesPerTimestamp;
 
-    public TextMeshProUGUI display_TMP, current_lag_TMP;
+    public TextMeshProUGUI displayTMP, currentLagTMP;
 
-    public GameObject back_button, accept_button;
+    public GameObject backButton, acceptButton;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        initialize();
+        Initialize();
     }
 
     private void OnEnable()
     {
-        initialize();
+        Initialize();
     }
 
-    private void initialize()
+    private void Initialize()
     {
-        video_calibration_timer = weapon_grow_timer = 0.0f;
+        videoCalibrationTimer = weaponGrowTimer = 0.0f;
 
         timestamps = new List<float>();
-        video_lag_values_per_timestamp = new List<float>();
+        videoLagValuesPerTimestamp = new List<float>();
 
-        timer_done = false;
+        isTimerDone = false;
 
-        display_TMP.text = "Press Z every time the colored circles reach the edge of the circumference to calibrate video lag.\nThis will take about one minute.";
-        current_lag_TMP.text = "Current video lag: " + ((int)(1000 * PlayerPrefs.GetFloat("video lag", 0.0f))).ToString() + " ms";
+        displayTMP.text = "Press Z every time the colored circles reach the edge of the circumference to calibrate video lag.\nThis will take about one minute.";
+        currentLagTMP.text = "Current video lag: " + ((int)(1000 * PlayerPrefs.GetFloat("video lag", 0.0f))).ToString() + " ms";
 
-        back_button.SetActive(true);
-        accept_button.SetActive(false);
+        backButton.SetActive(true);
+        acceptButton.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (timer_done == false)
+        if (isTimerDone == false)
         {
-            if (video_calibration_timer < VIDEO_CALIBRATION_INTERVAL)
+            if (videoCalibrationTimer < VIDEO_CALIBRATION_INTERVAL)
             {
-                timestampInput();
-                video_calibration_timer += Time.deltaTime;
+                TimestampInput();
+                videoCalibrationTimer += Time.deltaTime;
             }
             else
             {
-                timer_done = true;
-                displayVideoLag();
+                isTimerDone = true;
+                DisplayVideoLag();
             }
         }
     }
 
-    private void timestampInput()
+    private void TimestampInput()
     {
-        if (weapon_grow_timer >= WEAPON_GROW_INTERVAL)
+        if (weaponGrowTimer >= WEAPON_GROW_INTERVAL)
         {
-            weapon_1_red.transform.localScale = Vector3.zero;
-            weapon_2_green.transform.localScale = Vector3.zero;
-            weapon_3_blue.transform.localScale = Vector3.zero;
-            weapon_4_yellow.transform.localScale = Vector3.zero;
+            weaponRed.transform.localScale = Vector3.zero;
+            weaponGreen.transform.localScale = Vector3.zero;
+            weaponBlue.transform.localScale = Vector3.zero;
+            weaponYellow.transform.localScale = Vector3.zero;
 
-            weapon_grow_timer -= WEAPON_GROW_INTERVAL;
+            weaponGrowTimer -= WEAPON_GROW_INTERVAL;
         }
         else
         {
-            weapon_1_red.transform.localScale = new Vector3(weapon_grow_timer / WEAPON_GROW_INTERVAL, weapon_grow_timer / WEAPON_GROW_INTERVAL, 0.0f);
-            weapon_2_green.transform.localScale = new Vector3(weapon_grow_timer / WEAPON_GROW_INTERVAL, weapon_grow_timer / WEAPON_GROW_INTERVAL, 0.0f);
-            weapon_3_blue.transform.localScale = new Vector3(weapon_grow_timer / WEAPON_GROW_INTERVAL, weapon_grow_timer / WEAPON_GROW_INTERVAL, 0.0f);
-            weapon_4_yellow.transform.localScale = new Vector3(weapon_grow_timer / WEAPON_GROW_INTERVAL, weapon_grow_timer / WEAPON_GROW_INTERVAL, 0.0f);
+            weaponRed.transform.localScale = new Vector3(weaponGrowTimer / WEAPON_GROW_INTERVAL, weaponGrowTimer / WEAPON_GROW_INTERVAL, 0.0f);
+            weaponGreen.transform.localScale = new Vector3(weaponGrowTimer / WEAPON_GROW_INTERVAL, weaponGrowTimer / WEAPON_GROW_INTERVAL, 0.0f);
+            weaponBlue.transform.localScale = new Vector3(weaponGrowTimer / WEAPON_GROW_INTERVAL, weaponGrowTimer / WEAPON_GROW_INTERVAL, 0.0f);
+            weaponYellow.transform.localScale = new Vector3(weaponGrowTimer / WEAPON_GROW_INTERVAL, weaponGrowTimer / WEAPON_GROW_INTERVAL, 0.0f);
         }
 
         if (Input.GetKeyDown(KeyCode.Z) == true)
         {
-            timestamps.Add(video_calibration_timer);
+            timestamps.Add(videoCalibrationTimer);
         }
 
-        weapon_grow_timer += Time.deltaTime;
+        weaponGrowTimer += Time.deltaTime;
     }
 
-    private void displayVideoLag()
+    private void DisplayVideoLag()
     {
         for (int i = 0; i < timestamps.Count; i++)
         {
-            float video_lag_value = timestamps[i] - WEAPON_GROW_INTERVAL * (int)(timestamps[i] / WEAPON_GROW_INTERVAL);
-            video_lag_value = Mathf.Min(video_lag_value, WEAPON_GROW_INTERVAL - video_lag_value);
-            video_lag_values_per_timestamp.Add(video_lag_value);
+            float videoLagValue = timestamps[i] - WEAPON_GROW_INTERVAL * (int)(timestamps[i] / WEAPON_GROW_INTERVAL);
+            videoLagValue = Mathf.Min(videoLagValue, WEAPON_GROW_INTERVAL - videoLagValue);
+            videoLagValuesPerTimestamp.Add(videoLagValue);
         }
 
-        float video_lag_total = 0.0f;
-        for (int i = 0; i < video_lag_values_per_timestamp.Count; i++)
+        float videoLagTotal = 0.0f;
+        for (int i = 0; i < videoLagValuesPerTimestamp.Count; i++)
         {
-            video_lag_total += video_lag_values_per_timestamp[i];
+            videoLagTotal += videoLagValuesPerTimestamp[i];
         }
-        if (video_lag_values_per_timestamp.Count != 0)
+        if (videoLagValuesPerTimestamp.Count != 0)
         {
-            PlayerPrefs.SetFloat("video lag", video_lag_total / video_lag_values_per_timestamp.Count);
+            PlayerPrefs.SetFloat("video lag", videoLagTotal / videoLagValuesPerTimestamp.Count);
         }
         else
         {
             PlayerPrefs.SetFloat("video lag", 0.0f);
         }
 
-        int video_lag_in_ms_rounded = Mathf.RoundToInt(PlayerPrefs.GetFloat("video lag", 0.0f) * 1000);
+        int videoLagInMsRounded = Mathf.RoundToInt(PlayerPrefs.GetFloat("video lag", 0.0f) * 1000);
 
-        display_TMP.text = "The video lag has been set to \n " + video_lag_in_ms_rounded.ToString() + " milliseconds";
-        current_lag_TMP.text = "Current video lag: " + video_lag_in_ms_rounded.ToString() + " ms";
-        back_button.SetActive(false);
-        accept_button.SetActive(true);
+        displayTMP.text = "The video lag has been set to \n " + videoLagInMsRounded.ToString() + " milliseconds";
+        currentLagTMP.text = "Current video lag: " + videoLagInMsRounded.ToString() + " ms";
+        backButton.SetActive(false);
+        acceptButton.SetActive(true);
     }
 }

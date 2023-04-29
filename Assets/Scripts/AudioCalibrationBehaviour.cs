@@ -6,108 +6,106 @@ using TMPro;
 
 public class AudioCalibrationBehaviour : MonoBehaviour
 {
-    private float audio_calibration_timer, metronome_timer;
+    private float audioCalibrationTimer, metronomeTimer;
     private const float AUDIO_CALIBRATION_INTERVAL = 60.0f, METRONOME_INTERVAL = 0.5f;
-    public AudioSource audio_source;
+    public AudioSource audioSource;
 
-    private bool timer_done;
+    private bool isTimerDone;
 
     private List<float> timestamps;
-    private List<float> audio_lag_values_per_timestamp;
+    private List<float> audioLagValuesPerTimestamp;
 
-    public TextMeshProUGUI display_TMP, current_lag_TMP;
+    public TextMeshProUGUI displayTMP, currentLagTMP;
 
-    public GameObject back_button, accept_button;
+    public GameObject backButton, acceptButton;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        initialize();
+        Initialize();
     }
 
     private void OnEnable()
     {
-        initialize();
+        Initialize();
     }
 
-    private void initialize()
+    private void Initialize()
     {
-        audio_calibration_timer = metronome_timer = 0.0f;
+        audioCalibrationTimer = metronomeTimer = 0.0f;
 
         timestamps = new List<float>();
-        audio_lag_values_per_timestamp = new List<float>();
+        audioLagValuesPerTimestamp = new List<float>();
 
-        timer_done = false;
+        isTimerDone = false;
 
-        display_TMP.text = "Press Z every time you hear the metronome to calibrate audio lag.\nThis will take about one minute.";
-        current_lag_TMP.text = "Current audio lag: " + ((int)(1000 * (PlayerPrefs.GetFloat("audio lag", 0.0f)))).ToString() + " ms";
+        displayTMP.text = "Press Z every time you hear the metronome to calibrate audio lag.\nThis will take about one minute.";
+        currentLagTMP.text = "Current audio lag: " + ((int)(1000 * (PlayerPrefs.GetFloat("audio lag", 0.0f)))).ToString() + " ms";
 
-        back_button.SetActive(true);
-        accept_button.SetActive(false);
+        backButton.SetActive(true);
+        acceptButton.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timer_done == false)
+        if (isTimerDone == false)
         {
-            if (audio_calibration_timer < AUDIO_CALIBRATION_INTERVAL)
+            if (audioCalibrationTimer < AUDIO_CALIBRATION_INTERVAL)
             {
                 timestampInput();
-                audio_calibration_timer += Time.deltaTime;
+                audioCalibrationTimer += Time.deltaTime;
             }
             else
             {
-                timer_done = true;
-                displayAudioLag();
+                isTimerDone = true;
+                DisplayAudioLag();
             }
         }
     }
 
     private void timestampInput()
     {
-        if (metronome_timer >= METRONOME_INTERVAL)
+        if (metronomeTimer >= METRONOME_INTERVAL)
         {
-            audio_source.Play();
-            metronome_timer -= METRONOME_INTERVAL;
+            audioSource.Play();
+            metronomeTimer -= METRONOME_INTERVAL;
         }
         if (Input.GetKeyDown(KeyCode.Z) == true)
         {
-            timestamps.Add(audio_calibration_timer);
+            timestamps.Add(audioCalibrationTimer);
         }
 
-        metronome_timer += Time.deltaTime;
+        metronomeTimer += Time.deltaTime;
     }
 
-    private void displayAudioLag()
+    private void DisplayAudioLag()
     {
         for (int i = 0; i < timestamps.Count; i++)
         {
-            float audio_lag_value = timestamps[i] - METRONOME_INTERVAL * (int)(timestamps[i] / METRONOME_INTERVAL); //Calculation of the modulus
-            audio_lag_value = Mathf.Min(audio_lag_value, METRONOME_INTERVAL - audio_lag_value); //Value closest to the interval
-            audio_lag_values_per_timestamp.Add(audio_lag_value);
+            float audioLagValue = timestamps[i] - METRONOME_INTERVAL * (int)(timestamps[i] / METRONOME_INTERVAL); //Calculation of the modulus
+            audioLagValue = Mathf.Min(audioLagValue, METRONOME_INTERVAL - audioLagValue); //Value closest to the interval
+            audioLagValuesPerTimestamp.Add(audioLagValue);
         }
 
-        float audio_lag_total = 0.0f;
-        for (int i = 0; i < audio_lag_values_per_timestamp.Count; i++)
+        float audioLagTotal = 0.0f;
+        for (int i = 0; i < audioLagValuesPerTimestamp.Count; i++)
         {
-            audio_lag_total += audio_lag_values_per_timestamp[i];
+            audioLagTotal += audioLagValuesPerTimestamp[i];
         }
-        if (audio_lag_values_per_timestamp.Count != 0)
+        if (audioLagValuesPerTimestamp.Count != 0)
         {
-            PlayerPrefs.SetFloat("audio lag", audio_lag_total / audio_lag_values_per_timestamp.Count);
+            PlayerPrefs.SetFloat("audio lag", audioLagTotal / audioLagValuesPerTimestamp.Count);
         }
         else
         {
             PlayerPrefs.SetFloat("audio lag", 0.0f);
         }
 
-        int audio_lag_in_ms_rounded = Mathf.RoundToInt(PlayerPrefs.GetFloat("audio lag", 0.0f) * 1000);
+        int audioLagInMsRounded = Mathf.RoundToInt(PlayerPrefs.GetFloat("audio lag", 0.0f) * 1000);
 
-        display_TMP.text = "The audio lag has been set to\n" + audio_lag_in_ms_rounded.ToString() + " milliseconds";
-        current_lag_TMP.text = "Current audio lag: " + audio_lag_in_ms_rounded.ToString() + " ms";
-        back_button.SetActive(false);
-        accept_button.SetActive(true);
+        displayTMP.text = "The audio lag has been set to\n" + audioLagInMsRounded.ToString() + " milliseconds";
+        currentLagTMP.text = "Current audio lag: " + audioLagInMsRounded.ToString() + " ms";
+        backButton.SetActive(false);
+        acceptButton.SetActive(true);
     }
 }
