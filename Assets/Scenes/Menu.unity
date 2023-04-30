@@ -1018,10 +1018,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 114297893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfeee9aa0cc2e0e42adb52c6c19e07bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 64a2b69c0c292a24fa1b76bdef78a296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  calibrationType: 0
   audioSource: {fileID: 114297895}
+  weapons: []
+  duration: 60
+  interval: 0.5
   displayTMP: {fileID: 959041591}
   currentLagTMP: {fileID: 1433091138}
   backButton: {fileID: 444087297}
@@ -14529,10 +14533,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a2b69c0c292a24fa1b76bdef78a296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponRed: {fileID: 1607096097}
-  weaponGreen: {fileID: 1935631644}
-  weaponBlue: {fileID: 137297212}
-  weaponYellow: {fileID: 1575661699}
+  calibrationType: 1
+  audioSource: {fileID: 0}
+  weapons:
+  - {fileID: 1607096097}
+  - {fileID: 1935631644}
+  - {fileID: 137297212}
+  - {fileID: 1575661699}
+  duration: 60
+  interval: 1
   displayTMP: {fileID: 1726915600}
   currentLagTMP: {fileID: 1948346693}
   backButton: {fileID: 1862925547}
