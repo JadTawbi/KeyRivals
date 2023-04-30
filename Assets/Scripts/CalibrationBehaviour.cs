@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CalibrationBehaviour : MonoBehaviour
 {
-	public CalibrationType calibrationType;
-	public enum CalibrationType
+	[SerializeField] private CalibrationType calibrationType;
+	private enum CalibrationType
 	{
 		Audio,
 		Video,
